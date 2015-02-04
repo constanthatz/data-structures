@@ -9,7 +9,7 @@ class Node(object):
             return self._next
 
         @next.setter
-        def name(self, value):
+        def next(self, value):
             self._next = value
 
 
@@ -17,8 +17,9 @@ class LinkedList(object):
 
     def __init__(self, name):
         self.head = None
-        self.active = None
+        self.second = None
 
     def insert(self, val):
-        self.active, self.head = self.head, Node(val)
-        self.head.next = self.active
+        self.second, self.head = self.head, Node(val)
+        self.head.next = self.second
+

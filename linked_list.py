@@ -46,7 +46,6 @@ class LinkedList(object):
         else:
             i = 1
             if not self._head.next:
-                print('hello')
                 return i
             else:
                 a = self._head.next
@@ -58,14 +57,6 @@ class LinkedList(object):
                     except AttributeError:
                         z = 0
                 return i
-
-            # while z != 0:
-            #     try:
-            #         a = a.next
-            #     except AttributeError:
-            #         z = 0
-            #     i += 1
-            # return i
 
 l = LinkedList()
 l.insert('Nick')

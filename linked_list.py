@@ -31,13 +31,19 @@ class LinkedList(object):
         self.second, self._head = self._head, Node(val)
         self._head.next = self.second
 
+    def pop(self):
+        self._head = self._head.next
+
     @property
     def head(self):
         return self._head
 
-
 l = LinkedList()
 l.insert('Nick')
 l.insert('Constantine')
+l.insert('Mark')
+print(l.head.val)
+print(l.head.next.val)
+l.pop()
 print(l.head.val)
 print(l.head.next.val)

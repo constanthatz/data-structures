@@ -118,28 +118,7 @@ class LinkedList(object):
                 a = a.next
 
     def display(self):
-        z = 1
-        a = self._head
-        node_list = "("
-        while z:
-            if not a:
-                z = 0
-                node_list += ")"
-            elif isinstance(a.val, str) or isinstance(a.val, unicode):
-                if not a.next:
-                    z = 0
-                    node_list += "'{}')".format(a.val)
-                else:
-                    node_list += "'{}', ".format(a.val)
-                    a = a.next
-            else:
-                if not a.next:
-                    z = 0
-                    node_list += "{})".format(a.val)
-                else:
-                    node_list += "{}, ".format(a.val)
-                    a = a.next
-        print(node_list)
+        print(repr(self))
 
 
 if __name__ == "__main__":

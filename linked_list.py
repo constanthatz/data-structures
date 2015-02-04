@@ -62,12 +62,24 @@ class LinkedList(object):
                         a = a.next
                         i += 1
 
-    # def search
+    def search(self, value):
+        z = 1
+        a = self._head.next
+        while z:
+            if a.val == value:
+                z = 0
+                return a
+            elif not a.next:
+                z = 0
+                return None
+            else:
+                a = a.next
+
 
 l = LinkedList()
-# l.insert('Nick')
-# l.insert('Constantine')
-
-# l.insert('Maria')
-# l.insert('Bob')
+l.insert('Nick')
+l.insert('Constantine')
+l.insert('Maria')
+l.insert('Bob')
 print(l.size())
+print(l.search("Constantine"))

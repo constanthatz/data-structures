@@ -27,6 +27,30 @@ class LinkedList(object):
     def __init__(self):
         self._head = None
 
+    def __repr__(self):
+        z = 1
+        a = self._head
+        node_list = "("
+        while z:
+            if not a:
+                z = 0
+                node_list += ")"
+            elif isinstance(a.val, str) or isinstance(a.val, unicode):
+                if not a.next:
+                    z = 0
+                    node_list += "'{}')".format(a.val)
+                else:
+                    node_list += "'{}', ".format(a.val)
+                    a = a.next
+            else:
+                if not a.next:
+                    z = 0
+                    node_list += "{})".format(a.val)
+                else:
+                    node_list += "{}, ".format(a.val)
+                    a = a.next
+        return node_list
+
     @property
     def head(self):
         return self._head
@@ -115,25 +139,26 @@ class LinkedList(object):
                 else:
                     node_list += "{}, ".format(a.val)
                     a = a.next
-
         print(node_list)
 
 
-l = LinkedList()
-l.insert('Nick')
-l.insert(0.5)
-l.insert('Constantine')
-l.insert(100)
-l.insert('Maria')
-l.insert('Bob')
-l.insert(37)
-print(l.pop())
-print(l.size())
-print(l.search("Nick"))
-print(l.search(100))
-x = l.search("Bob")
-l.remove(x)
-x = l.search(100)
-l.remove(x)
-print(l.size())
-l.display()
+if __name__ == "__main__":
+    l = LinkedList()
+    l.insert('Nick')
+    l.insert(0.5)
+    l.insert('Constantine')
+    l.insert(100)
+    l.insert('Maria')
+    l.insert('Bob')
+    l.insert(37)
+    print(l.pop())
+    print(l.size())
+    print(l.search("Nick"))
+    print(l.search(100))
+    x = l.search("Bob")
+    l.remove(x)
+    x = l.search(100)
+    l.remove(x)
+    print(l.size())
+    l.display()
+    l

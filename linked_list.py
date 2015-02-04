@@ -25,11 +25,17 @@ class LinkedList(object):
 
     def __init__(self):
         self._head = None
-        self.second = None
+
+    @property
+    def head(self):
+        return self._head
 
     def insert(self, val):
-        self.second, self._head = self._head, Node(val)
-        self._head.next = self.second
+        if not self._head:
+            self._head = Node(val)
+            self._head.next = None
+        else:
+            self._head.next, self._head = Node(val), self._head
 
     def pop(self):
         self._head = self._head.next
@@ -38,24 +44,31 @@ class LinkedList(object):
         if not self._head:
             return 0
         else:
-            i = 0
-            z = 1
-            try:
-                a = self._head.next
-            except AttributeError:
+            i = 1
+            if not self._head.next:
+                print('hello')
                 return i
-            while z != 0:
-                try:
-                    a = a.next
-                except AttributeError:
-                    z = 0
-                i += 1
-            return i
+            else:
+                a = self._head.next
+                z = 1
+                while z:
+                    i += 1
+                    try:
+                        a = a.next
+                    except AttributeError:
+                        z = 0
+                return i
 
-    @property
-    def head(self):
-        return self._head
+            # while z != 0:
+            #     try:
+            #         a = a.next
+            #     except AttributeError:
+            #         z = 0
+            #     i += 1
+            # return i
 
 l = LinkedList()
 l.insert('Nick')
+l.insert('Constantine')
+l.insert('Maria')
 print(l.size())

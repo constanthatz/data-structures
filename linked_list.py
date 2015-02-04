@@ -35,31 +35,39 @@ class LinkedList(object):
             self._head = Node(val)
             self._head.next = None
         else:
-            self._head.next, self._head = Node(val), self._head
+            b = self._head
+            self._head = Node(val)
+            self._head.next = b
 
     def pop(self):
         self._head = self._head.next
 
     def size(self):
+        i = 0
         if not self._head:
-            return 0
+            return i
         else:
             i = 1
             if not self._head.next:
                 return i
             else:
-                a = self._head.next
+                i = 2
                 z = 1
+                a = self._head.next
                 while z:
-                    i += 1
-                    try:
-                        a = a.next
-                    except AttributeError:
+                    if not a.next:
                         z = 0
-                return i
+                        return i
+                    else:
+                        a = a.next
+                        i += 1
+
+    # def search
 
 l = LinkedList()
-l.insert('Nick')
-l.insert('Constantine')
-l.insert('Maria')
+# l.insert('Nick')
+# l.insert('Constantine')
+
+# l.insert('Maria')
+# l.insert('Bob')
 print(l.size())

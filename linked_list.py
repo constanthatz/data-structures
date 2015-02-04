@@ -34,16 +34,28 @@ class LinkedList(object):
     def pop(self):
         self._head = self._head.next
 
+    def size(self):
+        if not self._head:
+            return 0
+        else:
+            i = 0
+            z = 1
+            try:
+                a = self._head.next
+            except AttributeError:
+                return i
+            while z != 0:
+                try:
+                    a = a.next
+                except AttributeError:
+                    z = 0
+                i += 1
+            return i
+
     @property
     def head(self):
         return self._head
 
 l = LinkedList()
 l.insert('Nick')
-l.insert('Constantine')
-l.insert('Mark')
-print(l.head.val)
-print(l.head.next.val)
-l.pop()
-print(l.head.val)
-print(l.head.next.val)
+print(l.size())

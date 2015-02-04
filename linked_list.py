@@ -40,7 +40,9 @@ class LinkedList(object):
             self._head.next = b
 
     def pop(self):
+        val = self._head.val
         self._head = self._head.next
+        return val
 
     def size(self):
         i = 0
@@ -64,7 +66,7 @@ class LinkedList(object):
 
     def search(self, value):
         z = 1
-        a = self._head.next
+        a = self._head
         while z:
             if a.val == value:
                 z = 0
@@ -75,11 +77,30 @@ class LinkedList(object):
             else:
                 a = a.next
 
+    def remove(self, node):
+        z = 1
+        a = self._head
+        while z:
+            if self._head == node:
+                z = 0
+                self._head = self._head.next
+            elif not a.next:
+                z = 0
+            elif a.next == node:
+                z = 0
+                a.next = node.next
+            else:
+                a = a.next
+
 
 l = LinkedList()
 l.insert('Nick')
 l.insert('Constantine')
 l.insert('Maria')
 l.insert('Bob')
+print(l.pop())
 print(l.size())
-print(l.search("Constantine"))
+print(l.search("Nick"))
+x = l.search("Bob")
+l.remove(x)
+print(l.size())

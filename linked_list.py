@@ -93,7 +93,10 @@ class LinkedList(object):
         z = 1
         a = self._head
         while z:
-            if a.val == value:
+            if not a:
+                z = 0
+                return None
+            elif a.val == value:
                 z = 0
                 return a
             elif not a.next:

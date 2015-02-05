@@ -119,25 +119,3 @@ class LinkedList(object):
 
     def display(self):
         print(repr(self))
-
-
-if __name__ == "__main__":
-    l = LinkedList()
-    l.insert('Nick')
-    l.insert(0.5)
-    l.insert('Constantine')
-    l.insert(100)
-    l.insert('Maria')
-    l.insert('Bob')
-    l.insert(37)
-    print(l.pop())
-    print(l.size())
-    print(l.search("Nick"))
-    print(l.search(100))
-    x = l.search("Bob")
-    l.remove(x)
-    x = l.search(100)
-    l.remove(x)
-    print(l.size())
-    l.display()
-    l

@@ -16,33 +16,33 @@ class LinkedList(object):
         self.head = None
 
     def insert(self, val):
-        if not self._head:
-            self._head = Node(val)
+        if not self.head:
+            self.head = Node(val)
         else:
-            b = self._head
-            self._head = Node(val)
-            self._head.next = b
+            b = self.head
+            self.head = Node(val)
+            self.head.next = b
 
     def pop(self):
-        if not self._head:
+        if not self.head:
             return None
         else:
-            val = self._head.val
-            self._head = self._head.next
+            val = self.head.val
+            self.head = self.head.next
             return val
 
     def size(self):
         i = 0
-        if not self._head:
+        if not self.head:
             return i
         else:
             i = 1
-            if not self._head.next:
+            if not self.head.next:
                 return i
             else:
                 i = 2
                 z = 1
-                a = self._head.next
+                a = self.head.next
                 while z:
                     if not a.next:
                         z = 0
@@ -53,7 +53,7 @@ class LinkedList(object):
 
     def search(self, value):
         z = 1
-        a = self._head
+        a = self.head
         while z:
             if not a:
                 z = 0
@@ -69,11 +69,11 @@ class LinkedList(object):
 
     def remove(self, node):
         z = 1
-        a = self._head
+        a = self.head
         while z:
-            if self._head == node:
+            if self.head == node:
                 z = 0
-                self._head = self._head.next
+                self.head = self.head.next
             elif not a.next:
                 z = 0
             elif a.next == node:
@@ -87,7 +87,7 @@ class LinkedList(object):
 
     def __repr__(self):
         z = 1
-        a = self._head
+        a = self.head
         node_list = "("
         while z:
             if not a:

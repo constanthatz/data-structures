@@ -18,7 +18,6 @@ class LinkedList(object):
     def insert(self, val):
         if not self._head:
             self._head = Node(val)
-            self._head.next = None
         else:
             b = self._head
             self._head = Node(val)

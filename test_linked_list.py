@@ -64,6 +64,15 @@ def test_linkedlist_remove():
     assert l.search(32) is None
     assert l.size() == 2
 
+    l.remove(l.search('Things'))
+    assert l.search('Things') is None
+    assert l.size() == 1
+
+    l.remove(l.search('Bob'))
+    assert l.search('Bob') is None
+    assert l.size() == 0
+
+
 
 def test_linkedlist_display(capsys):
     l = LinkedList()

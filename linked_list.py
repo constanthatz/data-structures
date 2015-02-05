@@ -31,23 +31,11 @@ class LinkedList(object):
 
     def size(self):
         i = 0
-        if not self.head:
-            return i
-        else:
-            i = 1
-            if not self.head.next:
-                return i
-            else:
-                i = 2
-                z = 1
-                a = self.head.next
-                while z:
-                    if not a.next:
-                        z = 0
-                        return i
-                    else:
-                        a = a.next
-                        i += 1
+        a = self.head
+        while a:
+            i += 1
+            a = a.next
+        return i
 
     def search(self, value):
         z = 1

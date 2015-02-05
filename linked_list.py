@@ -38,20 +38,13 @@ class LinkedList(object):
         return i
 
     def search(self, value):
-        z = 1
         a = self.head
-        while z:
-            if not a:
-                z = 0
-                return None
-            elif a.val == value:
-                z = 0
+        while a:
+            if a.val == value:
                 return a
-            elif not a.next:
-                z = 0
-                return None
             else:
                 a = a.next
+        return None
 
     def remove(self, node):
         z = 1

@@ -50,7 +50,9 @@ class LinkedList(object):
         z = 1
         a = self.head
         while z:
-            if self.head == node:
+            if a is None:
+                z = 0
+            elif self.head == node:
                 z = 0
                 self.head = self.head.next
             elif not a.next:

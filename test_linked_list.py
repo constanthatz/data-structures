@@ -30,14 +30,20 @@ def test_linkedlist_insert():
 
 def test_linkedlist_pop():
     l = LinkedList()
+    a = l.pop()
+    assert a is None
+
     l.insert('Bob')
     l.insert(32)
-    l.pop()
+    a = l.pop()
+    assert a == 32
     assert l.head.val == 'Bob'
 
 
 def test_linkedlist_size():
     l = LinkedList()
+    assert l.size() == 0
+
     l.insert('Bob')
     l.insert(32)
     l.insert('Things')
@@ -71,7 +77,6 @@ def test_linkedlist_remove():
     l.remove(l.search('Bob'))
     assert l.search('Bob') is None
     assert l.size() == 0
-
 
 
 def test_linkedlist_display(capsys):

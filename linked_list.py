@@ -5,76 +5,56 @@ from __future__ import unicode_literals
 
 class Node(object):
 
-    def __init__(self, value):
-        self._val = value
-        self._next = None
+    def __init__(self, value=None, next=None):
+        self.val = value
+        self.next = next
 
 
 class LinkedList(object):
 
     def __init__(self):
-        self._head = None
+        self.head = None
 
     def insert(self, val):
-        if not self._head:
-            self._head = Node(val)
-            self._head.next = None
+        if not self.head:
+            self.head = Node(val)
         else:
-            b = self._head
-            self._head = Node(val)
-            self._head.next = b
+            self.head, self.head.next = Node(val), self.head
 
     def pop(self):
-        if not self._head:
+        if not self.head:
             return None
         else:
-            val = self._head.val
-            self._head = self._head.next
+            val = self.head.val
+            self.head = self.head.next
             return val
 
     def size(self):
         i = 0
-        if not self._head:
-            return i
-        else:
-            i = 1
-            if not self._head.next:
-                return i
-            else:
-                i = 2
-                z = 1
-                a = self._head.next
-                while z:
-                    if not a.next:
-                        z = 0
-                        return i
-                    else:
-                        a = a.next
-                        i += 1
+        a = self.head
+        while a:
+            i += 1
+            a = a.next
+        return i
 
     def search(self, value):
-        z = 1
-        a = self._head
-        while z:
-            if not a:
-                z = 0
-                return None
-            elif a.val == value:
-                z = 0
+        a = self.head
+        while a:
+            if a.val == value:
                 return a
-            elif not a.next:
-                z = 0
-                return None
             else:
                 a = a.next
+        return None
 
     def remove(self, node):
         z = 1
-        a = self._head
+        a = self.head
         while z:
-            if self._head == node:
+            if a is None:
                 z = 0
-                self._head = self._head.next
+            elif self.head == node:
+                z = 0
+                self.head = self.head.next
             elif not a.next:
                 z = 0
             elif a.next == node:
@@ -88,7 +68,7 @@ class LinkedList(object):
 
     def __repr__(self):
         z = 1
-        a = self._head
+        a = self.head
         node_list = "("
         while z:
             if not a:

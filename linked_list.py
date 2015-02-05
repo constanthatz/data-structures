@@ -65,9 +65,12 @@ class LinkedList(object):
             self._head.next = b
 
     def pop(self):
-        val = self._head.val
-        self._head = self._head.next
-        return val
+        if not self._head:
+            return None
+        else:
+            val = self._head.val
+            self._head = self._head.next
+            return val
 
     def size(self):
         i = 0

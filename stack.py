@@ -15,8 +15,8 @@ class Stack(object):
     def __init__(self):
         self.top = None
 
-    def push(self, val):
-        self.top, self.top.previous = Element(val, self.top)
+    def push(self, element):
+        self.top, self.top.previous = element, self.top
 
     def pop(self):
         if not self.top:

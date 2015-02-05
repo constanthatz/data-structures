@@ -44,7 +44,6 @@ class LinkedList(object):
         return None
 
     def remove(self, node):
-        z = 1
         a = self.head
         while a:
             if self.head == node:

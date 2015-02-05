@@ -19,9 +19,7 @@ class LinkedList(object):
         if not self.head:
             self.head = Node(val)
         else:
-            b = self.head
-            self.head = Node(val)
-            self.head.next = b
+            self.head, self.head.next = Node(val), self.head
 
     def pop(self):
         if not self.head:

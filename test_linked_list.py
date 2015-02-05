@@ -27,6 +27,7 @@ def test_linkedlist_repr():
 def test_linkedlist_insert():
     l = LinkedList()
     l.insert('Bob')
+    assert l.head.val == 'Bob'
     l.insert(32)
     assert l.head.val == 32
     assert l.head.next.val == 'Bob'

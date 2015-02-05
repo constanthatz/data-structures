@@ -7,7 +7,7 @@ class Element(object):
 
     def __init__(self, value=None, previous=None):
         self.val = value
-        self.previous = next
+        self.previous = previous
 
 
 class Stack(object):

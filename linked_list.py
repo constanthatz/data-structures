@@ -16,10 +16,7 @@ class LinkedList(object):
         self.head = None
 
     def insert(self, val):
-        if not self.head:
-            self.head = Node(val)
-        else:
-            self.head, self.head.next = Node(val), self.head
+        self.head, self.head.next = Node(val), self.head
 
     def pop(self):
         if not self.head:
@@ -47,19 +44,14 @@ class LinkedList(object):
         return None
 
     def remove(self, node):
-        z = 1
         a = self.head
-        while z:
-            if a is None:
-                z = 0
-            elif self.head == node:
-                z = 0
+        while a:
+            if self.head == node:
                 self.head = self.head.next
-            elif not a.next:
-                z = 0
+                return
             elif a.next == node:
-                z = 0
                 a.next = node.next
+                return
             else:
                 a = a.next
 

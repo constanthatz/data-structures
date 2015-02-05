@@ -18,6 +18,10 @@ def test_linkedlist_init():
 def test_linkedlist_repr():
     l = LinkedList()
     assert repr(l) == '()'
+    l.insert('Bob')
+    l.insert(32)
+    l.insert('Things')
+    assert repr(l) == "('Things', 32, 'Bob')"
 
 
 def test_linkedlist_insert():

@@ -9,51 +9,11 @@ class Node(object):
         self._val = value
         self._next = None
 
-    @property
-    def next(self):
-        return self._next
-
-    @next.setter
-    def next(self, value):
-        self._next = value
-
-    @property
-    def val(self):
-        return self._val
-
 
 class LinkedList(object):
 
     def __init__(self):
         self._head = None
-
-    def __repr__(self):
-        z = 1
-        a = self._head
-        node_list = "("
-        while z:
-            if not a:
-                z = 0
-                node_list += ")"
-            elif isinstance(a.val, str) or isinstance(a.val, unicode):
-                if not a.next:
-                    z = 0
-                    node_list += "'{}')".format(a.val)
-                else:
-                    node_list += "'{}', ".format(a.val)
-                    a = a.next
-            else:
-                if not a.next:
-                    z = 0
-                    node_list += "{})".format(a.val)
-                else:
-                    node_list += "{}, ".format(a.val)
-                    a = a.next
-        return node_list
-
-    @property
-    def head(self):
-        return self._head
 
     def insert(self, val):
         if not self._head:
@@ -125,3 +85,27 @@ class LinkedList(object):
 
     def display(self):
         print(repr(self))
+
+    def __repr__(self):
+        z = 1
+        a = self._head
+        node_list = "("
+        while z:
+            if not a:
+                z = 0
+                node_list += ")"
+            elif isinstance(a.val, str) or isinstance(a.val, unicode):
+                if not a.next:
+                    z = 0
+                    node_list += "'{}')".format(a.val)
+                else:
+                    node_list += "'{}', ".format(a.val)
+                    a = a.next
+            else:
+                if not a.next:
+                    z = 0
+                    node_list += "{})".format(a.val)
+                else:
+                    node_list += "{}, ".format(a.val)
+                    a = a.next
+        return node_list

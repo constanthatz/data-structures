@@ -13,23 +13,19 @@
                       <li>__repr__: Same as display, but can be called by just inputting the name of the list</li>
                       </ul>
                   <p>Each of these functions has tests to ensure they are working as expected.</p>
->
->
-*Feb 5th, 2015* - Added a stack sturcture in Python. Has a class for an element of the stack, as well as the stack stucture itself. Includes functionality for:
+*Feb 5th, 2015* - Added a stack structure in Python. Has a class for an element of the stack, as well as the stack stucture itself. Includes functionality for:
                       <ul>
                       <li>push(value): Adds the value at to top of the stack</li>
                       <li>pop(): Removes the top element from the stack and returns it.</li>
                       </ul>
                   <p>Each of these functions has tests to ensure they are working as expected.</p>
->
->
+
 Collaborations:
 Constantine Hatzis and Nick Becker
->
->
+
 Resources:
->Cris Ewing
->Mark Ableidinger
->stackoverflow.com
->tutorialspoint.com/python
->docs.python.org
+Cris Ewing
+Mark Ableidinger
+stackoverflow.com
+tutorialspoint.com/python
+docs.python.org

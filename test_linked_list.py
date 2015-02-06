@@ -1,4 +1,3 @@
-import pytest
 from linked_list import Node
 from linked_list import LinkedList
 
@@ -100,4 +99,3 @@ def test_repr():
     l.insert(32)
     l.insert('Things')
     assert l.__repr__() == u"('Things', 32, 'Bob')"
-

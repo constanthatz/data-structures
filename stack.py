@@ -14,9 +14,9 @@ class Stack(object):
     def __init__(self):
         self.top = None
 
-    def push(self, element):
+    def push(self, value):
         ''' Add data element to the top of stack. '''
-        self.top, self.top.previous = element, self.top
+        self.top = Element(value, self.top)
 
     def pop(self):
         ''' Remove top element from stack. Reassign and reassign top data

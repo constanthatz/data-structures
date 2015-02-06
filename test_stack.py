@@ -20,27 +20,23 @@ def test_stack_init():
 
 def test_stack_push():
     l = Stack()
-    e = Element(10)
-    l.push(e)
-    assert l.top == e
+    l.push(10)
+    assert l.top.val == 10
     assert l.top.previous is None
-    f = Element("String")
-    l.push(f)
-    assert l.top == f
-    assert l.top.previous == e
+    l.push("String")
+    assert l.top.val == "String"
+    assert l.top.previous.val == 10
     assert l.top.previous.previous is None
 
 
 def test_stack_pop():
     l = Stack()
-    e = Element(10)
-    l.push(e)
-    f = Element("String")
-    l.push(f)
-    assert l.pop() == f.val
-    assert l.top == e
+    l.push(10)
+    l.push("String")
+    assert l.pop() == "String"
+    assert l.top.val == 10
     assert l.top.previous is None
-    assert l.pop() == e.val
+    assert l.pop() == 10
     assert l.top is None
     with pytest.raises(ValueError):
         l.pop()

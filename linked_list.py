@@ -4,21 +4,24 @@ from __future__ import unicode_literals
 
 
 class Node(object):
-
+    ''' Create node element with default previous pointer. '''
     def __init__(self, value, next=None):
+        ''' Previous pointer default to none. '''
         self.val = value
         self.next = next
 
 
 class LinkedList(object):
-
+    ''' Create an empty linked list. '''
     def __init__(self):
         self.head = None
 
     def insert(self, val):
+        ''' Add node to the top of head of list. '''
         self.head = Node(val, self.head)
 
     def pop(self):
+        ''' Remove head node from list. Reassign and reassign head node. '''
         if not self.head:
             return None
         else:
@@ -27,14 +30,16 @@ class LinkedList(object):
             return val
 
     def size(self):
-        i = 0
+        ''' Return size of list (number of nodes). '''
+        count = 0
         current = self.head
         while current:
-            i += 1
+            count += 1
             current = current.next
-        return i
+        return count
 
     def search(self, value):
+        ''' Return node with the given value. '''
         current = self.head
         while current:
             if current.val == value:
@@ -44,9 +49,11 @@ class LinkedList(object):
         return None
 
     def remove(self, node):
+        ''' Remove node from list. '''
         current = self.head
 
         if self.head == node:
+            # test if we are the head node
             self.head = self.head.next
             return
 
@@ -58,6 +65,7 @@ class LinkedList(object):
                 current = current.next
 
     def display(self):
+        ''' Print list to console. '''
         print(repr(self))
 
     def __repr__(self):

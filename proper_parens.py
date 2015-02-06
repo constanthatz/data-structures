@@ -20,10 +20,9 @@ def check_statement(value):
     open_index = [i for i, val in enumerate(reply) if val == "("]
     close_index = [i for i, val in enumerate(reply) if val == ")"]
 
-    try:
+    if len(open_index) == len(close_index):
         paren_total_broken = [a < b for a, b in zip(open_index, close_index)]
-        
-    eif not paren_total_broken.find(False):
+        if False not in paren_total_broken:
             return 0
     else:
         return 0

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 class Node(object):
 
-    def __init__(self, value=None, next=None):
+    def __init__(self, value, next=None):
         self.val = value
         self.next = next
 

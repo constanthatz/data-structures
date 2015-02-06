@@ -92,3 +92,12 @@ def test_linkedlist_display(capsys):
     l.display()
     out, err = capsys.readouterr()
     assert out == "('Things', 32, 'Bob')\n"
+
+
+def test_repr():
+    l = LinkedList()
+    l.insert('Bob')
+    l.insert(32)
+    l.insert('Things')
+    assert l.__repr__() == u"('Things', 32, 'Bob')"
+

@@ -17,9 +17,12 @@ reply = safe_input(prompt)
 
 
 def check_statement(value):
-    where_open = value.find("(")
-    where_close = value.find(")")
+    open_index = [i for i, val in enumerate(reply) if val == "("]
+    close_index = [i for i, val in enumerate(reply) if val == ")"]
 
-    if ((where_open == -1) and where_close != -1) or (where_open > where_close):
+    paren_total_broken = [a < b for a, b in zip(open_index, close_index)]
+
+    if paren_total_broken.find(False):
         return -1
-   
+    else:
+        return 0

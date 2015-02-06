@@ -19,6 +19,7 @@
                       <ul>
                       <li>push(value): Adds the value at to top of the stack</li>
                       <li>pop(): Removes the top element from the stack and returns it.</li>
+                      </ul>
                   <p>Each of these functions has tests to ensure they are working as expected.</p>
 >
 >

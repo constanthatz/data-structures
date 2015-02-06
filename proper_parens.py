@@ -17,21 +17,16 @@ reply = safe_input(prompt)
 
 
 def check_statement(value):
-    # open_index = [i for i, val in enumerate(reply) if val == "("]
-    # close_index = [i for i, val in enumerate(reply) if val == ")"]
-
-    # if min(open_index) > min(close_index):
-    #         return -1
-    # elif len(open_index) == len(close_index):
-    #     paren_total_broken = [a < b for a, b in zip(open_index, close_index)]
-    #     if False not in paren_total_broken:
-    #         return 0
-    # else:
-    #     return 0
-
     output = 0
-    for x in value:
-        if x == "(":
-            output += 1
-        elif x == ")":
-            output -= 1
+    while output >= 0:
+        for item in value:
+                if item == ")":
+                    output -= 1
+                    if output == -1:
+                        return -1
+                elif item == "(":
+                    output += 1
+        if output == 0:
+            return 0
+        elif output > 1:
+            return 1

@@ -20,8 +20,10 @@
                       </ul>
                   <p>Each of these functions has tests to ensure they are working as expected.</p>
 
+
 Collaborations:
 Constantine Hatzis and Nick Becker
+
 
 Resources:
 <ul>

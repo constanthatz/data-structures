@@ -17,16 +17,24 @@ reply = safe_input(prompt)
 
 
 def check_statement(value):
+    ''' Return 1, 0, or -1 is input is open, balanced, or broken. '''
     output = 0
-    while output >= 0:
-        for item in value:
-                if item == ")":
-                    output -= 1
-                    if output == -1:
-                        return -1
-                elif item == "(":
-                    output += 1
-        if output == 0:
-            return 0
-        elif output > 1:
-            return 1
+    index = 0
+    while index < len(value) or output < 0:
+        # If the count is ever < 0, statement must be -1 (broken), end loop
+        # If the index is out of range, end loop
+        if value[index] == ")":
+            # Subtract 1 for every close paren
+            output -= 1
+        elif value[index] == "(":
+            # Add 1 for every close paren
+            output += 1
+
+        index += 1
+
+    if not output:
+        # Check if ouput is 0 (balanced)
+        return output
+    else:
+        # Must be 1 (open) if it makes it to here
+        return 1

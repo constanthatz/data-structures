@@ -5,9 +5,6 @@ from stack import Stack
 
 
 def test_element_init():
-    n = Element()
-    assert n.val is None
-    assert n.previous is None
     m = Element(3)
     assert m.val == 3
     assert m.previous is None
@@ -38,5 +35,5 @@ def test_stack_pop():
     assert l.top.previous is None
     assert l.pop() == 10
     assert l.top is None
-    with pytest.raises(ValueError):
+    with pytest.raises(IndexError):
         l.pop()

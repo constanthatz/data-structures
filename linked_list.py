@@ -69,11 +69,11 @@ class LinkedList(object):
             else:
                 node_list += "{}".format(current.val)
 
-            current = current.next
-
-            if not current:
+            if not current.next:
                 node_list += ")"
                 return node_list
+
+            current = current.next
 
             node_list += ", "
 

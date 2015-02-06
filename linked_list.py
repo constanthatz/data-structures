@@ -61,25 +61,21 @@ class LinkedList(object):
         print(repr(self))
 
     def __repr__(self):
-        z = 1
         current = self.head
         node_list = "("
-        while z:
-            if not current:
-                z = 0
-                node_list += ")"
-            elif isinstance(current.val, str) or isinstance(current.val, unicode):
-                if not current.next:
-                    z = 0
-                    node_list += "'{}')".format(current.val)
-                else:
-                    node_list += "'{}', ".format(current.val)
-                    current = current.next
+        while current:
+            if isinstance(current.val, str) or isinstance(current.val, unicode):
+                node_list += "'{}'".format(current.val)
             else:
-                if not current.next:
-                    z = 0
-                    node_list += "{})".format(current.val)
-                else:
-                    node_list += "{}, ".format(current.val)
-                    current = current.next
+                node_list += "{}".format(current.val)
+
+            current = current.next
+
+            if not current:
+                node_list += ")"
+                return node_list
+
+            node_list += ", "
+
+        node_list += ")"
         return node_list

@@ -24,8 +24,10 @@ Collaborations:
 Constantine Hatzis and Nick Becker
 
 Resources:
-Cris Ewing
-Mark Ableidinger
-stackoverflow.com
-tutorialspoint.com/python
-docs.python.org
+<ul>
+<li>Cris Ewing</li>
+<li>Mark Ableidinger</li>
+<li>stackoverflow.com</li>
+<li>tutorialspoint.com/python</li>
+<li>docs.python.org</li>
+</ul>

@@ -16,6 +16,10 @@ prompt = "Input a Lisp style statement '(test)': "
 reply = safe_input(prompt)
 
 
-def check_balance(value):
-    if value.count(")") != value.count("("):
-        return 0
+def check_statement(value):
+    where_open = value.find("(")
+    where_close = value.find(")")
+
+    if ((where_open == -1) and where_close != -1) or (where_open > where_close):
+        return -1
+   

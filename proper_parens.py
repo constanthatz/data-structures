@@ -1,23 +1,9 @@
 #!/usr/bin/env python
-from __future__ import print_function
 from __future__ import unicode_literals
 
 
-def safe_input(prompt):
-    """Return user input after catching KeyboardInterrupt and EOFError"""
-    try:
-        reply = raw_input(prompt)
-    except (EOFError, KeyboardInterrupt):
-        quit()
-    else:
-        return reply.decode('utf-8')  # Convert input to unicode
-
-prompt = "Input a Lisp style statement '(test)': "
-reply = safe_input(prompt)
-
-
 def check_statement(value):
-    ''' Return 1, 0, or -1 is input is open, balanced, or broken. '''
+    ''' Return 1, 0, or -1 if input is open, balanced, or broken. '''
     output = 0
     index = 0
     while index < len(value) or output < 0:

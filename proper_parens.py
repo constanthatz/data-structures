@@ -12,5 +12,10 @@ def safe_input(prompt):
     else:
         return reply.decode('utf-8')  # Convert input to unicode
 
-prompt = "Input a Lisp style string '(test)': "
+prompt = "Input a Lisp style statement '(test)': "
 reply = safe_input(prompt)
+
+
+def check_balance(value):
+    if value.count(")") != value.count("("):
+        return 0

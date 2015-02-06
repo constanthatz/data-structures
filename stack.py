@@ -22,13 +22,6 @@ class Stack(object):
     def pop(self):
         ''' Remove top element from stack. Reassign and reassign top data
             element. '''
-        # if not self.top:
-        #     # If no data element to pop it is considered a ValueError.
-        #     raise ValueError
-        # else:
-        #     val = self.top.val
-        #     self.top = self.top.previous
-        #     return val
         try:
             val = self.top.val
         except AttributeError:

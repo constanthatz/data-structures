@@ -28,56 +28,58 @@ class LinkedList(object):
 
     def size(self):
         i = 0
-        a = self.head
-        while a:
+        current = self.head
+        while current:
             i += 1
-            a = a.next
+            current = current.next
         return i
 
     def search(self, value):
-        a = self.head
-        while a:
-            if a.val == value:
-                return a
+        current = self.head
+        while current:
+            if current.val == value:
+                return current
             else:
-                a = a.next
+                current = current.next
         return None
 
     def remove(self, node):
-        a = self.head
-        while a:
-            if self.head == node:
-                self.head = self.head.next
-                return
-            elif a.next == node:
-                a.next = node.next
+        current = self.head
+
+        if self.head == node:
+            self.head = self.head.next
+            return
+
+        while current:
+            if current.next == node:
+                current.next = node.next
                 return
             else:
-                a = a.next
+                current = current.next
 
     def display(self):
         print(repr(self))
 
     def __repr__(self):
         z = 1
-        a = self.head
+        current = self.head
         node_list = "("
         while z:
-            if not a:
+            if not current:
                 z = 0
                 node_list += ")"
-            elif isinstance(a.val, str) or isinstance(a.val, unicode):
-                if not a.next:
+            elif isinstance(current.val, str) or isinstance(current.val, unicode):
+                if not current.next:
                     z = 0
-                    node_list += "'{}')".format(a.val)
+                    node_list += "'{}')".format(current.val)
                 else:
-                    node_list += "'{}', ".format(a.val)
-                    a = a.next
+                    node_list += "'{}', ".format(current.val)
+                    current = current.next
             else:
-                if not a.next:
+                if not current.next:
                     z = 0
-                    node_list += "{})".format(a.val)
+                    node_list += "{})".format(current.val)
                 else:
-                    node_list += "{}, ".format(a.val)
-                    a = a.next
+                    node_list += "{}, ".format(current.val)
+                    current = current.next
         return node_list

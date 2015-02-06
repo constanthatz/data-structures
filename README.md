@@ -19,6 +19,12 @@
                       <li>pop(): Removes the top element from the stack and returns it.</li>
                       </ul>
                   <p>Each of these functions has tests to ensure they are working as expected.</p>
+*Feb 6th, 2015* - Added the "Proper Parenthetics" Interview Challenge with functionality for:
+                      <ul>
+                      <li>Return 1 if a string has unclosed parentheticals</li>
+                      <li>Return 0 if a string is balanced - All parenthases closed</li>
+                      <li>Return -1 if a string has closed parenthases that were not opened</li>
+                      </ul>
 
 
 Collaborations:

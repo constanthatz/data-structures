@@ -6,7 +6,7 @@ def check_statement(value):
     ''' Return 1, 0, or -1 if input is open, balanced, or broken. '''
     output = 0
     index = 0
-    while index < len(value) or output < 0:
+    while index < len(value) and output >= 0:
         # If the count is ever < 0, statement must be -1 (broken), end loop
         # If the index is out of range, end loop
         if value[index] == ")":
@@ -18,8 +18,11 @@ def check_statement(value):
 
         index += 1
 
-    if not output:
-        # Check if ouput is 0 (balanced)
+    if output == -1:
+        # Check if output is -1 (broken)
+        return output
+    elif not output:
+        # Check if output is 0 (balanced)
         return output
     else:
         # Must be 1 (open) if it makes it to here

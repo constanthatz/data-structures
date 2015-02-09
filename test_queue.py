@@ -87,7 +87,7 @@ def test_queue_dequeue():
     assert l.front.behind.val == []
 
 
-def test_Queue_size():
+def test_queue_size():
     ''' Test size method. '''
     l = Queue()
 

@@ -76,7 +76,7 @@ def test_queue_dequeue():
     ''' Test dequeue on non-empty queue. '''
     l.enqueue(10)
     l.enqueue("String")
-    l.enqueue([])
+    l.enqueue([1, "string"])
 
     ''' Check return of dequeue. '''
     assert l.dequeue() == 10
@@ -84,7 +84,7 @@ def test_queue_dequeue():
     ''' Check that front of queue has be reassigned. '''
     assert l.front.ahead is None
     assert l.front.val == "String"
-    assert l.front.behind.val == []
+    assert l.front.behind.val == [1, "string"]
 
 
 def test_queue_size():

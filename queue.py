@@ -20,11 +20,14 @@ class Queue(object):
         ''' Add data element to the back of queue. '''
         self.back = Element(value, self.back)
 
+        if not self.front:
+            self.front = self.back
+
     def dequeue(self):
-        ''' Remove top element from stack. Reassign and reassign top data
-            element. '''
+        ''' Remove front element from queue. Reassign front data
+            element and return value of dequeued element. '''
         try:
-            val = self.top.val
+            val = self.front.val
         except AttributeError:
             ''' Mimic error message from list '''
             raise IndexError("pop from empty Stack")

@@ -4,16 +4,17 @@ from __future__ import print_function
 
 class Element(object):
     ''' Create data element with default value and previous pointer. '''
-    def __init__(self, value, previous=None):
+    def __init__(self, value, next=None):
         ''' Value and previous pointer default to none. '''
         self.val = value
-        self.previous = previous
+        self.next = next
 
 
 class Queue(object):
     ''' Create an empty stack. '''
     def __init__(self):
-        self.top = None
+        self.front = None
+        self.back = None
 
     def enqueue(self, value):
         ''' Add data element to the top of stack. '''

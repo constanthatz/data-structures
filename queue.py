@@ -10,16 +10,16 @@ class Element(object):
         self.previous = previous
 
 
-class Stack(object):
+class Queue(object):
     ''' Create an empty stack. '''
     def __init__(self):
         self.top = None
 
-    def push(self, value):
+    def enqueue(self, value):
         ''' Add data element to the top of stack. '''
         self.top = Element(value, self.top)
 
-    def pop(self):
+    def dequeue(self):
         ''' Remove top element from stack. Reassign and reassign top data
             element. '''
         try:
@@ -29,3 +29,6 @@ class Stack(object):
             raise IndexError("pop from empty Stack")
         self.top = self.top.previous
         return val
+
+    def size(self):
+        return size

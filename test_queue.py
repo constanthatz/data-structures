@@ -73,7 +73,7 @@ def test_queue_dequeue():
     with pytest.raises(IndexError):
         l.dequeue()
 
-    ''' Test dequeue on non-empty list. '''
+    ''' Test dequeue on non-empty queue. '''
     l.enqueue(10)
     l.enqueue("String")
     l.enqueue([])
@@ -85,3 +85,21 @@ def test_queue_dequeue():
     assert l.front.ahead is None
     assert l.front.val == "String"
     assert l.front.behind.val == []
+
+
+def test_Queue_size():
+    ''' Test size method. '''
+    l = Queue()
+
+    ''' Test size on empty queue. '''
+    assert l.size() == 0
+
+    ''' Test size on non-empty queue. '''
+    l.enqueue('Bob')
+    l.enqueue(32)
+    l.enqueue('Things')
+    assert l.size() == 3
+
+    ''' Test size on non-empty queue that has been dequeued. '''
+    l.dequeue()
+    assert l.size() == 2

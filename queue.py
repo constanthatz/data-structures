@@ -34,56 +34,14 @@ class Queue(object):
         except AttributeError:
             ''' Mimic error message from list '''
             raise IndexError("dequeue from empty Stack")
-        self.front = self.front.behind
+        self.front.behind.ahead, self.front = None, self.front.behind
         return val
 
-    # def size(self):
-    #     return size
-
-
-x = Queue()
-
-# x.enqueue("A")
-# print(x.front)
-# print(x.back)
-# print(x.front.val)
-# print(x.back.val)
-# x.enqueue("B")
-# print(x.front)
-# print(x.back)
-# print(x.front.val)
-# print(x.back.val)
-# x.enqueue("C")
-# print(x.front)
-# print(x.back)
-# print(x.front.val)
-# print(x.back.val)
-# print(x.back.ahead.val)
-# print(x.front.behind.val)
-# print(x.front.ahead)
-# print(x.back.behind)
-# print(x.back.ahead.behind.val)
-# x.enqueue("D")
-# print(x.front)
-# print(x.back)
-# print(x.front.val)
-# print(x.back.val)
-# print(x.back.ahead.val)
-# print(x.front.behind.val)
-# print(x.front.ahead)
-# print(x.back.behind)
-# print(x.back.ahead.behind.val)
-
-# x.enqueue("A")
-# x.enqueue("B")
-# x.enqueue("C")
-# x.enqueue("D")
-# print(x.dequeue())
-
-# print(x.dequeue())
-
-# print(x.dequeue())
-
-# print(x.dequeue())
-
-
+    def size(self):
+        ''' Return size of queue (number of elements). '''
+        count = 0
+        current = self.back
+        while current:
+            count += 1
+            current = current.ahead
+        return count

@@ -145,7 +145,7 @@ def test_dll_pop():
     ''' Test pop on non-empty dll. '''
     l.insert(10)
     l.insert("String")
-    l.pop([1, "string"])
+    l.insert([1, "string"])
 
     ''' Check return of pop. '''
     assert l.pop() == [1, "string"]

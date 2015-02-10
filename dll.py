@@ -57,7 +57,7 @@ class DLL(object):
         self.head.behind.ahead, self.head = None, self.head.behind
         return val
 
-    def size(self):
+    def remove(self):
         ''' Return size of DLL (number of Nodes). '''
         count = 0
         current = self.tail

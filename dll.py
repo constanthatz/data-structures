@@ -21,6 +21,7 @@ class DLL(object):
         ''' Add data Node to the head of DLL. '''
         self.head = Node(value, behind=self.head)
 
+        ''' Check tail value. '''
         if not self.tail:
             self.tail = self.head
         else:
@@ -41,6 +42,7 @@ class DLL(object):
         ''' Add data Node to the tail of DLL. '''
         self.tail = Node(value, self.tail)
 
+        ''' Check head value. '''
         if not self.head:
             self.head = self.tail
         else:
@@ -62,15 +64,17 @@ class DLL(object):
         current = self.head
 
         try:
+            ''' Check head value. '''
             if self.head.val == val:
                 self.head = self.head.behind
                 return
-            # test if we are the head node
         except AttributeError:
+            ''' Handle empty dll. '''
             raise ValueError("dll.remove(val): val not in list")
 
         current = current.behind
 
+        ''' Loop through dll and stop when finding value or end of dll. '''
         while current.behind:
             if current.val == val:
                 current.behind.ahead = current.ahead
@@ -79,6 +83,7 @@ class DLL(object):
             else:
                 current = current.behind
 
+        ''' Check tail value. '''
         if current.val == val:
             self.tail = self.tail.ahead
         else:

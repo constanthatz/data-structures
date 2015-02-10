@@ -45,6 +45,20 @@
                       <li>dequeue(): Removes the item in the front of the queue and returns its value</li>
                       <li>size(): returns the number of items in the current queue</li>
                       </ul>
+                    <p>Each of these functions has tests to ensure they are working as expected.</p>
+*Feb 10th, 2015* - Added a doubly linked list structure. This structure has functionality similar to that of
+                   all of our previous data structures. Like the linked list, each node will point to the next,
+                   but in this case, it points both forwards and back. Similar to the queue, it works in that we add
+                   from one side and remove from the other, but in this case we can use both ends for removing and adding.
+                   Has the functionality for:
+                      <ul>
+                      <li>insert(value): Adds a node with a given value to the head of the DLL</li>
+                      <li>append(value): Adds a node with a given value to the tail of the DLL</li>
+                      <li>pop(): Removes and returns the value at the head position</li>
+                      <li>shift(): Removes and returns the value at the tail position</li>
+                      <li>remove(value): Removes a given value from the DLL</li>
+                      </ul>
+                    <p>Each of these functions has tests to ensure they are working as expected.</p>
 
 
 Collaborations:

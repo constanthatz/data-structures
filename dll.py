@@ -61,10 +61,13 @@ class DLL(object):
         ''' Remove a given value from the DLL '''
         current = self.head
 
-        if self.head.val == val:
-            # test if we are the head node
-            self.head = self.head.behind
+        try:
+            if self.head.val == val:
+                self.head = self.head.behind
             return
+            # test if we are the head node
+        except AttributeError:
+            raise ValueError("dll.remove(val): val not in list")
 
         while current.behind:
             if current.behind.val == val:

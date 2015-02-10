@@ -67,12 +67,13 @@ class DLL(object):
             return
 
         while current.behind:
-            if (current.behind == self.tail) and (self.tail == val):
-                self.tail = self.tail.ahead
-                return
-            elif current.behind.val == val:
+            if current.behind.val == val:
                 current.behind.behind.ahead = current.behind.ahead
                 return
             else:
                 current = current.behind
-        raise ValueError("dll.remove(val): val not in list")
+
+        if current.val == val:
+            self.tail = self.tail.ahead
+        else:
+            raise ValueError("dll.remove(val): val not in list")

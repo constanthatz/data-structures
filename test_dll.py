@@ -154,3 +154,32 @@ def test_dll_pop():
     assert l.head.behind.val == 10
     assert l.head.val == "String"
     assert l.head.ahead is None
+
+
+def test_dll_remove():
+    ''' Test remove method. '''
+    l = DLL()
+
+    ''' Test remove on empty dll. '''
+    with pytest.raises(ValueError):
+        l.remove("val")
+
+    ''' Test remove on non-empty dll. '''
+    l.insert(10)
+    l.insert("String")
+    l.insert(5)
+    l.insert("Other")
+    l.insert([1, "string"])
+
+    ''' Test removing middle '''
+    l.remove(5)
+    assert l.tail.ahead.ahead.val == "Other"
+    assert l.head.behind.behind.val == "String"
+
+    ''' Test removing the head '''
+    l.remove([1, "string"])
+    assert l.head.val == "Other"
+
+    ''' Test removing the tail '''
+    l.remove(10)
+    assert l.tail.val == "String"

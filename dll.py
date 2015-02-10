@@ -19,21 +19,21 @@ class DLL(object):
 
     def insert(self, value):
         ''' Add data Node to the tail of DLL. '''
-        self.tail = Node(value, self.tail)
+        self.head = Node(value, self.tail)
 
-        if not self.head:
-            self.head = self.tail
+        if not self.tail:
+            self.tail = self.head
         else:
-            self.tail.ahead.behind = self.tail
+            self.head.behind.ahead = self.head
 
-    def pop():
+    def pop(self):
         ''' Remove head Node from head of DLL. Reassign head data
-            Node and return value of deDLLd Node. '''
+            Node and return value of popped Node. '''
         try:
             val = self.head.val
         except AttributeError:
             ''' Mimic error message from list '''
-            raise IndexError("deDLL from empty Stack")
+            raise IndexError("pop from empty DLL")
         self.head.behind.ahead, self.head = None, self.head.behind
         return val
 
@@ -46,15 +46,15 @@ class DLL(object):
         else:
             self.tail.ahead.behind = self.tail
 
-    def shift():
-        ''' Remove head Node from head of DLL. Reassign head data
-            Node and return value of deDLLd Node. '''
+    def shift(self):
+        ''' Remove tail Node from tail of DLL. Reassign tail data
+            Node and return value of shifted Node. '''
         try:
-            val = self.head.val
+            val = self.tail.val
         except AttributeError:
             ''' Mimic error message from list '''
-            raise IndexError("deDLL from empty Stack")
-        self.head.behind.ahead, self.head = None, self.head.behind
+            raise IndexError("shift from empty DLL")
+        self.tail.ahead.behind, self.tail = None, self.tail.ahead
         return val
 
     def remove(self):

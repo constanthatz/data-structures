@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 
-class Element(object):
-    ''' Create data element with default value and next pointer. '''
+class Node(object):
+    ''' Create data Node with default value and next pointer. '''
     def __init__(self, value, ahead=None, behind=None):
         ''' Value and next pointer default to none. '''
         self.val = value
@@ -11,36 +11,56 @@ class Element(object):
         self.behind = behind
 
 
-class Queue(object):
-    ''' Create an empty queue. '''
+class DLL(object):
+    ''' Create an empty DLL. '''
     def __init__(self):
-        self.front = None
-        self.back = None
+        self.head = None
+        self.tail = None
 
-    def enqueue(self, value):
-        ''' Add data element to the back of queue. '''
-        self.back = Element(value, self.back)
+    def insert(self, value):
+        ''' Add data Node to the tail of DLL. '''
+        self.tail = Node(value, self.tail)
 
-        if not self.front:
-            self.front = self.back
+        if not self.head:
+            self.head = self.tail
         else:
-            self.back.ahead.behind = self.back
+            self.tail.ahead.behind = self.tail
 
-    def dequeue(self):
-        ''' Remove front element from front of queue. Reassign front data
-            element and return value of dequeued element. '''
+    def pop():
+        ''' Remove head Node from head of DLL. Reassign head data
+            Node and return value of deDLLd Node. '''
         try:
-            val = self.front.val
+            val = self.head.val
         except AttributeError:
             ''' Mimic error message from list '''
-            raise IndexError("dequeue from empty Stack")
-        self.front.behind.ahead, self.front = None, self.front.behind
+            raise IndexError("deDLL from empty Stack")
+        self.head.behind.ahead, self.head = None, self.head.behind
+        return val
+
+    def append(self, value):
+        ''' Add data Node to the tail of DLL. '''
+        self.tail = Node(value, self.tail)
+
+        if not self.head:
+            self.head = self.tail
+        else:
+            self.tail.ahead.behind = self.tail
+
+    def shift():
+        ''' Remove head Node from head of DLL. Reassign head data
+            Node and return value of deDLLd Node. '''
+        try:
+            val = self.head.val
+        except AttributeError:
+            ''' Mimic error message from list '''
+            raise IndexError("deDLL from empty Stack")
+        self.head.behind.ahead, self.head = None, self.head.behind
         return val
 
     def size(self):
-        ''' Return size of queue (number of elements). '''
+        ''' Return size of DLL (number of Nodes). '''
         count = 0
-        current = self.back
+        current = self.tail
         while current:
             count += 1
             current = current.ahead

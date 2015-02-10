@@ -57,11 +57,22 @@ class DLL(object):
         self.tail.ahead.behind, self.tail = None, self.tail.ahead
         return val
 
-    def remove(self):
-        ''' Return size of DLL (number of Nodes). '''
-        count = 0
-        current = self.tail
-        while current:
-            count += 1
-            current = current.ahead
-        return count
+    def remove(self, val):
+        ''' Remove a given value from the DLL '''
+        current = self.head
+
+        if self.head.val == val:
+            # test if we are the head node
+            self.head = self.head.behind
+            return
+
+        while current.behind:
+            if (current.behind == self.tail) and (self.tail == val):
+                self.tail = self.tail.ahead
+                return
+            elif current.behind.val == val:
+                current.behind.behind.ahead = current.behind.ahead
+                return
+            else:
+                current = current.behind
+        raise ValueError("dll.remove(val): val not in list")

@@ -71,36 +71,15 @@ class DLL(object):
 
         current = current.behind
 
-        print(current.val)
-        while current:
-            print(current.val)
+        while current.behind:
             if current.val == val:
-                print(current.val)
                 current.behind.ahead = current.ahead
                 current.ahead.behind = current.behind
                 return
             else:
                 current = current.behind
 
-        if current.ahead.val == val:
+        if current.val == val:
             self.tail = self.tail.ahead
         else:
             raise ValueError("dll.remove(val): val not in list")
-
-if __name__ == '__main__':
-    ''' Test remove method. '''
-    l = DLL()
-
-    ''' Test remove on non-empty dll. '''
-    l.insert(10)
-    l.insert("String")
-    l.insert(5)
-    l.insert("Other")
-    l.insert([1, "string"])
-
-    ''' Test removing middle '''
-    l.remove(5)
-    print(l.tail.val)
-    print(l.tail.ahead.val)
-    print(l.tail.ahead.ahead.val)
-    print(l.head.behind.behind.val)

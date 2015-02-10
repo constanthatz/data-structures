@@ -18,8 +18,8 @@ class DLL(object):
         self.tail = None
 
     def insert(self, value):
-        ''' Add data Node to the tail of DLL. '''
-        self.head = Node(value, behind=self.tail)
+        ''' Add data Node to the head of DLL. '''
+        self.head = Node(value, behind=self.head)
 
         if not self.tail:
             self.tail = self.head

@@ -125,7 +125,7 @@ def test_dll_insert():
     ''' Test dll of three elements '''
     l.insert([])
 
-    ''' Check that tail and head elements point too the same element. '''
+    ''' Check that tail and head elements point to the same element. '''
     assert l.tail.ahead == l.head.behind
 
     ''' Check middle element value and pointers. '''

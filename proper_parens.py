@@ -2,22 +2,6 @@
 from __future__ import unicode_literals
 
 
-<<<<<<< HEAD
-def check_statement1(value):
-    output = 0
-    while output >= 0:
-        for item in value:
-            if item == ")":
-                output -= 1
-                if output == -1:
-                    return -1
-            elif item == "(":
-                output += 1
-        if output == 0:
-            return 0
-        elif output > 1:
-            return 1
-=======
 def check_statement(value):
     ''' Return 1, 0, or -1 if input is open, balanced, or broken. '''
     output = 0
@@ -43,4 +27,3 @@ def check_statement(value):
     else:
         # Must be 1 (open) if it makes it to here
         return 1
->>>>>>> 74dee1d09fdc09f93af3d15286336d7face4ba08

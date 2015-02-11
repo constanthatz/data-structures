@@ -18,18 +18,17 @@ class Binheap(object):
         child = self.binlist[index]
         parent = self.__parent(index)
         if parent[1] < child:
-            swap(parent[0], index)
+            self.__swap(parent[0], index)
         return
 
-
     def __parent(self, index):
-        parent = [(index - 1)//2, self.binlist[(index-1)//2]]
-
+        print(index)
+        parent = [(index-1)//2, self.binlist[(index-1)//2]]
+        return parent
 
     def __children(self, index):
         children = [(2 * index + 1, self.binlist[2*index+1]), ((2*index+2, self.binlist[2*index+2]))]
         return
-
 
     def __swap(self, index1, index2):
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]

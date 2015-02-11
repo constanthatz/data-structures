@@ -17,12 +17,15 @@ class Binheap(object):
     def __promote(self, index):
         child = self.binlist[index]
         parent = self.__parent(index)
-        if parent[1] < child:
-            self.__swap(parent[0], index)
-        return
+        print(parent)
+        if parent[0] >= 0:
+            if parent[1] < child:
+                self.__swap(parent[0], index)
+                self.__promote(parent[0])
+            else:
+                return
 
     def __parent(self, index):
-        print(index)
         parent = [(index-1)//2, self.binlist[(index-1)//2]]
         return parent
 
@@ -33,37 +36,3 @@ class Binheap(object):
     def __swap(self, index1, index2):
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
-
-
-    # def pop(self):
-    #     top = self.binlist[0]
-
-    #     if self.binlist[2] >= self.binlist[1]:
-    #         self.binlist[0] = self.binlist[2]
-    #         empty_bin = 2
-    #     else:
-    #         self.binlist[0] = self.binlist[1]
-    #         empty_bin = 1
-
-    #     self.__resort(empty_bin)
-    #     return top
-
-    # def __resort(self, empty_bin):
-    #     child1 = 2*empty_bin+1
-    #     child2 = 2*empty_bin+2
-
-    #     try:
-    #         while self.binlist[child2] or self.binlist[child1]:
-    #             if self.binlist[child2] >= self.binlist[child1]:
-    #                 self.binlist[empty_bin] = self.binlist[child2]
-    #                 empty_bin = child2
-    #             else:
-    #                 self.binlist[empty_bin] = self.binlist[child1]
-    #                 empty_bin = child1
-
-    #             child1 = 2*empty_bin+1
-    #             child2 = 2*empty_bin+2
-    #             return
-
-    #     except IndexError:
-    #         return

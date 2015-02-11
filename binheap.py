@@ -36,3 +36,24 @@ class Binheap(object):
     def __swap(self, index1, index2):
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
+
+    def __battle_children(self, index, children):
+        child1 = children[0]
+        child2 = children[1]
+        if child1[1] >= child2[1]:
+            self.__swap(child1[0], index)
+            return child1[0]
+        else:
+            self.__swap(child2[0], index)
+            return child2[0]
+
+    def pop(self):
+        top = self.binlist[0]
+        index = 0
+        try:
+            while self.__children(index):
+                children = self.__children(index)
+                index = self.__battle_children(index, children)
+        except IndexError:
+            return top
+

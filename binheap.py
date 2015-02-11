@@ -5,5 +5,10 @@ from __future__ import unicode_literals
 
 class Binheap(object):
     ''' Create an empty heap. '''
-    def __init__(self, list=[]):
-        self.list = list
+    def __init__(self, binlist=[]):
+        self.binlist = binlist
+
+    def push(self, value):
+        self.binlist.append[value]
+
+    

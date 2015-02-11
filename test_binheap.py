@@ -10,7 +10,7 @@ def test_init_bh():
     assert c.binlist == [1, 2]
 
 
-def test_pushpromote_bh():
+def test_push_promote_bh():
     b = Binheap()
     b.push(100)
     assert b.binlist == [100]
@@ -41,7 +41,19 @@ def test_battle_children_bh():
     assert b._Binheap__battle_children(0, children) == 1
 
 
-def test_pop_children_bh():
+def test_pop_demote_bh():
     b = Binheap([100, 75, 25, 50])
     assert b.pop() == 100
     assert b.binlist == [75, 50, 25]
+
+    b = Binheap([100, 75, 25, 50, 30])
+    b.pop()
+    assert b.binlist == [75, 50, 25, 30]
+
+    b = Binheap([100, 75, 25, 50, 30, 15])
+    assert b.pop() == 100
+    assert b.binlist == [75, 50, 25, 15, 30]
+
+    b = Binheap([100, 75, 25, 50, 30, 15, 10])
+    assert b.pop() == 100
+    assert b.binlist == [75, 50, 25, 10, 30, 15]

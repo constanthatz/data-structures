@@ -13,4 +13,9 @@ class Binheap(object):
         return
 
     def pop(self):
-        return self.binlist.pop([0])
+        top = self.binlist[0]
+        if self.binlist[2] >= self.binlist[1]:
+            self.binlist[0] = self.binlist[2]
+        else:
+            self.binlist[0] = self.binlist[1]
+        return top

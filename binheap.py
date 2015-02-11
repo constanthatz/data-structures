@@ -14,10 +14,42 @@ class Binheap(object):
         self.__promote(len(self.binlist)-1)
         return
 
+    def __parent(self, index):
+        parent = [(index-1)//2, self.binlist[(index-1)//2]]
+        return parent
+
+    def __children(self, index):
+        children = []
+        try:
+            child1 = (2 * index + 1, self.binlist[2*index+1])
+        except IndexError:
+            pass
+        else:
+            children.append(child1)
+
+        try:
+            child2 = (2*index+2, self.binlist[2*index+2])
+        except IndexError:
+            pass
+        else:
+            children.append(child2)
+
+        return children
+
+    def __swap(self, index1, index2):
+        self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
+        return
+
+    def pop(self):
+        last_index = len(self.binlist)-1
+        self.binlist[0], self.binlist[last_index] = self.binlist[last_index], self.binlist[0]
+        top = self.binlist.pop()
+        self.__demote()
+        return top
+
     def __promote(self, index):
         child = self.binlist[index]
         parent = self.__parent(index)
-        print(parent)
         if parent[0] >= 0:
             if parent[1] < child:
                 self.__swap(parent[0], index)
@@ -25,35 +57,30 @@ class Binheap(object):
             else:
                 return
 
-    def __parent(self, index):
-        parent = [(index-1)//2, self.binlist[(index-1)//2]]
-        return parent
+    def __demote(self, index=0):
+        children = self.__children(index)
 
-    def __children(self, index):
-        children = [(2 * index + 1, self.binlist[2*index+1]), ((2*index+2, self.binlist[2*index+2]))]
-        return
+        if len(children):
+            victor_index = self.__battle_children(index, children)
 
-    def __swap(self, index1, index2):
-        self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
-        return
+            if victor_index:
+                self.__swap(victor_index, index)
+                self.__demote(victor_index)
+        else:
+            return
 
     def __battle_children(self, index, children):
-        child1 = children[0]
-        child2 = children[1]
-        if child1[1] >= child2[1]:
-            self.__swap(child1[0], index)
-            return child1[0]
+        if len(children) == 2:
+            child1 = children[0]
+            child2 = children[1]
+
+            if child1[1] >= child2[1]:
+                return child1[0]
+            else:
+                return child2[0]
+
+        elif len(children) == 1:
+            child = children[0]
+            return child[0]
         else:
-            self.__swap(child2[0], index)
-            return child2[0]
-
-    def pop(self):
-        top = self.binlist[0]
-        index = 0
-        try:
-            while self.__children(index):
-                children = self.__children(index)
-                index = self.__battle_children(index, children)
-        except IndexError:
-            return top
-
+            return None

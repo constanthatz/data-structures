@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pytest
 from binheap import Binheap
 
@@ -22,3 +23,25 @@ def test_pushpromote_bh():
     b = Binheap([100, 50, 25])
     b.push(200)
     assert b.binlist == [200, 100, 25, 50]
+
+
+def test_parent_bh():
+    b = Binheap([100, 75, 25, 50])
+    assert b._Binheap__parent(3) == [1, 75]
+
+
+def test_children_bh():
+    b = Binheap([100, 75, 25, 50])
+    assert b._Binheap__children(0) == [(1, 75), (2, 25)]
+
+
+def test_battle_children_bh():
+    b = Binheap([100, 75, 25, 50])
+    children = b._Binheap__children(0)
+    assert b._Binheap__battle_children(0, children) == 1
+
+
+def test_pop_children_bh():
+    b = Binheap([100, 75, 25, 50])
+    assert b.pop() == 100
+    assert b.binlist == [75, 50, 25]

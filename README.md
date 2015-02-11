@@ -59,6 +59,17 @@
                       <li>remove(value): Removes a given value from the DLL</li>
                       </ul>
                     <p>Each of these functions has tests to ensure they are working as expected.</p>
+*Feb 11th, 2015* - Added a binary heap data strucutre. The binary heap functions similary to a tree that branches, though
+                   the topmost value must be the highest,and descend down (meaning that every parent has 2 children that are
+                   each lower than its parent). We needed to be able to make it a self sorting list such that if we added a
+                   child that was higher than its parent it would swap places such that the structure remains intact. This
+                   structure has the functionality for:
+                   <ul>
+                   <li>push(value): Adds a value to the bottom most left most portion of the stack</li>
+                   <li>pop(): Removes the topmost value and the organizes the list the remain intact</li>
+                   <li>__promote(): Starts with a child, and swaps it for the parent if it is larger</li>
+                   <li>__demote(): Starts with a parent and swaps it for the child if it's lower</li>
+                   </ul>
 
 
 Collaborations:

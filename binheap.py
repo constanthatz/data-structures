@@ -10,7 +10,7 @@ class Binheap(object):
         self.binlist = binlist
 
     def push(self, value):
-        self.binlist.append[value]
+        self.binlist.append(value)
         self.__promote(len(self.binlist)-1)
         return
 
@@ -32,7 +32,7 @@ class Binheap(object):
 
 
     def __swap(self, index1, index2):
-            self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
+        self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
 
 

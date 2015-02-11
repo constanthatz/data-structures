@@ -11,10 +11,14 @@ class Binheap(object):
 
     def push(self, value):
         self.binlist.append[value]
-        self.__promote()
+        self.__promote(len(self.binlist)-1)
         return
 
-    def __promote(self):
+    def __promote(self, index):
+        child = self.binlist[index]
+        parent = self.__parent(index)
+        if parent[1] < child:
+            swap(parent[0], index)
         return
 
 
@@ -23,11 +27,12 @@ class Binheap(object):
 
 
     def __children(self, index):
-        parent = [(2*index+1, self.binlist[2*index+1]), ((2*index+2, self.binlist[2*index+2]))]
+        children = [(2*index+1, self.binlist[2*index+1]), ((2*index+2, self.binlist[2*index+2]))]
         return
 
 
-    def __swap():
+    def __swap(self, index1, index2):
+            self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
 
 

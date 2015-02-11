@@ -10,5 +10,7 @@ class Binheap(object):
 
     def push(self, value):
         self.binlist.append[value]
+        return
 
-    
+    def pop(self):
+        return self.binlist.pop([0])

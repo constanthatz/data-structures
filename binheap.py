@@ -10,15 +10,18 @@ class Binheap(object):
         self.binlist = binlist
 
     def push(self, value):
+        ''' Add a value to the heap. '''
         self.binlist.append(value)
         self.__promote(len(self.binlist)-1)
         return
 
     def __parent(self, index):
+        ''' Find the parents of a bin. '''
         parent = [(index-1)//2, self.binlist[(index-1)//2]]
         return parent
 
     def __children(self, index):
+        ''' Find the children of a bin. '''
         children = []
         try:
             child1 = (2 * index + 1, self.binlist[2*index+1])
@@ -37,17 +40,20 @@ class Binheap(object):
         return children
 
     def __swap(self, index1, index2):
+        ''' Swap two bins. '''
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
 
     def pop(self):
+        ''' Pop the top of the heap. '''
         last_index = len(self.binlist)-1
-        self.binlist[0], self.binlist[last_index] = self.binlist[last_index], self.binlist[0]
+        self.__swap(0, last_index)
         top = self.binlist.pop()
         self.__demote()
         return top
 
     def __promote(self, index):
+        ''' Promote a bin. '''
         child = self.binlist[index]
         parent = self.__parent(index)
         if parent[0] >= 0:
@@ -59,7 +65,7 @@ class Binheap(object):
 
     def __demote(self, index=0):
         children = self.__children(index)
-
+        ''' Demote a bin. '''
         if len(children):
             victor_index = self.__battle_children(index, children)
 
@@ -70,6 +76,7 @@ class Binheap(object):
             return
 
     def __battle_children(self, index, children):
+        ''' Compare children bins. '''
         if len(children) == 2:
             child1 = children[0]
             child2 = children[1]

@@ -34,12 +34,10 @@ class Priorityq(object):
         current = self.back.ahead
 
         while True:
-            print(type(new_element))
-            print(type(current))
 
             if new_element.prio <= current.prio:
                 # Insert element and reassingn all pointers
-                new_element.behind = current
+                new_element.ahead = current
                 new_element.ahead.behind.ahead = new_element
                 new_element.behind = new_element.ahead.behind
                 new_element.ahead.behind = new_element
@@ -48,6 +46,7 @@ class Priorityq(object):
                 # Move to next element
 
                 if not current.ahead:
+                    self.front.ahead = new_element
                     new_element.behind, self.front = self.front, new_element
                     return
                 else:
@@ -66,17 +65,40 @@ class Priorityq(object):
 if __name__ == '__main__':
     l = Priorityq()
     l.insert("Nick", 1)
-    assert l.front.val == "Nick"
-    assert l.back.val == "Nick"
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead
 
+    print('\n\n')
     l.insert("Constantine", 1)
-    assert l.front.val == "Nick"
-    assert l.back.val == "Constantine"
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead
 
+    print('\n\n')
     l.insert("Mark", 2)
-    assert l.front.val == "Mark"
-    assert l.back.val == "Constantine"
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead
 
+    print('\n\n')
     l.insert("Henry", 2)
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead
+    print('\n\n')
     l.insert("Jake", 3)
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead
+    print('\n\n')
     l.insert("James", 0)
+    current = l.back
+    while current:
+        print(current.val)
+        current = current.ahead

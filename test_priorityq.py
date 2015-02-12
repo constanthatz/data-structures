@@ -31,5 +31,9 @@ def test_priorityq_prio():
     assert l.back.val == "Constantine"
 
     l.insert("Henry", 2)
+    assert l.front.val == "Mark"
+    assert l.front.behind.val == "Henry"
+    assert l.back.val == "Constantine"
+
     l.insert("Jake", 3)
     l.insert("James", 0)

@@ -20,7 +20,7 @@ class Binheap(object):
         return [(index-1)//2, self.binlist[(index-1)//2]]
 
     def __children(self, index):
-        ''' Find the children of a bin. '''
+        ''' Find the children of a bin. Build list of children. '''
         children = []
         try:
             child1 = (2 * index + 1, self.binlist[2*index+1])
@@ -56,6 +56,7 @@ class Binheap(object):
         child = self.binlist[index]
         parent = self.__parent(index)
         if parent[0] >= 0:
+            # If is true only when parent index is non-negative
             if parent[1] < child:
                 self.__swap(parent[0], index)
                 self.__promote(parent[0])
@@ -77,13 +78,15 @@ class Binheap(object):
     def __battle_children(self, index, children):
         ''' Compare children bins. '''
         if len(children) == 2:
-
+            # Handle two children
             if children[0][1] >= children[1][1]:
                 return children[0][0]
             else:
                 return children[1][0]
 
         elif len(children) == 1:
+            # Handle one child
             return children[0][0]
         else:
+            # Handle no children
             return None

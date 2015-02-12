@@ -17,8 +17,7 @@ class Binheap(object):
 
     def __parent(self, index):
         ''' Find the parents of a bin. '''
-        parent = [(index-1)//2, self.binlist[(index-1)//2]]
-        return parent
+        return [(index-1)//2, self.binlist[(index-1)//2]]
 
     def __children(self, index):
         ''' Find the children of a bin. '''

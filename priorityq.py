@@ -18,9 +18,9 @@ class Priorityq(object):
         self.front = None
         self.back = None
 
-    def insert(self, value):
+    def insert(self, value, priority=None):
         ''' Add data element to the back of queue. '''
-        new_element = Element(value, self.back)
+        new_element = Element(value, priority)
 
         if not self.front:
             self.front = self.back = new_element

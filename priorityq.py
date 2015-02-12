@@ -34,6 +34,9 @@ class Priorityq(object):
         current = self.back.ahead
 
         while True:
+            print(type(new_element))
+            print(type(current))
+
             if new_element.prio <= current.prio:
                 # Insert element and reassingn all pointers
                 new_element.behind = current
@@ -43,11 +46,12 @@ class Priorityq(object):
                 return
             else:
                 # Move to next element
-                try:
-                    current = current.ahead
-                except AttributeError:
+
+                if not current.ahead:
                     new_element.behind, self.front = self.front, new_element
                     return
+                else:
+                    current = current.ahead
 
     def pop(self):
         ''' Return value of highest priority element and remove. '''
@@ -58,3 +62,21 @@ class Priorityq(object):
     def peek(self):
         ''' Return value of highest priority element. '''
         return self.front
+
+if __name__ == '__main__':
+    l = Priorityq()
+    l.insert("Nick", 1)
+    assert l.front.val == "Nick"
+    assert l.back.val == "Nick"
+
+    l.insert("Constantine", 1)
+    assert l.front.val == "Nick"
+    assert l.back.val == "Constantine"
+
+    l.insert("Mark", 2)
+    assert l.front.val == "Mark"
+    assert l.back.val == "Constantine"
+
+    l.insert("Henry", 2)
+    l.insert("Jake", 3)
+    l.insert("James", 0)

@@ -4,7 +4,7 @@ from __future__ import print_function
 
 class Element(object):
     ''' Create data element with default value and next pointer. '''
-    def __init__(self, value, ahead=None, behind=None, priority=0):
+    def __init__(self, value, priority=0, ahead=None, behind=None):
         ''' Value and next pointer default to none. '''
         self.val = value
         self.ahead = ahead

@@ -64,12 +64,22 @@
                    each lower than its parent). We needed to be able to make it a self sorting list such that if we added a
                    child that was higher than its parent it would swap places such that the structure remains intact. This
                    structure has the functionality for:
-                   <ul>
-                   <li>push(value): Adds a value to the bottom most left most portion of the stack</li>
-                   <li>pop(): Removes the topmost value and the organizes the list the remain intact</li>
-                   <li>__promote(): Starts with a child, and swaps it for the parent if it is larger</li>
-                   <li>__demote(): Starts with a parent and swaps it for the child if it's lower</li>
-                   </ul>
+                     <ul>
+                     <li>push(value): Adds a value to the bottom most left most portion of the stack</li>
+                     <li>pop(): Removes the topmost value and the organizes the list the remain intact</li>
+                     <li>__promote(): Starts with a child, and swaps it for the parent if it is larger</li>
+                     <li>__demote(): Starts with a parent and swaps it for the child if it's lower</li>
+                     </ul>
+*Feb 11th, 2015* - Added a priority queue data structure. This structure takes in a value as well as another
+                   value that you set as a "priority value". The queue will sort itself such that it retains
+                   the order of the items, but it arranges it such that it groups together things of the same
+                   priority. In addition to this, it keeps the highest priority group at the front and the
+                   lowest at the back. This structure has functionality for:
+                     <ul>
+                     <li>insert(value, priority): Adds a value to the back of the queue, and then moves it ahead based on its priority</li>
+                     <li>pop(): Removes the topmost value, which is to say the oldest item with the highest priority</li>
+                     <li>peek(): Looks at the value at the front of the list which is the oldest item of highest priority</li>
+                     </ul>
 
 
 Collaborations:

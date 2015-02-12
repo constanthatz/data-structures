@@ -54,12 +54,3 @@ class Priorityq(object):
 
     def peek(self):
         return self.front
-
-
-
-
-
-
-
-
-

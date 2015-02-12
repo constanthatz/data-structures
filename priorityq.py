@@ -51,3 +51,15 @@ class Priorityq(object):
         pop_value = self.front
         self.front.behind.ahead, self.front = None, self.front.behind
         return pop_value
+
+    def peek(self):
+        return self.front
+
+
+
+
+
+
+
+
+

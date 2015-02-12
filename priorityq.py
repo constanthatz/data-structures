@@ -20,14 +20,23 @@ class Priorityq(object):
 
     def insert(self, value):
         ''' Add data element to the back of queue. '''
-        self.back = Element(value, self.back)
+        new_element = Element(value, self.back)
 
         if not self.front:
-            self.front = self.back
+            self.front = self.back = new_element
+        elif new_element.prio <= self.back.prio:
+            new_element.ahead, self.back = self.back, new_element
         else:
-            self.back.ahead.behind = self.back
+            self.__sort(new_element)
 
-    def __sort(self):
+    def __sort(self, new_eleement):
+
+        current = self.back.ahead
+
+        while True:
+            if new_element.prio <= current.prio:
+
+            self.back.ahead.behind = self.back
         return
 
     def dequeue(self):

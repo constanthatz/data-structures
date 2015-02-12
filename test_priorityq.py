@@ -46,7 +46,6 @@ def test_priorityq_prio():
     assert l.back.ahead.val == "Nick"
     assert ql == ["Constantine", "Nick",  "Mark"]
 
-
     l.insert("Henry", 2)
     ql = que(l)
     assert l.front.val == "Mark"

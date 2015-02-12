@@ -78,16 +78,13 @@ class Binheap(object):
     def __battle_children(self, index, children):
         ''' Compare children bins. '''
         if len(children) == 2:
-            child1 = children[0]
-            child2 = children[1]
 
-            if child1[1] >= child2[1]:
-                return child1[0]
+            if children[0][1] >= children[1][1]:
+                return children[0][0]
             else:
-                return child2[0]
+                return children[1][0]
 
         elif len(children) == 1:
-            child = children[0]
-            return child[0]
+            return children[0][0]
         else:
             return None

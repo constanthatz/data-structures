@@ -35,8 +35,7 @@ class Priorityq(object):
 
         while True:
             if new_element.prio <= current.prio:
-
-            self.back.ahead.behind = self.back
+                
         return
 
     def dequeue(self):

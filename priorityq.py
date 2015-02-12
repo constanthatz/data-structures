@@ -19,7 +19,7 @@ class Priorityq(object):
         self.back = None
 
     def insert(self, value):
-        ''' Add data element to the back of queue. '''
+        ''' Insert data element into queue. '''
         new_element = Element(value, self.back)
 
         if not self.front:
@@ -30,17 +30,20 @@ class Priorityq(object):
             self.__prioritize(new_element)
 
     def __prioritize(self, new_element):
-
+        ''' Insert new element into the right place in the queue based on
+            priority and order entered. '''
         current = self.back.ahead
 
         while True:
             if new_element.prio <= current.prio:
+                # Insert element and reassingn all pointers
                 new_element.behind = current
                 new_element.ahead.behind.ahead = new_element
                 new_element.behind = new_element.ahead.behind
                 new_element.ahead.behind = new_element
                 return
             else:
+                # Move to next element
                 try:
                     current = current.ahead
                 except AttributeError:
@@ -48,9 +51,11 @@ class Priorityq(object):
                     return
 
     def pop(self):
+        ''' Return value of highest priority element and remove. '''
         pop_value = self.front
         self.front.behind.ahead, self.front = None, self.front.behind
         return pop_value
 
     def peek(self):
+        ''' Return value of highest priority element. '''
         return self.front

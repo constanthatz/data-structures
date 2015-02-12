@@ -27,16 +27,25 @@ class Priorityq(object):
         elif new_element.prio <= self.back.prio:
             new_element.ahead, self.back = self.back, new_element
         else:
-            self.__sort(new_element)
+            self.__prioritize(new_element)
 
-    def __sort(self, new_eleement):
+    def __prioritize(self, new_element):
 
         current = self.back.ahead
 
         while True:
             if new_element.prio <= current.prio:
-                
-        return
+                new_element.behind = current
+                new_element.ahead.behind.ahead = new_element
+                new_element.behind = new_element.ahead.behind
+                new_element.ahead.behind = new_element
+                return
+            else:
+                try:
+                    current = current.ahead
+                except AttributeError:
+                    new_element.behind, self.front = self.front, new_element
+                    return
 
     def dequeue(self):
         ''' Remove front element from front of queue. Reassign front data

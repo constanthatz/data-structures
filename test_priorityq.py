@@ -5,10 +5,10 @@ import pytest
 
 def que(queue):
     que = []
-    current = queue.back
+    current = queue.front
     while current:
-        que.append(current.val)
-        current = current.ahead
+        que = [current.val] + que
+        current = current.behind
     return que
 
 
@@ -16,7 +16,6 @@ def test_element_init():
     m = Element(3, 3)
     assert m.val == 3
     assert m.behind is None
-    assert m.ahead is None
     assert m.prio == 3
 
 
@@ -44,7 +43,6 @@ def test_priorityq_prio():
     ql = que(l)
     assert l.front.val == "Mark"
     assert l.back.val == "Constantine"
-    assert l.back.ahead.val == "Nick"
     assert ql == ["Constantine", "Nick",  "Mark"]
 
     l.insert("Henry", 2)

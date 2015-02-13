@@ -1,5 +1,6 @@
 from priorityq import Element
 from priorityq import Priorityq
+import pytest
 
 
 def que(queue):
@@ -60,3 +61,31 @@ def test_priorityq_prio():
     l.insert("James", 0)
     ql = que(l)
     assert ql == ["James", "Constantine", "Nick", "Henry", "Mark", "Jake"]
+
+
+def test_prioq_pop():
+    l = Priorityq()
+    with pytest.raises(IndexError):
+        l.pop()
+
+    l = Priorityq()
+    l.insert("Nick", 1)
+    assert l.pop() == 'Nick'
+    assert l.front is None
+    assert l.back is None
+
+    l = Priorityq()
+    l.insert("Mark", 2)
+    l.insert("Henry", 2)
+    assert l.pop() == "Mark"
+    assert l.front.val == "Henry"
+
+
+def test_prioq_peek():
+    l = Priorityq()
+    with pytest.raises(IndexError):
+        l.peek()
+
+    l = Priorityq()
+    l.insert("Nick", 1)
+    assert l.peek() == 'Nick'

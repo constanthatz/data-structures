@@ -56,14 +56,18 @@ class Priorityq(object):
         ''' Return value of highest priority element and remove. '''
         if not self.front:
             raise IndexError('pop from empty queue')
+        elif not self.front.ahead:
+            pop_value = self.front.val
+            self.front, self.back = None, None
+            return pop_value
         else:
-            pop_value = self.front
+            pop_value = self.front.val
             self.front.behind.ahead, self.front = None, self.front.behind
             return pop_value
 
     def peek(self):
         ''' Return value of highest priority element. '''
         if not self.front:
-            raise IndexError('pop from empty queue')
+            raise IndexError('peek from empty queue')
         else:
-            return self.front
+            return self.front.val

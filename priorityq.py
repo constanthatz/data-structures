@@ -47,8 +47,7 @@ class Priorityq(object):
         ''' Return value of highest priority element and remove. '''
 
         try:
-            pop_value = self.front.val
-            self.front = self.front.behind
+            pop_value, self.front = self.front.val, self.front.behind
             return pop_value
         except AttributeError:
             raise IndexError('pop from empty queue')

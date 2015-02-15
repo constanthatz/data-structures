@@ -50,13 +50,12 @@ class Priorityq(object):
             pop_value = self.front.val
             self.front = self.front.behind
             return pop_value
-        except:
+        except AttributeError:
             raise IndexError('pop from empty queue')
-
 
     def peek(self):
         ''' Return value of highest priority element. '''
-        if not self.front:
-            raise IndexError('peek from empty queue')
-        else:
+        try:
             return self.front.val
+        except AttributeError:
+            raise IndexError('peek from empty queue')

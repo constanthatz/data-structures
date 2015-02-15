@@ -20,44 +20,27 @@ class Priorityq(object):
     def insert(self, value, priority=0):
         ''' Add data element to the back of queue. '''
         new_element = Element(value, priority)
-        if not self.front:
-            self.front = self.back = new_element
-            return
-        elif new_element.prio > self.front.prio:
-            new_element.behind = self.front
+        current = self.front
+
+        try:
+            if new_element.prio > self.front.prio:
+                new_element.behind, self.front = self.front, new_element
+                return
+        except AttributeError:
             self.front = new_element
             return
-        else:
-            new_element.behind = self.front.behind
-            self.__prioritize(new_element)
 
-    def __prioritize(self, new_element):
-        ''' Insert new element into the right place in the queue based on
-            priority and order entered. '''
         current = self.front
 
         while True:
-
             try:
-                if new_element.prio > current.behind.prio:
-                    # Insert element and reassingn all pointers
-                    current.behind = new_element
-                    return
-                else:
-                    # Move to next element
-
-                    # if not current.behind.behind:
-                    #     self.back.behind = new_element
-                    #     self.back = new_element
-                    #     return
-                    # else:
+                if new_element.prio <= current.behind.prio:
                     current = current.behind
-                    print(current.behind.prio)
+                else:
+                    new_element.behind, current.behind = current.behind, new_element
+                    return
             except AttributeError:
-                # print("hello")
-                self.back.behind = new_element
-                self.back = new_element
-                self.back.behind = None
+                current.behind = new_element
                 return
 
     def pop(self):

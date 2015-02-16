@@ -29,7 +29,7 @@ class Graph(object):
             raise KeyError('node not in graph')
 
     def has_node(self, value):
-        return
+        return value in self.graph
 
     def neighbors(self, value):
         return neighbors

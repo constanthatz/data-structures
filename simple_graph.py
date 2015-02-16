@@ -9,18 +9,24 @@ class Graph(object):
         self.graph = {}
         return
 
-    def nodes():
-        return nodes
+    def nodes(self):
+        return self.graph.keys()
 
-    def edges():
-        return edges
+    def edges(self):
+        edge_list = []
+        for key, value in self.graph():
+            for item in value:
+                edge_list.append((key, item))
+        return edge_list
 
     def add_node(self, node):
         self.graph.setdefault(node, [])
-        return
 
     def add_edge(self, node1, node2):
-        return
+        if node1 in self.graph:
+            self.graph.append(node2)
+        else:
+            self.graph[node1] = node2
 
     def del_node(self, node):
         try:

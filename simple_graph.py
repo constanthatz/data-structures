@@ -15,24 +15,27 @@ class Graph(object):
     def edges():
         return edges
 
-    def add_node(self, value):
-        self.graph.setdefault(value, [])
+    def add_node(self, node):
+        self.graph.setdefault(node, [])
         return
 
-    def add_edge(self, value1, value2):
+    def add_edge(self, node1, node2):
         return
 
-    def del_node(self, value):
+    def del_node(self, node):
         try:
-            del self.graph[value]
+            del self.graph[node]
         except KeyError:
             raise KeyError('node not in graph')
 
-    def has_node(self, value):
-        return value in self.graph
+    def has_node(self, node):
+        return node in self.graph
 
-    def neighbors(self, value):
-        return self.graph[value]
+    def neighbors(self, node):
+        return self.graph[node]
 
-    def adjecent(self, value, value2):
-        return condition
+    def adjecent(self, node1, node2):
+        if node2 in self.graph[node1] or node1 in self.graph[node2]:
+            return True
+        else:
+            return False

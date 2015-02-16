@@ -82,10 +82,32 @@ def test_has_node():
     assert g.has_node("B") is False
 
 
+def test_neighbors():
+    g = Graph()
+    with pytest.raises(KeyError):
+        g.neighbors("A")
+    g.add_node("A")
+    assert g.neighbors("A") == []
+    g.add_edge("A", "B")
+    assert g.neighbors("A") == ["B"]
+    assert g.neighbors("B") == []
+    g.add_edge("A", "C")
+    assert g.neighbors("A") == ["B", "C"]
+    g.add_edge("A", "D")
+    assert g.neighbors("A") == ["B", "C", "D"]
 
-# def test_neighbors(value):
-#     return neighbors
 
-
-# def test_adjecent(value, value2):
-#     return condition
+def test_adjacent():
+    g = Graph()
+    with pytest.raises(KeyError):
+        g.adjacent("A", "B")
+    g.add_node("A")
+    with pytest.raises(KeyError):
+        g.adjacent("A", "B")
+    with pytest.raises(KeyError):
+        g.adjacent("A", "C")
+    g.add_edge("A", "B")
+    assert g.adjacent("A", "B") is True
+    assert g.adjacent("B", "A") is True
+    g.add_node("C")
+    assert g.adjacent("A", "C") is False

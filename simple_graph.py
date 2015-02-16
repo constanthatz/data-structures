@@ -45,10 +45,16 @@ class Graph(object):
         return node in self.graph
 
     def neighbors(self, node):
-        return self.graph[node]
+        try:
+            return self.graph[node]
+        except KeyError:
+            raise KeyError('node not in graph')
 
-    def adjecent(self, node1, node2):
-        if node2 in self.graph[node1] or node1 in self.graph[node2]:
-            return True
-        else:
-            return False
+    def adjacent(self, node1, node2):
+        try:
+            if node2 in self.graph[node1] or node1 in self.graph[node2]:
+                return True
+            else:
+                return False
+        except KeyError:
+            raise KeyError('node not in graph')

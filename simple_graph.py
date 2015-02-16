@@ -13,7 +13,7 @@ class Graph(object):
 
     def edges(self):
         edge_list = []
-        for key, value in self.graph():
+        for key, value in self.graph.iteritems():
             for item in value:
                 edge_list.append((key, item))
         return edge_list
@@ -22,22 +22,22 @@ class Graph(object):
         self.graph.setdefault(node, [])
 
     def add_edge(self, node1, node2):
-        if node1 in self.graph and node2 in self.graph:
-            if node2 in self.graph[node1]:
-                return
-            else:
-                self.graph[node1].append(node2)
-        elif node2 not in self.graph:
+        try:
             self.graph[node1].append(node2)
-            self.graph.add_node(node2)
-        else:
-            self.graph.add_node(node1)
-            self.graph.add_node(node2)
+            if node2 not in self.graph:
+                self.add_node(node2)
+        except KeyError:
+            self.add_node(node1)
             self.graph[node1].append(node2)
+            if node2 not in self.graph:
+                self.add_node(node2)
 
     def del_node(self, node):
         try:
             del self.graph[node]
+            for value in self.graph.itervalues():
+                if node in value:
+                    value.remove(node)
         except KeyError:
             raise KeyError('node not in graph')
 

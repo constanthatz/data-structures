@@ -7,7 +7,6 @@ class Graph(object):
     ''' Create an empty graph. '''
     def __init__(self):
         self.graph = {}
-        return
 
     def nodes(self):
         return self.graph.keys()

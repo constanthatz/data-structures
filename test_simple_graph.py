@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import print_function
-from __future__ import unicode_literals
 from simple_graph import Graph
+import pytest
 
 
 def test_init():
@@ -26,19 +25,62 @@ def test_nodes():
     assert "A" and "B" in g.graph
 
 
-def test_add_edge(value1, value2):
+def test_add_edge():
+    g = Graph()
+    g.add_edge("A", "B")
+    assert "A" in g.graph
+    assert "B" in g.graph
+    assert "B" in g.graph["A"]
+    g.add_edge("A", "C")
+    assert "C" in g.graph
+    assert "C" in g.graph["A"]
+    g.add_edge("D", "B")
+    assert "D" in g.graph
+    assert "B" in g.graph["D"]
 
 
-# def test_edges():
-#     return edges
+def test_edges():
+    g = Graph()
+    assert [] == g.edges()
+    g.add_edge("A", "B")
+    assert ("A", "B") in g.edges()
+    g.add_edge("A", "C")
+    assert ("A", "C") in g.edges()
+    g.add_edge("B", "A")
+    assert ("B", "A") in g.edges()
+    g.add_edge("D", "B")
+    assert ("D", "B") in g.edges()
 
 
-# def test_del_node(value):
-#     return
+def test_del_node():
+    g = Graph()
+    with pytest.raises(KeyError):
+        g.del_node("A")
+
+    g.add_node("A")
+    g.del_node("A")
+    assert "A" not in g.graph
+
+    g.add_edge("A", "B")
+    g.del_node("A")
+    assert "A" not in g.graph
+    assert "B" in g.graph
+    assert ("A", "B") not in g.edges()
+
+    g.add_edge("A", "B")
+    g.del_node("B")
+    assert "B" not in g.graph
+    assert "A" in g.graph
+    assert ("A", "B") not in g.edges()
 
 
-# def test_has_node(value):
-#     return
+def test_has_node():
+    g = Graph()
+    assert g.has_node("A") is False
+    g.add_node("A")
+    assert g.has_node("A") is True
+    assert g.has_node("B") is False
+
 
 
 # def test_neighbors(value):

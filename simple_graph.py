@@ -32,7 +32,7 @@ class Graph(object):
         return value in self.graph
 
     def neighbors(self, value):
-        return neighbors
+        return self.graph[value]
 
     def adjecent(self, value, value2):
         return condition

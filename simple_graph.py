@@ -3,16 +3,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 
-class Node(object):
-    ''' Create node element with default previous pointer. '''
-    def __init__(self, value, next=None):
-        ''' Previous pointer default to none. '''
-        self.val = value
-        self.next = next
-
-
 class Graph(object):
-    ''' Create an empty linked list. '''
+    ''' Create an empty graph. '''
     def __init__(self):
         self.head = None
 

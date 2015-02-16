@@ -6,7 +6,8 @@ from __future__ import unicode_literals
 class Graph(object):
     ''' Create an empty graph. '''
     def __init__(self):
-        self.head = None
+        self.graph = {}
+        return
 
     def nodes():
         return nodes
@@ -14,20 +15,24 @@ class Graph(object):
     def edges():
         return edges
 
-    def add_node(value):
+    def add_node(self, value):
+        self.graph.setdefault(value, [])
         return
 
-    def add_edge(value1, value2):
+    def add_edge(self, value1, value2):
         return
 
-    def del_node(value):
+    def del_node(self, value):
+        try:
+            del self.graph[value]
+        except KeyError:
+            raise KeyError('node not in graph')
+
+    def has_node(self, value):
         return
 
-    def has_node(value):
-        return
-
-    def neighbors(value):
+    def neighbors(self, value):
         return neighbors
 
-    def adjecent(value, value2):
+    def adjecent(self, value, value2):
         return condition

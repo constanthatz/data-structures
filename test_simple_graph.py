@@ -79,6 +79,43 @@ def test_edges():
     assert ("D", "B") in g.edges()
 
 
+def test_del_edge():
+    ''' Test deleting an edge from graph. '''
+    g = Graph()
+
+    # Empty graph
+    with pytest.raises(KeyError):
+        g.del_edge("A", "B")
+
+    # Node1 doesn't exit
+    g.add_node("C")
+    with pytest.raises(KeyError):
+        g.del_edge("A", "C")
+
+    # Node2 doesn't exit
+    g.add_node("A")
+    with pytest.raises(ValueError):
+        g.del_edge("A", "B")
+
+    # Node2 exists but isn't a neighbor
+    g.add_node("B")
+    with pytest.raises(ValueError):
+        g.del_edge("A", "B")
+
+    # Both nodes exist and one is a neighbor
+    g.add_edge("A", "D")
+    assert ("A", "D") in g.edges()
+    g.del_edge("A", "D")
+    assert ("A", "D") not in g.edges()
+
+    # Both nodes exist and but the edge is the opposite direction
+    g.add_edge("A", "D")
+    assert ("A", "D") in g.edges()
+    with pytest.raises(ValueError):
+        g.del_edge("D", "A")
+    assert ("A", "D") in g.edges()
+
+
 def test_del_node():
     ''' Test deleting a node. '''
     g = Graph()
@@ -146,7 +183,7 @@ def test_neighbors():
 
 
 def test_adjacent():
-    ''' Test if two nodes are adjacent. Direction is nor important. '''
+    ''' Test if two nodes are adjacent. '''
     g = Graph()
 
     # Test empty graph
@@ -155,14 +192,13 @@ def test_adjacent():
 
     # First node exists but the other doesn't
     g.add_node("A")
-    with pytest.raises(KeyError):
-        g.adjacent("A", "B")
+    assert g.adjacent("A", "B") is False
 
     # Second node is neighbor to the first, but the first is not neighbor
     # to the second.
     g.add_edge("A", "B")
     assert g.adjacent("A", "B") is True
-    assert g.adjacent("B", "A") is True
+    assert g.adjacent("B", "A") is False
 
     # Second node exists but the other doesn't
     g.add_node("C")

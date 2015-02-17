@@ -38,6 +38,16 @@ class Graph(object):
             if node2 not in self.graph:
                 self.add_node(node2)
 
+    def del_edge(self, node1, node2):
+        ''' Delete an edge to the graph. '''
+        try:
+            # Check if node1 exists and node2 is a neighbor and delete the edge
+            self.graph[node1].remove(node2)
+        except KeyError:
+            raise KeyError('node {} not in graph'.format(node1))
+        except ValueError:
+            raise ValueError('node {} not a neighbor'.format(node2))
+
     def del_node(self, node):
         ''' Delete a node from the graph. '''
         try:
@@ -47,7 +57,7 @@ class Graph(object):
                 if node in value:
                     value.remove(node)
         except KeyError:
-            raise KeyError('node not in graph')
+            raise KeyError('{} not in graph'.format(node))
 
     def has_node(self, node):
         ''' Return True or False ifthe node is in the graph or not. '''
@@ -58,15 +68,14 @@ class Graph(object):
         try:
             return self.graph[node]
         except KeyError:
-            raise KeyError('node not in graph')
+            raise KeyError('{} not in graph'.format(node))
 
     def adjacent(self, node1, node2):
-        ''' Check is if two nodes have an edge connecting them.
-            Direction is not important. '''
+        ''' Check is if two nodes have an edge connecting them. '''
         try:
-            if node2 in self.graph[node1] or node1 in self.graph[node2]:
+            if node2 in self.graph[node1]:
                 return True
             else:
                 return False
         except KeyError:
-            raise KeyError('node not in graph')
+            raise KeyError('{} not in graph'.format(node1))

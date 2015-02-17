@@ -98,12 +98,13 @@
 
                      1. add_node(value): Adds a node with the assigned value.
                      2. nodes(): Lists all nodes in the graph.
-                     3. add edge(val1, val2): Adds an edge (pointer) that goes from val1 to val2.
-                     4. edges(): Displays all edges as a tuple pair (A, B) where A points to B.
-                     5. del_node(node): Removes the given node from the graph.
-                     6. has_node(node): Returns True if the node is in the graph, and False if it is not.
-                     7. neighbors(node): Returns a list of all nodes that the given node points to (has an edge towards).
-                     8. adjacent(node1, node2): Returns True if node1 points to node2 and False otherwise. Raises appropriate
+                     3. add_edge(val1, val2): Adds an edge (pointer) that goes from val1 to val2.
+                     4. del_edge(val1, val2): Deletes an edge (pointer) that goes from val1 to val2.
+                     5. edges(): Displays all edges as a tuple pair (A, B) where A points to B.
+                     6. del_node(node): Removes the given node from the graph.
+                     7. has_node(node): Returns True if the node is in the graph, and False if it is not.
+                     8. neighbors(node): Returns a list of all nodes that the given node points to (has an edge towards).
+                     9. adjacent(node1, node2): Returns True if node1 points to node2 and False otherwise. Raises appropriate
                         errors if neither or only one exists.
 
                     Each of these functions has tests to ensure they are working as expected.

@@ -78,6 +78,10 @@ def test_edges():
     g.add_edge("D", "B")
     assert ("D", "B") in g.edges()
 
+    # Add node without edge
+    g.add_node("E")
+    assert ("E", ) not in g.edges()
+
 
 def test_del_edge():
     ''' Test deleting an edge from graph. '''

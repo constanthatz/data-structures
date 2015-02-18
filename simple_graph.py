@@ -48,8 +48,10 @@ class Graph(object):
             del self.graph[node]
             # Delete the node from any neighbor lists it is in.
             for value in self.graph.itervalues():
-                if node in value:
-                    value.remove(node)
+                    try:
+                        value.remove(node)
+                    except ValueError:
+                        pass
         except KeyError:
             raise KeyError('{} not in graph'.format(node))
 

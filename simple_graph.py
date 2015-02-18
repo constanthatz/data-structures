@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 
 
 class Graph(object):
-    ''' Create an empty graph. '''
+    ''' Create an empty graph.
+        Nodes must be hashable values.'''
     def __init__(self):
         self.graph = {}
 

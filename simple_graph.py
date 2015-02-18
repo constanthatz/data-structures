@@ -14,7 +14,7 @@ class Graph(object):
         return self.graph.keys()
 
     def edges(self):
-        ''' Return all teh edges in the graph as a list of tuples. '''
+        ''' Return all the edges in the graph as a list of tuples. '''
         return [(key, item) for key, value in self.graph.iteritems()
                 for item in value]
 

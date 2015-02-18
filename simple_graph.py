@@ -24,20 +24,13 @@ class Graph(object):
 
     def add_edge(self, node1, node2):
         ''' Add an edge to the graph. '''
-        try:
-            # Check if node1 is in the graph and add edge
-            self.graph[node1].append(node2)
-            # Check if node1 is in the graph
-            if node2 not in self.graph:
-                self.add_node(node2)
-        except KeyError:
-            # Add node1 to graph
-            self.add_node(node1)
-            # Add edge
-            self.graph[node1].append(node2)
-            # Check if node1 is in the graph
-            if node2 not in self.graph:
-                self.add_node(node2)
+        # Add node1 to graph
+        self.graph.setdefault(node1, [])
+        # Add edge
+        self.graph[node1].append(node2)
+        # Check if node1 is in the graph
+        if node2 not in self.graph:
+            self.add_node(node2)
 
     def del_edge(self, node1, node2):
         ''' Delete an edge to the graph. '''

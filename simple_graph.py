@@ -67,9 +67,6 @@ class Graph(object):
     def adjacent(self, node1, node2):
         ''' Check is if two nodes have an edge connecting them. '''
         try:
-            if node2 in self.graph[node1]:
-                return True
-            else:
-                return False
+            return node2 in self.graph[node1]
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))

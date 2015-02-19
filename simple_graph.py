@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import unicode_literals
+import Stack
 
 
 class Graph(object):
@@ -74,17 +75,35 @@ class Graph(object):
             raise KeyError('{} not in graph'.format(node1))
 
 
-def depth_first_traversal(self, node, path=[]):
+def depth_first_traversal(self, node):
     ''' Depth first graph traversal. '''
-    path.append(node)
-    for neighbor in self.graph[node]:
-        if neighbor not in path:
-            path = depth_first_traversal(neighbor, path)
+    # Initialize path
+    path = []
 
-    return path
+    # Initilize stack
+    stack = Stack()
+
+    # Push node onto stack.
+    stack.push(node)
+
+    while not stack.top:
+        test_node = stack.pop()
+        if test_node not in path:
+            path.append(test_node)
+            for neighbor in self.neighbors(test_node):
+                stack.push(neighbor)
 
     # if node not in self.graph:
     #     raise ValueError('node {} not in graph'.format(node))
+
+    # path.append(node)
+    # for neighbor in self.graph[node]:
+    #     if neighbor not in path:
+    #         path = depth_first_traversal(neighbor, path)
+
+    # return path
+
+
     # elif node in path:
     #     return path
     # else:

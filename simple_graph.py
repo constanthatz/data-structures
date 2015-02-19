@@ -79,7 +79,7 @@ def depth_first_traversal(self, node, path=[]):
     path.append(node)
     for neighbor in self.graph[node]:
         if neighbor not in path:
-            depth_first_traversal(neighbor, path)
+            path = depth_first_traversal(neighbor, path)
 
     return path
 

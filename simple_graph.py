@@ -108,14 +108,10 @@ class Graph(object):
 
         while queue.front:
             test_node = queue.dequeue()
-            print(test_node)
             for neighbor in self.neighbors(test_node):
                 if neighbor not in path:
                     path.append(neighbor)
-                    print(neighbor)
                     queue.enqueue(neighbor)
-                    print(queue.front.val)
-                    print(path)
         return path
 
 
@@ -130,5 +126,7 @@ if __name__ == '__main__':
     g.add_edge("F", "E")
 
     path = g.depth_first_traversal("A")
+    print(path)
 
     path = g.breadth_first_traversal("A")
+    print(path)

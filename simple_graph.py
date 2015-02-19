@@ -95,6 +95,11 @@ class Graph(object):
 
         return path
 
+        def breadth_first_traversal(self, node):
+            ''' Breadth first graph traversal. '''
+
+            return path
+
 if __name__ == '__main__':
     g = Graph()
     g.add_edge("A", "B")

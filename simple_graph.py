@@ -72,3 +72,16 @@ class Graph(object):
             return node2 in self.graph[node1]
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
+
+
+def depth_first_traversal(self, node):
+    ''' Depth first graph traversal. '''
+    path = []
+
+    try:
+        for neighbor in self.graph[node]:
+            path += neighbor
+    except KeyError:
+        return path
+
+

@@ -22,6 +22,46 @@ def edges_graph():
     return g
 
 
+@pytest.fixture(scope='function')
+def non_multi_connected_nodes():
+    g = Graph()
+    g.add_edge("A", "B")
+    g.add_edge("A", "C")
+    g.add_edge("A", "E")
+    g.add_edge("B", "D")
+    g.add_edge("B", "F")
+    g.add_edge("C", "G")
+    return g
+
+
+@pytest.fixture(scope='function')
+def multi_connected_nodes(non_multi_connected_nodes):
+    g = non_multi_connected_nodes
+    g.add_edge("F", "E")
+    return g
+
+
+@pytest.fixture(scope='function')
+def cyclic_graph(multi_connected_nodes):
+    g = multi_connected_nodes
+    g.add_edge("E", "A")
+    return g
+
+
+@pytest.fixture(scope='function')
+def orphan_node(non_multi_connected_nodes):
+    g = non_multi_connected_nodes
+    g.add_edge("H", "E")
+    return g
+
+
+@pytest.fixture(scope='function')
+def childless_orphan_node(non_multi_connected_nodes):
+    g = non_multi_connected_nodes
+    g.add_node("I")
+    return g
+
+
 def test_init(empty_graph):
     ''' Test graph creation. '''
     g = empty_graph

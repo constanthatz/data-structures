@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import unicode_literals
-import Stack
+import stack as stk
 
 
 class Graph(object):
@@ -75,24 +75,25 @@ class Graph(object):
             raise KeyError('{} not in graph'.format(node1))
 
 
-def depth_first_traversal(self, node):
-    ''' Depth first graph traversal. '''
-    # Initialize path
-    path = []
+    def depth_first_traversal(self, node):
+        ''' Depth first graph traversal. '''
+        # Initialize path
+        path = []
 
-    # Initilize stack
-    stack = Stack()
+        # Initilize stack
+        stack = stk.Stack()
 
-    # Push node onto stack.
-    stack.push(node)
+        # Push node onto stack.
+        stack.push(node)
 
-    while not stack.top:
-        test_node = stack.pop()
-        if test_node not in path:
-            path.append(test_node)
-            for neighbor in self.neighbors(test_node):
-                stack.push(neighbor)
+        while not stack.top:
+            test_node = stack.pop()
+            if test_node not in path:
+                path.append(test_node)
+                for neighbor in self.neighbors(test_node):
+                    stack.push(neighbor)
 
+        return path
     # if node not in self.graph:
     #     raise ValueError('node {} not in graph'.format(node))
 
@@ -112,3 +113,15 @@ def depth_first_traversal(self, node):
     #         path.append(neighbor)
     #         return path.append(depth_first_traversal(neighbor))
 
+if __name__ == '__main__':
+    g = Graph()
+    g.add_edge("A", "B")
+    g.add_edge("A", "C")
+    g.add_edge("A", "E")
+    g.add_edge("B", "D")
+    g.add_edge("B", "F")
+    g.add_edge("C", "G")
+    g.add_edge("F", "E")
+
+    path = g.depth_first_traversal("A")
+    print(path)

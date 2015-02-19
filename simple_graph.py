@@ -81,6 +81,8 @@ def depth_first_traversal(self, node, path=[]):
         if neighbor not in path:
             depth_first_traversal(neighbor, path)
 
+    return path
+
     # if node not in self.graph:
     #     raise ValueError('node {} not in graph'.format(node))
     # elif node in path:

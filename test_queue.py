@@ -50,6 +50,13 @@ def test_dequeue_empty(empty_queue):
         empty_queue.dequeue()
 
 
+def test_dequeue_empty_one(non_empty_queue):
+    ''' Test dequeue method. '''
+    assert non_empty_queue.dequeue() == 10
+    assert non_empty_queue.front is None
+    assert non_empty_queue.back is None
+
+
 def test_dequeue_non_empty(non_empty_queue):
     ''' Test dequeue on non-empty queue. '''
     non_empty_queue.enqueue("String")

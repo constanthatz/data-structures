@@ -123,7 +123,6 @@ if __name__ == '__main__':
     g.add_edge("B", "D")
     g.add_edge("B", "F")
     g.add_edge("C", "G")
-    g.add_edge("F", "E")
 
     path = g.depth_first_traversal("A")
     print(path)

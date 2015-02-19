@@ -31,33 +31,37 @@ def non_multi_connected_nodes():
     g.add_edge("B", "D")
     g.add_edge("B", "F")
     g.add_edge("C", "G")
-    return g
+
+    DFT = [u'A', u'E', u'C', u'G', u'B', u'F', u'D']
+    BFT = [u'A', u'B', u'C', u'E', u'D', u'F', u'G']
+
+    return g, DFT, BFT
 
 
 @pytest.fixture(scope='function')
 def multi_connected_nodes(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+    g = non_multi_connected_nodes[0]
     g.add_edge("F", "E")
     return g
 
 
 @pytest.fixture(scope='function')
 def cyclic_graph(multi_connected_nodes):
-    g = multi_connected_nodes
+    g = multi_connected_nodes[0]
     g.add_edge("E", "A")
     return g
 
 
 @pytest.fixture(scope='function')
 def orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+    g = non_multi_connected_nodes[0]
     g.add_edge("H", "E")
     return g
 
 
 @pytest.fixture(scope='function')
 def childless_orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+    g = non_multi_connected_nodes[0]
     g.add_node("I")
     return g
 
@@ -283,3 +287,22 @@ def test_adjacent_empty(empty_graph):
     # Second node exists but the other doesn't
     g.add_node("C")
     assert g.adjacent("A", "C") is False
+
+
+def test_DFT_non(non_multi_connected_nodes):
+    expected_DFT = non_multi_connected_nodes[1]
+    assert expected_DFT == \
+        non_multi_connected_nodes[0].depth_first_traversal("A")
+
+def test_DFT_mul(multi_connected_nodes):
+    expected_DFT = non_multi_connected_nodes[1]
+    assert expected_DFT == \
+        non_multi_connected_nodes[0].depth_first_traversal("A")
+
+
+def test_BFT(non_multi_connected_nodes):
+    expected_BFT = non_multi_connected_nodes[2]
+    assert expected_BFT == \
+        non_multi_connected_nodes[0].breadth_first_traversal("A")
+
+

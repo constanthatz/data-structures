@@ -2,6 +2,9 @@
 from simple_graph import Graph
 import pytest
 
+DFT_A = [u'A', u'E', u'C', u'G', u'B', u'F', u'D']
+BFT_A = [u'A', u'B', u'C', u'E', u'D', u'F', u'G']
+
 
 @pytest.fixture(scope='function')
 def empty_graph():
@@ -31,37 +34,33 @@ def non_multi_connected_nodes():
     g.add_edge("B", "D")
     g.add_edge("B", "F")
     g.add_edge("C", "G")
-
-    DFT = [u'A', u'E', u'C', u'G', u'B', u'F', u'D']
-    BFT = [u'A', u'B', u'C', u'E', u'D', u'F', u'G']
-
-    return g, DFT, BFT
+    return g
 
 
 @pytest.fixture(scope='function')
 def multi_connected_nodes(non_multi_connected_nodes):
-    g = non_multi_connected_nodes[0]
+    g = non_multi_connected_nodes
     g.add_edge("F", "E")
     return g
 
 
 @pytest.fixture(scope='function')
 def cyclic_graph(multi_connected_nodes):
-    g = multi_connected_nodes[0]
+    g = multi_connected_nodes
     g.add_edge("E", "A")
     return g
 
 
 @pytest.fixture(scope='function')
 def orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes[0]
+    g = non_multi_connected_nodes
     g.add_edge("H", "E")
     return g
 
 
 @pytest.fixture(scope='function')
 def childless_orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes[0]
+    g = non_multi_connected_nodes
     g.add_node("I")
     return g
 
@@ -290,19 +289,38 @@ def test_adjacent_empty(empty_graph):
 
 
 def test_DFT_non(non_multi_connected_nodes):
-    expected_DFT = non_multi_connected_nodes[1]
-    assert expected_DFT == \
-        non_multi_connected_nodes[0].depth_first_traversal("A")
+    assert DFT_A == non_multi_connected_nodes.depth_first_traversal("A")
+
 
 def test_DFT_mul(multi_connected_nodes):
-    expected_DFT = non_multi_connected_nodes[1]
-    assert expected_DFT == \
-        non_multi_connected_nodes[0].depth_first_traversal("A")
+    assert DFT_A == multi_connected_nodes.depth_first_traversal("A")
 
 
 def test_BFT(non_multi_connected_nodes):
-    expected_BFT = non_multi_connected_nodes[2]
-    assert expected_BFT == \
-        non_multi_connected_nodes[0].breadth_first_traversal("A")
+    assert BFT_A == non_multi_connected_nodes.breadth_first_traversal("A")
+    assert [u'B', u'D', u'F'] == \
+        non_multi_connected_nodes.breadth_first_traversal("B")
 
 
+def test_BFT_mul(multi_connected_nodes):
+    assert BFT_A == multi_connected_nodes.breadth_first_traversal("A")
+    assert [u'B', u'D', u'F', u'E'] == \
+        multi_connected_nodes.breadth_first_traversal("B")
+
+
+def test_BFT_cyc(cyclic_graph):
+    assert BFT_A == cyclic_graph.breadth_first_traversal("A")
+    assert [u'B', u'D', u'F', u'E', u'A'] == \
+        cyclic_graph.breadth_first_traversal("B")
+
+
+def test_BFT_orph(orphan_node):
+    assert BFT_A == orphan_node.breadth_first_traversal("A")
+    assert [u'B', u'D', u'F'] == \
+        orphan_node.breadth_first_traversal("B")
+
+
+def test_BFT_corph(childless_orphan_node):
+    assert BFT_A == childless_orphan_node.breadth_first_traversal("A")
+    assert [u'B', u'D', u'F'] == \
+        childless_orphan_node.breadth_first_traversal("B")

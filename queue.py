@@ -16,17 +16,22 @@ class Queue(object):
         self.front = None
         self.back = None
 
+    def what(self):
+        que = []
+        current = self.front
+        while current:
+            que = [current.val] + que
+            current = current.behind
+        return que
+
     def enqueue(self, value):
         # Add data element to the back of queue.
-
+        new = Element(value)
         try:
-            self.back.behind, self.back = Element(value), self.back.behind
+            self.back.behind = new
         except AttributeError:
-            self.front = Element(value)
-            self.back = self.front
-            return
-
-        self.back = Element(value)
+            self.front = new
+        self.back = new
 
     def dequeue(self):
         ''' Remove front element from front of queue. Reassign front data
@@ -52,3 +57,20 @@ class Queue(object):
             count += 1
             current = current.behind
         return count
+
+
+if __name__ == '__main__':
+    q = Queue()
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    q.enqueue(4)
+
+    que = []
+    current = q.front
+    while current:
+        print(current.val)
+        que.append(current.val)
+        current = current.behind
+ 
+    print(que)

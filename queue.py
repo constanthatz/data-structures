@@ -36,7 +36,12 @@ class Queue(object):
         except AttributeError:
             # Mimic error message from list.
             raise IndexError("dequeue from empty Stack")
-        self.front = self.front.behind
+
+        if self.front == self.back:
+            self.front = None
+            self.back = None
+        else:
+            self.front = self.front.behind
         return val
 
     def size(self):

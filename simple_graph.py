@@ -2,6 +2,7 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 import stack as stk
+import queue as que
 
 
 class Graph(object):
@@ -89,16 +90,34 @@ class Graph(object):
             test_node = stack.pop()
             if test_node not in path:
                 path.append(test_node)
-                print(path)
                 for neighbor in self.neighbors(test_node):
                     stack.push(neighbor)
 
         return path
 
-        def breadth_first_traversal(self, node):
-            ''' Breadth first graph traversal. '''
+    def breadth_first_traversal(self, node):
+        ''' Breadth first graph traversal. '''
+        path = []
 
-            return path
+        queue = que.Queue()
+
+        path.append(node)
+
+        queue.enqueue(node)
+        print(queue.front.val)
+
+        while queue.front:
+            test_node = queue.dequeue()
+            print(test_node)
+            for neighbor in self.neighbors(test_node):
+                if neighbor not in path:
+                    path.append(neighbor)
+                    print(neighbor)
+                    queue.enqueue(neighbor)
+                    print(queue.front.val)
+                    print(path)
+        return path
+
 
 if __name__ == '__main__':
     g = Graph()
@@ -111,4 +130,5 @@ if __name__ == '__main__':
     g.add_edge("F", "E")
 
     path = g.depth_first_traversal("A")
-    print(path)
+
+    path = g.breadth_first_traversal("A")

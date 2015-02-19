@@ -74,14 +74,20 @@ class Graph(object):
             raise KeyError('{} not in graph'.format(node1))
 
 
-def depth_first_traversal(self, node):
+def depth_first_traversal(self, node, path=[]):
     ''' Depth first graph traversal. '''
-    path = []
+    path.append(node)
+    for neighbor in self.graph[node]:
+        if neighbor not in path:
+            depth_first_traversal(neighbor, path)
 
-    try:
-        for neighbor in self.graph[node]:
-            path += neighbor
-    except KeyError:
-        return path
-
+    # if node not in self.graph:
+    #     raise ValueError('node {} not in graph'.format(node))
+    # elif node in path:
+    #     return path
+    # else:
+    #     path.append(node)
+    #     for neighbor in self.graph[node]:
+    #         path.append(neighbor)
+    #         return path.append(depth_first_traversal(neighbor))
 

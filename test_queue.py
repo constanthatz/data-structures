@@ -4,6 +4,18 @@ from queue import Element
 from queue import Queue
 
 
+@pytest.fixture(scope='function')
+def empty_queue():
+    return Queue()
+
+
+@pytest.fixture(scope='function')
+def non_empty_queue():
+    l = Queue()
+    l.enqueue(10)
+    return l
+
+
 def test_element_init():
     ''' Test Element init. '''
     m = Element(3)
@@ -11,58 +23,48 @@ def test_element_init():
     assert m.behind is None
 
 
-def test_queue_init():
+def test_queue_init(empty_queue):
     ''' Test Queue init. '''
-    l = Queue()
-    assert l.front is None
-    assert l.back is None
+    assert empty_queue.front is None
+    assert empty_queue.back is None
 
 
-def test_enqueue():
+def test_enqueue_empty(empty_queue):
     ''' Test enqueue method. '''
-    l = Queue()
-    l.enqueue(10)
-    assert l.front.val == 10
-    assert l.back.val == 10
-    assert l.front is l.back
+    empty_queue.enqueue(10)
+    assert empty_queue.front.val == 10
+    assert empty_queue.back.val == 10
+    assert empty_queue.front is empty_queue.back
 
 
-def test_enqueue_non_empty():
+def test_enqueue_non_empty(non_empty_queue):
     ''' Test enqueue method on non-empty queue. '''
-    l = Queue()
-    l.enqueue(10)
-    l.enqueue("String")
-    assert l.front.val == 10
-    assert l.front.behind.val == "String"
+    non_empty_queue.enqueue("String")
+    assert non_empty_queue.front.val == 10
+    assert non_empty_queue.front.behind.val == "String"
 
 
-def test_dequeue():
+def test_dequeue_empty(empty_queue):
     ''' Test dequeue method. '''
-    l = Queue()
     with pytest.raises(IndexError):
-        l.dequeue()
+        empty_queue.dequeue()
 
 
-def test_dequeue_non_empty():
+def test_dequeue_non_empty(non_empty_queue):
     ''' Test dequeue on non-empty queue. '''
-    l = Queue()
-    l.enqueue(10)
-    l.enqueue("String")
-    assert l.dequeue() == 10
-    assert l.front.val == "String"
+    non_empty_queue.enqueue("String")
+    assert non_empty_queue.dequeue() == 10
+    assert non_empty_queue.front.val == "String"
 
 
-def test_size():
+def test_size_empty(empty_queue):
     ''' Test size method. '''
-    l = Queue()
-    assert l.size() == 0
+    assert empty_queue.size() == 0
 
 
-def test_size_non_empty():
+def test_size_non_empty(non_empty_queue):
     ''' Test size on non-empty queue. '''
-    l = Queue()
-    l.enqueue(10)
-    l.enqueue("String")
-    assert l.size() == 2
-    l.dequeue()
-    assert l.size() == 1
+    non_empty_queue.enqueue("String")
+    assert non_empty_queue.size() == 2
+    non_empty_queue.dequeue()
+    assert non_empty_queue.size() == 1

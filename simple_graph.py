@@ -74,7 +74,6 @@ class Graph(object):
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
 
-
     def depth_first_traversal(self, node):
         ''' Depth first graph traversal. '''
         # Initialize path
@@ -86,32 +85,15 @@ class Graph(object):
         # Push node onto stack.
         stack.push(node)
 
-        while not stack.top:
+        while stack.top:
             test_node = stack.pop()
             if test_node not in path:
                 path.append(test_node)
+                print(path)
                 for neighbor in self.neighbors(test_node):
                     stack.push(neighbor)
 
         return path
-    # if node not in self.graph:
-    #     raise ValueError('node {} not in graph'.format(node))
-
-    # path.append(node)
-    # for neighbor in self.graph[node]:
-    #     if neighbor not in path:
-    #         path = depth_first_traversal(neighbor, path)
-
-    # return path
-
-
-    # elif node in path:
-    #     return path
-    # else:
-    #     path.append(node)
-    #     for neighbor in self.graph[node]:
-    #         path.append(neighbor)
-    #         return path.append(depth_first_traversal(neighbor))
 
 if __name__ == '__main__':
     g = Graph()

@@ -289,38 +289,83 @@ def test_adjacent_empty(empty_graph):
 
 
 def test_DFT_non(non_multi_connected_nodes):
+    # Start at A
     assert DFT_A == non_multi_connected_nodes.depth_first_traversal("A")
+    # Start at B
+    assert [u'B', u'F', u'D'] == \
+        non_multi_connected_nodes.depth_first_traversal("B")
+    # Start at G
+    assert [u'G'] == \
+        non_multi_connected_nodes.depth_first_traversal("G")
 
 
 def test_DFT_mul(multi_connected_nodes):
+    # Start at A
     assert DFT_A == multi_connected_nodes.depth_first_traversal("A")
+    # Start at B
+    assert [u'B', u'F', u'E', u'D'] == \
+        multi_connected_nodes.depth_first_traversal("B")
+
+
+def test_DFT_cyc(cyclic_graph):
+    # Start at A
+    assert DFT_A == cyclic_graph.depth_first_traversal("A")
+    # Start at B
+    assert [u'B', u'F', u'E', u'A', u'C', u'G', u'D'] == \
+        cyclic_graph.depth_first_traversal("B")
+
+
+def test_DFT_orph(orphan_node):
+    # Start at A
+    assert DFT_A == orphan_node.depth_first_traversal("A")
+    # Start at B
+    assert [u'H', u'E'] == \
+        orphan_node.depth_first_traversal("H")
+
+
+def test_DFT_corph(childless_orphan_node):
+    # Start at A
+    assert DFT_A == childless_orphan_node.depth_first_traversal("A")
+    # Start at B
+    assert [u'I'] == \
+        childless_orphan_node.depth_first_traversal("I")
 
 
 def test_BFT(non_multi_connected_nodes):
+    # Start at A
     assert BFT_A == non_multi_connected_nodes.breadth_first_traversal("A")
+    # Start at B
     assert [u'B', u'D', u'F'] == \
         non_multi_connected_nodes.breadth_first_traversal("B")
 
 
 def test_BFT_mul(multi_connected_nodes):
+    # Start at A
     assert BFT_A == multi_connected_nodes.breadth_first_traversal("A")
+    # Start at B
     assert [u'B', u'D', u'F', u'E'] == \
         multi_connected_nodes.breadth_first_traversal("B")
 
 
 def test_BFT_cyc(cyclic_graph):
+    # Start at A
     assert BFT_A == cyclic_graph.breadth_first_traversal("A")
-    assert [u'B', u'D', u'F', u'E', u'A'] == \
+    # Start at B
+    assert [u'B', u'D', u'F', u'E', u'A', u'C', u'G'] == \
         cyclic_graph.breadth_first_traversal("B")
 
 
 def test_BFT_orph(orphan_node):
+    # Start at A
     assert BFT_A == orphan_node.breadth_first_traversal("A")
+    # Start at B
     assert [u'B', u'D', u'F'] == \
         orphan_node.breadth_first_traversal("B")
 
 
 def test_BFT_corph(childless_orphan_node):
+    # Start at A
     assert BFT_A == childless_orphan_node.breadth_first_traversal("A")
+    # Start at B
     assert [u'B', u'D', u'F'] == \
         childless_orphan_node.breadth_first_traversal("B")

@@ -116,16 +116,16 @@ class Graph(object):
 
 
 if __name__ == '__main__':
-    g = Graph()
-    g.add_edge("A", "B")
-    g.add_edge("A", "C")
-    g.add_edge("A", "E")
-    g.add_edge("B", "D")
-    g.add_edge("B", "F")
-    g.add_edge("C", "G")
+    # g = Graph()
+    # g.add_edge("A", "B")
+    # g.add_edge("A", "C")
+    # g.add_edge("A", "E")
+    # g.add_edge("B", "D")
+    # g.add_edge("B", "F")
+    # g.add_edge("C", "G")
+    # g.add_edge("H", "E")
+    # path = g.depth_first_traversal("A")
+    # print(path)
 
-    path = g.depth_first_traversal("A")
-    print(path)
-
-    path = g.breadth_first_traversal("A")
-    print(path)
+    # path = g.breadth_first_traversal("A")
+    # print(path)

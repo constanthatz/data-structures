@@ -4,6 +4,27 @@ from queue import Element
 from queue import Queue
 
 
+@pytest.fixture(scope='function')
+def empty_queue():
+    return Queue()
+
+
+# @pytest.fixture(scope='function')
+# def non_empty_queue():
+#     l = Queue()
+#     l.enqueue(10)
+#     return l
+
+
+@pytest.fixture(scope='function')
+def non_empty_queue():
+    l = Queue()
+    l.enqueue(10)
+    l.enqueue("String")
+    l.enqueue([1, "string"])
+    return l
+
+
 def test_element_init():
     ''' Test Element init. '''
     m = Element(3)
@@ -11,11 +32,10 @@ def test_element_init():
     assert m.behind is None
 
 
-def test_queue_init():
+def test_queue_init(empty_queue):
     ''' Test Queue init. '''
-    l = Queue()
-    assert l.front is None
-    assert l.back is None
+    assert empty_queue.front is None
+    assert empty_queue.back is None
 
 
 def test_queue_enqueue():

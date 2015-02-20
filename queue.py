@@ -4,10 +4,9 @@ from __future__ import print_function
 
 class Element(object):
     ''' Create data element with default value and next pointer. '''
-    def __init__(self, value, ahead=None, behind=None):
+    def __init__(self, value, behind=None):
         ''' Value and next pointer default to none. '''
         self.val = value
-        self.ahead = ahead
         self.behind = behind
 
 
@@ -18,13 +17,14 @@ class Queue(object):
         self.back = None
 
     def enqueue(self, value):
-        ''' Add data element to the back of queue. '''
-        self.back = Element(value, self.back)
+        # Add data element to the back of queue.
 
-        if not self.front:
-            self.front = self.back
-        else:
-            self.back.ahead.behind = self.back
+        new = Element(value)
+        try:
+            self.back.behind = new
+        except AttributeError:
+            self.front = new
+        self.back = new
 
     def dequeue(self):
         ''' Remove front element from front of queue. Reassign front data
@@ -32,16 +32,20 @@ class Queue(object):
         try:
             val = self.front.val
         except AttributeError:
-            ''' Mimic error message from list '''
+            # Mimic error message from list.
             raise IndexError("dequeue from empty Stack")
-        self.front.behind.ahead, self.front = None, self.front.behind
+        if self.front == self.back:
+            self.front = None
+            self.back = None
+        else:
+            self.front = self.front.behind
         return val
 
     def size(self):
         ''' Return size of queue (number of elements). '''
         count = 0
-        current = self.back
+        current = self.front
         while current:
             count += 1
-            current = current.ahead
+            current = current.behind
         return count

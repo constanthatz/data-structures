@@ -4,6 +4,11 @@ from dll import Node
 from dll import DLL
 
 
+@pytest.fixture(scope='function')
+def empty_dll():
+    return DLL()
+
+
 def test_node_init():
     ''' Test node init. '''
     m = Node(3)
@@ -11,31 +16,37 @@ def test_node_init():
     assert m.behind is None
 
 
-def test_dll_init():
+def test_dll_init(empty_dll):
     ''' Test dll init. '''
-    l = DLL()
-    assert l.head is None
-    assert l.tail is None
+    assert empty_dll.head is None
+    assert empty_dll.tail is None
 
 
-def test_dll_append():
-    ''' Test append method. '''
-    l = DLL()
-
+def test_dll_append_empty_head(empty_dll):
     ''' Test append to empty dll '''
-    l.append(10)
+    empty_dll.append(10)
     ''' Check head element value and pointers. '''
-    assert l.head.ahead is None
-    assert l.head.val == 10
-    assert l.head.behind is None
+    assert empty_dll.head.ahead is None
+    assert empty_dll.head.val == 10
+    assert empty_dll.head.behind is None
 
+
+def test_dll_append_empty_tail(empty_dll):
+    ''' Test append to empty dll '''
+    empty_dll.append(10)
     ''' Check tail element value and pointers. '''
-    assert l.tail.ahead is None
-    assert l.tail.val == 10
-    assert l.tail.behind is None
+    assert empty_dll.tail.ahead is None
+    assert empty_dll.tail.val == 10
+    assert empty_dll.tail.behind is None
 
+
+def test_dll_append_empty_head_tail(empty_dll):
+    ''' Test append to empty dll '''
+    empty_dll.append(10)
     ''' Check that head element is the tail element. '''
-    assert l.head is l.tail
+    assert empty_dll.head is empty_dll.tail
+
+
 
     ''' Test dll of two elements '''
     l.append("String")

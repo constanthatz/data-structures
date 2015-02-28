@@ -9,6 +9,13 @@ def empty_dll():
     return DLL()
 
 
+@pytest.fixture(scope='function')
+def one_dll():
+    l = DLL()
+    l.append(10)
+    return l
+
+
 def test_node_init():
     ''' Test node init. '''
     m = Node(3)
@@ -47,22 +54,30 @@ def test_dll_append_empty_head_tail(empty_dll):
     assert empty_dll.head is empty_dll.tail
 
 
-
-    ''' Test dll of two elements '''
-    l.append("String")
+def test_dll_append_one_head(one_dll):
+    ''' Test append to empty dll '''
+    one_dll.append("String")
     ''' Check head element value and pointers. '''
-    assert l.head.ahead is None
-    assert l.head.val == 10
-    assert l.head.behind.val == "String"
+    assert one_dll.head.ahead is None
+    assert one_dll.head.val == 10
+    assert one_dll.head.behind.val == "String"
 
+
+def test_dll_append_one_tail(one_dll):
+    ''' Test append to empty dll '''
+    one_dll.append("String")
     ''' Check tail element value and pointers. '''
-    assert l.tail.ahead.val == 10
-    assert l.tail.val == "String"
-    assert l.tail.behind is None
+    assert one_dll.tail.ahead.val == 10
+    assert one_dll.tail.val == "String"
+    assert one_dll.tail.behind is None
 
+
+def test_dll_append_one_head_tail(one_dll):
+    ''' Test append to empty dll '''
+    one_dll.append("String")
     ''' Check that head element and tail elements point at each other. '''
-    assert l.tail.ahead == l.head
-    assert l.head.behind == l.tail
+    assert one_dll.tail.ahead == one_dll.head
+    assert one_dll.head.behind == one_dll.tail
 
     ''' Test dll of three elements '''
     l.append([])

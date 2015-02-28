@@ -12,14 +12,14 @@ class Binheap(object):
     def push(self, value):
         ''' Add a value to the heap. '''
         self.binlist.append(value)
-        self.__promote(len(self.binlist)-1)
+        self._promote(len(self.binlist)-1)
         return
 
-    def __parent(self, index):
+    def _parent(self, index):
         ''' Find the parents of a bin. '''
         return [(index-1)//2, self.binlist[(index-1)//2]]
 
-    def __children(self, index):
+    def _children(self, index):
         ''' Find the children of a bin. Build list of children. '''
         children = []
         try:
@@ -38,7 +38,7 @@ class Binheap(object):
 
         return children
 
-    def __swap(self, index1, index2):
+    def _swap(self, index1, index2):
         ''' Swap two bins. '''
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
@@ -46,35 +46,35 @@ class Binheap(object):
     def pop(self):
         ''' Pop the top of the heap. '''
         last_index = len(self.binlist)-1
-        self.__swap(0, last_index)
+        self._swap(0, last_index)
         top = self.binlist.pop()
-        self.__demote()
+        self._demote()
         return top
 
-    def __promote(self, index):
+    def _promote(self, index):
         ''' Promote a bin. '''
         child = self.binlist[index]
-        parent = self.__parent(index)
+        parent = self._parent(index)
         if parent[0] >= 0:
             if parent[1] < child:
-                self.__swap(parent[0], index)
-                self.__promote(parent[0])
+                self._swap(parent[0], index)
+                self._promote(parent[0])
             else:
                 return
 
-    def __demote(self, index=0):
-        children = self.__children(index)
+    def _demote(self, index=0):
+        children = self._children(index)
         ''' Demote a bin. '''
         if len(children):
-            victor_index = self.__battle_children(index, children)
+            victor_index = self._battle_children(index, children)
 
             if victor_index:
-                self.__swap(victor_index, index)
-                self.__demote(victor_index)
+                self._swap(victor_index, index)
+                self._demote(victor_index)
         else:
             return
 
-    def __battle_children(self, index, children):
+    def _battle_children(self, index, children):
         ''' Compare children bins. '''
         if len(children) == 2:
             # Handle two children

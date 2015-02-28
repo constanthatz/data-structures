@@ -3,69 +3,93 @@ import pytest
 from binheap import Binheap
 
 
-def test_init_bh():
+@pytest.fixture(scope='function')
+def empty_heap():
+    return Binheap()
+
+
+@pytest.fixture(scope='function')
+def small_heap():
+    return Binheap([100, 50, 25])
+
+
+@pytest.fixture(scope='function')
+def big_heap():
+    return Binheap([100, 75, 25, 50])
+
+
+@pytest.fixture(scope='function')
+def bigger_heap():
+    return Binheap([100, 75, 25, 50, 30])
+
+
+@pytest.fixture(scope='function')
+def biggest_heap():
+    return Binheap([100, 75, 25, 50, 30, 15])
+
+
+def test_init_bh_empty(empty_heap):
     ''' Create empty heap. '''
-    b = Binheap()
-    assert b.binlist == []
+    assert empty_heap.binlist == []
+
+
+def test_init_bh_non_empty(small_heap):
     ''' Create heap with values. '''
-    c = Binheap([1, 2])
-    assert c.binlist == [1, 2]
+    assert small_heap.binlist == [100, 50, 25]
 
 
-def test_push_promote_bh():
+def test_push_promote_bh_empty(empty_heap):
     ''' Push on empty heap. '''
-    b = Binheap()
-    b.push(100)
-    assert b.binlist == [100]
-    ''' Push on small value on heap. '''
-    b = Binheap([100, 50, 25])
-    b.push(30)
-    assert b.binlist == [100, 50, 25, 30]
-    ''' Push on middle value on heap. '''
-
-    b = Binheap([100, 50, 25])
-    b.push(75)
-    assert b.binlist == [100, 75, 25, 50]
-    ''' Push on high value on heap. '''
-
-    b = Binheap([100, 50, 25])
-    b.push(200)
-    assert b.binlist == [200, 100, 25, 50]
+    empty_heap.push(100)
+    assert empty_heap.binlist == [100]
 
 
-def test_parent_bh():
+def test_push_promote_bh_non_empty_small(small_heap):
+    ''' Push small value on heap. '''
+    small_heap.push(30)
+    assert small_heap.binlist == [100, 50, 25, 30]
+
+
+def test_push_promote_bh_non_empty_middle(small_heap):
+    ''' Push middle value on heap. '''
+    small_heap.push(75)
+    assert small_heap.binlist == [100, 75, 25, 50]
+
+
+def test_push_promote_bh_non_empty_high(small_heap):
+    ''' Push high value on heap. '''
+    small_heap.push(200)
+    assert small_heap.binlist == [200, 100, 25, 50]
+
+
+def test_parent_bh(big_heap):
     ''' Test find parents. '''
-    b = Binheap([100, 75, 25, 50])
-    assert b._Binheap__parent(3) == [1, 75]
+    assert big_heap._parent(3) == [1, 75]
 
 
-def test_children_bh():
+def test_children_bh(big_heap):
     ''' Test find children. '''
-    b = Binheap([100, 75, 25, 50])
-    assert b._Binheap__children(0) == [(1, 75), (2, 25)]
+    assert big_heap._children(0) == [(1, 75), (2, 25)]
 
 
-def test_battle_children_bh():
+def test_battle_children_bh(big_heap):
     ''' Test compare children. '''
-    b = Binheap([100, 75, 25, 50])
-    children = b._Binheap__children(0)
-    assert b._Binheap__battle_children(0, children) == 1
+    children = big_heap._children(0)
+    assert big_heap._battle_children(0, children) == 1
 
 
-def test_pop_demote_bh():
+def test_pop_demote_bh(big_heap):
     ''' Test popping top of heap. '''
-    b = Binheap([100, 75, 25, 50])
-    assert b.pop() == 100
-    assert b.binlist == [75, 50, 25]
+    assert big_heap.pop() == 100
+    assert big_heap.binlist == [75, 50, 25]
 
-    b = Binheap([100, 75, 25, 50, 30])
-    b.pop()
-    assert b.binlist == [75, 50, 25, 30]
 
-    b = Binheap([100, 75, 25, 50, 30, 15])
-    assert b.pop() == 100
-    assert b.binlist == [75, 50, 25, 15, 30]
+def test_pop_demote_bh_bigger(bigger_heap):
+    ''' Test popping top of heap. '''
+    assert bigger_heap.pop() == 100
+    assert bigger_heap.binlist == [75, 50, 25, 30]
 
-    b = Binheap([100, 75, 25, 50, 30, 15, 10])
-    assert b.pop() == 100
-    assert b.binlist == [75, 50, 25, 10, 30, 15]
+
+def test_pop_demote_bh_biggest(biggest_heap):
+    assert biggest_heap.pop() == 100
+    assert biggest_heap.binlist == [75, 50, 25, 15, 30]

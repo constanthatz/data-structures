@@ -126,3 +126,5 @@ Resources:
 3. stackoverflow.com
 4. tutorialspoint.com/python
 5. docs.python.org
+
+[![Build Status](https://travis-ci.org/constanthatz/data-structures.svg?branch=master)](https://travis-ci.org/constanthatz/data-structures)

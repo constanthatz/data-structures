@@ -52,10 +52,18 @@ class Priorityq(object):
     def pop(self):
         ''' Pop the top of the heap. '''
         last_index = len(self.binlist)-1
+        top = self.binlist[0].val
         self.__swap(0, last_index)
-        top = self.binlist.pop()
+        self.binlist.pop()
         self.__demote()
-        return top.val
+        return top
+
+    def peek(self):
+        ''' Return value of highest priority element. '''
+        try:
+            return self.binlist[0].val
+        except AttributeError:
+            raise IndexError('peek from empty queue')
 
     def __promote(self, index):
         ''' Promote a bin. '''

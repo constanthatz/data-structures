@@ -110,6 +110,10 @@
                     Each of these functions has tests to ensure they are working as expected.
 
 
+*March 2nd, 2015* - Added weight for each of our edges in our graph. Not a ot of functionality yet, but this will change tomorrow
+                    when we add traversal based on weight.
+
+
 
 Collaborations:
 Constantine Hatzis and Nick Becker

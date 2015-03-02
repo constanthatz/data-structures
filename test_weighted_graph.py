@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from simple_graph import Graph
+from weighted_graph import Graph
 import pytest
 
 DFT_A = [u'A', u'E', u'C', u'G', u'B', u'F', u'D']

@@ -3,6 +3,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import stack as stk
 import queue as que
+from collections import OrderedDict as od
 
 
 class Graph(object):
@@ -20,21 +21,21 @@ class Graph(object):
         # for key, value in self.graph.iteritems():
         #     for i, item in enumerate(value['neighbors']):
         #         return (key, item, value['weights'][i])
-        return [(key, item, value['weights'][i])
+        return [(key, key2, value2)
                 for key, value in self.graph.iteritems()
-                for i, item in enumerate(value['neighbors'])]
+                for key2, value2 in value.iteritems()]
 
     def add_node(self, node):
         ''' Add a node to the graph.
             We are using dictionaries to store neighbors and weights so we
             don't have to loop through lists to remove neighbros and weights.
             '''
-        self.graph.setdefault(node, {})
+        self.graph.setdefault(node, od())
 
     def add_edge(self, node1, node2, weight=0):
         ''' Add an edge to the graph. '''
         # Add node1 to graph
-        self.graph.setdefault(node1, {})
+        self.graph.setdefault(node1, od())
         # Add edge
         self.graph[node1].update({node2: weight})
         # Check if node1 is in the graph
@@ -122,11 +123,8 @@ class Graph(object):
 if __name__ == "__main__":
     g = Graph()
     g.add_node(3)
-    print(g.nodes())
     g.add_edge(4, 8)
+    g.add_edge(4, 5)
+    g.add_edge(7, 3)
     print(g.nodes())
-    print(g.neighbors(4))
-    print(g.adjacent(4, 8))
-    g.del_edge(4, 8)
-    print(g.neighbors(4))
-    print(g.adjacent(4, 8))
+    print(g.edges())

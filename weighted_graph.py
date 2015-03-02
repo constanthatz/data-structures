@@ -42,7 +42,9 @@ class Graph(object):
         ''' Delete an edge to the graph. '''
         try:
             # Check if node1 exists and node2 is a neighbor and delete the edge
-            self.graph[node1].remove(node2)
+            idx = self.graph[node1]['neighbors'].index(node2)
+            self.graph[node1]['neighbors'].remove(node2)
+            del self.graph[node1]['weights'][idx]
         except KeyError:
             raise KeyError('node {} not in graph'.format(node1))
         except ValueError:

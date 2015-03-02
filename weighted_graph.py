@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import unicode_literals
+import stack as stk
+import queue as que
 
 
 class Graph(object):
@@ -85,3 +87,43 @@ class Graph(object):
             return node2 in self.graph[node1]['neighbors']
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
+
+    def depth_first_traversal(self, node):
+        ''' Depth first graph traversal. '''
+        # Initialize path
+        path = []
+
+        # Initilize stack
+        stack = stk.Stack()
+
+        # Push node onto stack.
+        stack.push(node)
+
+        while stack.top:
+            test_node = stack.pop()
+            if test_node not in path:
+                path.append(test_node)
+                for neighbor in self.neighbors(test_node):
+                    stack.push(neighbor)
+
+        return path
+
+    def breadth_first_traversal(self, node):
+        ''' Breadth first graph traversal. '''
+        path = []
+
+        queue = que.Queue()
+
+        path.append(node)
+
+        queue.enqueue(node)
+        # print(queue.front.val)
+
+        while queue.front:
+            test_node = queue.dequeue()
+
+            for neighbor in self.neighbors(test_node):
+                if neighbor not in path:
+                    path.append(neighbor)
+                    queue.enqueue(neighbor)
+        return path

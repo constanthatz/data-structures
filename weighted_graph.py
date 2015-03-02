@@ -25,9 +25,11 @@ class Graph(object):
     def add_edge(self, node1, node2, weight=0):
         ''' Add an edge to the graph. '''
         # Add node1 to graph
-        self.graph.setdefault(node1, [])
+        self.graph.setdefault(node1, {'neighbors': [], 'weights': []})
         # Add edge
-        self.graph[node1].append({node2: weight})
+        self.graph[node1]['neighbors'].append(node2)
+        self.graph[node1]['weights'].append(weight)
+
         # Check if node1 is in the graph
         if node2 not in self.graph:
             self.add_node(node2)
@@ -72,3 +74,8 @@ class Graph(object):
             return node2 in self.graph[node1]
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
+
+if __name__ == '__main__':
+    g = Graph()
+    g.add_edge(2, 3, 0)
+    print(g)

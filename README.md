@@ -2,7 +2,7 @@
 
 ###This repository holds sample code for a number of data structures implemented with python.
 
-*Feb 4th, 2015* - Added a Linked List structure in Python. Has classes for each node, as well as the structure itself.
+*Feb 4th, 2015* - Add a Linked List structure in Python. Has classes for each node, as well as the structure itself.
                   The linked list is a data structure that utilizes how each node points to another as its mode for
                   identifying location. For example, instead of saying ti is the second item, we would say it is the one that
                   follows the first. Or, instead of saying the last item, we say it is the one that doesn't have anything

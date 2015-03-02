@@ -20,7 +20,10 @@ class Graph(object):
                 return (key, item, value['weights'][i])
 
     def add_node(self, node):
-        ''' Add a node to the graph. '''
+        ''' Add a node to the graph.
+            We are using dictionaries to store neighbors and weights so we
+            don't have to loop through lists to remove neighbros and weights.
+            '''
         self.graph.setdefault(node, {'neighbors': [], 'weights': []})
 
     def add_edge(self, node1, node2, weight=0):

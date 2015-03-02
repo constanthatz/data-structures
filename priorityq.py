@@ -36,7 +36,7 @@ class Priorityq(object):
             children.append(child1)
 
         try:
-            child2 = (2*index+2, self.binlist[2*index+2])
+            child2 = (2*index+2, self.binlist[2*index+2].prio)
         except IndexError:
             pass
         else:

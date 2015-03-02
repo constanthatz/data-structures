@@ -20,7 +20,7 @@ class Graph(object):
 
     def add_node(self, node):
         ''' Add a node to the graph. '''
-        self.graph.setdefault(node, [])
+        self.graph.setdefault(node, {'neighbors': [], 'weights': []})
 
     def add_edge(self, node1, node2, weight=0):
         ''' Add an edge to the graph. '''

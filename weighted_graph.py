@@ -57,7 +57,9 @@ class Graph(object):
             # Delete the node from any neighbor lists it is in.
             for value in self.graph.itervalues():
                     try:
-                        value.remove(node)
+                        idx = value['neighbors'].index(node)
+                        value['neighbors'].remove(node)
+                        del value['weights'][idx]
                     except ValueError:
                         pass
         except KeyError:

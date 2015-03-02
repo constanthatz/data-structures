@@ -15,7 +15,7 @@ class Priorityq(object):
     def __init__(self, binlist=[]):
         self.binlist = binlist
 
-    def push(self, value):
+    def insert(self, value):
         ''' Add a value to the heap. '''
         self.binlist.append(Element(value, priority=0))
         self.__promote(len(self.binlist)-1)

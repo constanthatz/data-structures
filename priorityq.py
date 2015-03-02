@@ -4,10 +4,9 @@ from __future__ import print_function
 
 class Element(object):
     ''' Create data element with default value and next pointer. '''
-    def __init__(self, value, priority=0, behind=None):
+    def __init__(self, value, priority=0):
         ''' Value and next pointer default to none. '''
         self.val = value
-        self.behind = behind
         self.prio = priority
 
 
@@ -18,7 +17,7 @@ class Binheap(object):
 
     def push(self, value):
         ''' Add a value to the heap. '''
-        self.binlist.append(value)
+        self.binlist.append(Element(value, priority=0))
         self.__promote(len(self.binlist)-1)
         return
 
@@ -56,7 +55,7 @@ class Binheap(object):
         self.__swap(0, last_index)
         top = self.binlist.pop()
         self.__demote()
-        return top
+        return top.val
 
     def __promote(self, index):
         ''' Promote a bin. '''

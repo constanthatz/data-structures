@@ -16,8 +16,8 @@ class Graph(object):
     def edges(self):
         ''' Return all the edges in the graph as a list of tuples. '''
         for key, value in self.graph.iteritems():
-            for item in value:
-                print(key, item['neighbors'], item['weights'])
+            for i, item in enumerate(value['neighbors']):
+                return (key, item, value['weights'][i])
 
     def add_node(self, node):
         ''' Add a node to the graph. '''
@@ -79,4 +79,8 @@ class Graph(object):
 if __name__ == '__main__':
     g = Graph()
     g.add_edge(2, 3, 0)
-    g.edges
+    g.add_edge(4, 5, 5)
+    g.add_edge(1, 3, 7)
+    g.add_edge(1, 4, 13)
+    g.add_edge(1, 5, 2)
+    g.edges()

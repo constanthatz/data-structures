@@ -11,7 +11,7 @@ class Element(object):
 
 
 class Queue(object):
-    ''' Create an empty queue. '''
+    ''' Create an empty queue '''
     def __init__(self):
         self.front = None
         self.back = None

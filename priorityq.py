@@ -23,13 +23,13 @@ class Priorityq(object):
 
     def __parent(self, index):
         ''' Find the parents of a bin. '''
-        return [(index-1)//2, self.binlist[(index-1)//2]]
+        return [(index-1)//2, self.binlist[(index-1)//2].prio]
 
     def __children(self, index):
         ''' Find the children of a bin. Build list of children. '''
         children = []
         try:
-            child1 = (2 * index + 1, self.binlist[2*index+1])
+            child1 = (2 * index + 1, self.binlist[2*index+1].prio)
         except IndexError:
             pass
         else:

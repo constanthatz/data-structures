@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from weighted_graph import Graph
 import pytest
+from collections import OrderedDict as od
 
 DFT_A = [u'A', u'E', u'C', u'G', u'B', u'F', u'D']
 BFT_A = [u'A', u'B', u'C', u'E', u'D', u'F', u'G']
@@ -77,7 +78,7 @@ def test_add_node_empty(empty_graph):
     g = empty_graph
     g.add_node("A")
     assert "A" in g.graph
-    assert g.graph["A"] == []
+    assert g.graph["A"] == od()
 
 
 def test_add_node_non_empty(non_empty_graph):
@@ -86,7 +87,7 @@ def test_add_node_non_empty(non_empty_graph):
     # Add to populated graph
     g.add_node("B")
     assert "B" in g.graph
-    assert g.graph["B"] == []
+    assert g.graph["B"] == od()
 
 
 def test_nodes_empty(empty_graph):
@@ -151,7 +152,7 @@ def test_edges_empty(empty_graph):
 def test_edges_non_empty(edges_graph):
     g = edges_graph
     # Test non-empty graph
-    assert ("A", "B") in g.edges()
+    assert ("A", "B", 0) in g.edges()
 
 
 def test_del_edge_empty(empty_graph):
@@ -170,12 +171,12 @@ def test_del_edge_no_neighbors(non_empty_graph):
         g.del_edge("C", "A")
 
     # Node2 doesn't exit
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         g.del_edge("A", "C")
 
     # Node2 exists but isn't a neighbor
     g.add_node("B")
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         g.del_edge("A", "B")
 
 
@@ -191,9 +192,9 @@ def test_del_edge_reverse(edges_graph):
     ''' Test deleting an edge from graph. '''
     g = edges_graph
     # Both nodes exist and but the edge is the opposite direction
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         g.del_edge("B", "A")
-    assert ("A", "B") in g.edges()
+    assert ("A", "B", 0) in g.edges()
 
 
 def test_del_node(empty_graph):

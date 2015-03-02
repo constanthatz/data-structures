@@ -22,12 +22,12 @@ class Graph(object):
         ''' Add a node to the graph. '''
         self.graph.setdefault(node, [])
 
-    def add_edge(self, node1, node2, weight=0):
+    def add_edge(self, node1, node2):
         ''' Add an edge to the graph. '''
         # Add node1 to graph
         self.graph.setdefault(node1, [])
         # Add edge
-        self.graph[node1].append({node2: weight})
+        self.graph[node1].append(node2)
         # Check if node1 is in the graph
         if node2 not in self.graph:
             self.add_node(node2)

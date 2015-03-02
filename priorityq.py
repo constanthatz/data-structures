@@ -10,7 +10,7 @@ class Element(object):
         self.prio = priority
 
 
-class Binheap(object):
+class Priorityq(object):
     ''' Create an empty heap. '''
     def __init__(self, binlist=[]):
         self.binlist = binlist
@@ -98,50 +98,50 @@ class Binheap(object):
             return None
 
 
-class Priorityq(object):
-    ''' Create an empty queue. '''
-    def __init__(self):
-        self.front = None
-        self.back = None
+# class Priorityq(object):
+#     ''' Create an empty queue. '''
+#     def __init__(self):
+#         self.front = None
+#         self.back = None
 
-    def insert(self, value, priority=0):
-        ''' Add data element to the back of queue. '''
-        new_element = Element(value, priority)
-        current = self.front
+#     def insert(self, value, priority=0):
+#         ''' Add data element to the back of queue. '''
+#         new_element = Element(value, priority)
+#         current = self.front
 
-        try:
-            if new_element.prio > self.front.prio:
-                new_element.behind, self.front = self.front, new_element
-                return
-        except AttributeError:
-            self.front = new_element
-            return
+#         try:
+#             if new_element.prio > self.front.prio:
+#                 new_element.behind, self.front = self.front, new_element
+#                 return
+#         except AttributeError:
+#             self.front = new_element
+#             return
 
-        current = self.front
+#         current = self.front
 
-        while True:
-            try:
-                if new_element.prio <= current.behind.prio:
-                    current = current.behind
-                else:
-                    new_element.behind, current.behind = current.behind, new_element
-                    return
-            except AttributeError:
-                current.behind = new_element
-                return
+#         while True:
+#             try:
+#                 if new_element.prio <= current.behind.prio:
+#                     current = current.behind
+#                 else:
+#                     new_element.behind, current.behind = current.behind, new_element
+#                     return
+#             except AttributeError:
+#                 current.behind = new_element
+#                 return
 
-    def pop(self):
-        ''' Return value of highest priority element and remove. '''
+#     def pop(self):
+#         ''' Return value of highest priority element and remove. '''
 
-        try:
-            pop_value, self.front = self.front.val, self.front.behind
-            return pop_value
-        except AttributeError:
-            raise IndexError('pop from empty queue')
+#         try:
+#             pop_value, self.front = self.front.val, self.front.behind
+#             return pop_value
+#         except AttributeError:
+#             raise IndexError('pop from empty queue')
 
-    def peek(self):
-        ''' Return value of highest priority element. '''
-        try:
-            return self.front.val
-        except AttributeError:
-            raise IndexError('peek from empty queue')
+#     def peek(self):
+#         ''' Return value of highest priority element. '''
+#         try:
+#             return self.front.val
+#         except AttributeError:
+#             raise IndexError('peek from empty queue')

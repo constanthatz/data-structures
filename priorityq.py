@@ -59,7 +59,7 @@ class Priorityq(object):
 
     def __promote(self, index):
         ''' Promote a bin. '''
-        child = self.binlist[index]
+        child = self.binlist[index].prio
         parent = self.__parent(index)
         if parent[0] >= 0:
             # If is true only when parent index is non-negative

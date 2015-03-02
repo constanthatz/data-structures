@@ -69,33 +69,19 @@ class Graph(object):
             raise KeyError('{} not in graph'.format(node))
 
     def has_node(self, node):
-        ''' Return True or False ifthe node is in the graph or not. '''
+        ''' Return True or False if the node is in the graph or not. '''
         return node in self.graph
 
     def neighbors(self, node):
         ''' Return the neighbors of a node. '''
         try:
-            return self.graph[node]
+            return self.graph[node]['neighbors']
         except KeyError:
             raise KeyError('{} not in graph'.format(node))
 
     def adjacent(self, node1, node2):
         ''' Check is if two nodes have an edge connecting them. '''
         try:
-            return node2 in self.graph[node1]
+            return node2 in self.graph[node1]['neighbors']
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
-
-if __name__ == '__main__':
-    g = Graph()
-    g.add_edge(2, 3, 0)
-    g.add_edge(4, 5, 5)
-    g.add_edge(1, 3, 7)
-    g.add_edge(1, 4, 13)
-    g.add_edge(1, 5, 2)
-    print(g.edges())
-    g.del_edge(1, 5)
-    print(g.edges())
-    g.del_node(4)
-    print(g.nodes())
-    print(g.edges())

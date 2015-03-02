@@ -57,6 +57,7 @@ class Priorityq(object):
         self.binlist.pop()
         self.__demote()
         return top
+        
 
     def peek(self):
         ''' Return value of highest priority element. '''

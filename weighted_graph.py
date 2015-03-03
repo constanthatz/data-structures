@@ -82,6 +82,9 @@ class Graph(object):
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
 
+    def weight(self, node1, node2):
+        return self.graph[node1][node2]
+
     def depth_first_traversal(self, node):
         ''' Depth first graph traversal. '''
         # Initialize path
@@ -126,27 +129,52 @@ class Graph(object):
         # List of nodes
         nodes = self.nodes()
 
+        # List of edges with weights
+        edges = self.edges()
+
         # Initialization
         iU = nodes.index(start_node)
         distance = [np.inf]*len(nodes)
         distance[iU] = 0
-        previous_node = [None]*len(nodes)
-        Q = que.Queue()
-        for i in range(nodes):
-            Q.enqueue(i)
-        
+        previous = [None]*len(nodes)
+        Q = []
+        for i in range(len(nodes)):
+            Q.append(i)
+
+        print(Q)
+        print(distance)
+        while len(Q):
+            minIndex = distance.index(min(distance))
+            print(minIndex)
+            iU = minIndex
+            print(iU)
+            Q.remove(iU)
+            print(Q)
+
+            for V in self.neighbors(nodes[iU]):
+                iV = nodes.index(V)
+                alt = distance[iU] + self.weight(nodes[iU], V)
+
+                if alt < distance[iV]:
+                    distance[iV] = alt
+                    previous[iV] = iU
+            print(distance)
+            print(previous)
+
+        return distance, previous
 
 
-        pq = heapq()
-        for edge in self.graph.edges():
-            if edge[key] != self.start_node:
-                distance[edge] = 10000
-                previous_node[edge] = None
-            pq.put(edge, distance[edge])
 
-        while pq is not {}:
-            pq.nsmallest()
-            for
+        # pq = heapq()
+        # for edge in self.graph.edges():
+        #     if edge[key] != self.start_node:
+        #         distance[edge] = 10000
+        #         previous_node[edge] = None
+        #     pq.put(edge, distance[edge])
+
+        # while pq is not {}:
+        #     pq.nsmallest()
+        #     for
 
 
         # if self.start_node or self.end_node not in self.graph:
@@ -224,7 +252,7 @@ class Graph(object):
         while iU != iV:
             # print(U)
             iU = nxt[iU][iV]
-            path.append(iU)
+            path_idx.append(iU)
 
         return path_idx
 

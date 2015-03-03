@@ -123,8 +123,20 @@ class Graph(object):
         return path
 
     def dijkstra(self, start_node, end_node):
-        distance = {}
-        previous_node = {}
+        # List of nodes
+        nodes = self.nodes()
+
+        # Initialization
+        iU = nodes.index(start_node)
+        distance = [np.inf]*len(nodes)
+        distance[iU] = 0
+        previous_node = [None]*len(nodes)
+        Q = que.Queue()
+        for i in range(nodes):
+            Q.enqueue(i)
+        
+
+
         pq = heapq()
         for edge in self.graph.edges():
             if edge[key] != self.start_node:

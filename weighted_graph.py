@@ -176,7 +176,7 @@ class Graph(object):
             iU = nxt[iU][iV]
             path.append(iU)
 
-        return []
+        return path_idx
 
 
 if __name__ == "__main__":

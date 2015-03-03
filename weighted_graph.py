@@ -120,6 +120,9 @@ class Graph(object):
                     queue.enqueue(neighbor)
         return path
 
+    def Astar(self, node):
+        pass
+
 if __name__ == "__main__":
     g = Graph()
     g.add_node(3)

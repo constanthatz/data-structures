@@ -155,9 +155,13 @@ class Graph(object):
                         nxt[i][j] = nxt[i][k]
 
         # Path reconstruction
+        U = start
+        V = goal
+        iU = self.nodes.index(U)
+        iV = self.nodes.index(V)
         if nxt[iU][iV] is None:
             return []
-        path = [start]
+        path = [U]
         while U != V:
             U = nxt[U][V]
             path.append(U)

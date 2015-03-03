@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import stack as stk
 import queue as que
 from collections import OrderedDict as od
+import numpy as np
 
 
 class Graph(object):
@@ -121,11 +122,18 @@ class Graph(object):
         return path
 
     def FloydWarshall(self, start, goal):
-        closedset = []
-        openset = [start]
-        came_from = []
 
-        g_scroe
+        # Number of nodes
+        number_of_nodes = len(self.nodes)
+
+        # Initiliaze array of minimum distances and set to Inifinity
+        dist = np.zeros(number_of_nodes, number_of_nodes)
+        dist[dist == 0] = np.inf
+
+        # Initiliaze array of node indicies and set to None
+        nxt = np.zeros(number_of_nodes, number_of_nodes)
+        nxt[nxt == 0] = None
+
         pass
 
 if __name__ == "__main__":

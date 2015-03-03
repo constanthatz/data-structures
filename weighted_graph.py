@@ -127,14 +127,42 @@ class Graph(object):
         number_of_nodes = len(self.nodes)
 
         # Initiliaze array of minimum distances and set to Inifinity
-        dist = np.zeros(number_of_nodes, number_of_nodes)
+        dist = np.zeros((number_of_nodes, number_of_nodes))
         dist[dist == 0] = np.inf
 
         # Initiliaze array of node indicies and set to None
-        nxt = np.zeros(number_of_nodes, number_of_nodes)
+        nxt = np.empty((number_of_nodes, number_of_nodes))
         nxt[nxt == 0] = None
 
-        pass
+        # List of edges with weights
+        edges = self.edges
+
+        # Floyd Warshall - Find Paths
+        for edge in edges:
+            U = edge[0]
+            V = edge[1]
+            weight = edge[2]
+            iU = self.nodes.index(U)
+            iV = self.nodes.index(V)
+            dist[iU][iV] = weight
+            nxt[iU][iV] = V
+
+        for k in range(number_of_nodes):
+            for i in range(number_of_nodes):
+                for j in range(number_of_nodes):
+                    if dist[i][k] + dist[k][j] < dist[i][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+                        nxt[i][j] = nxt[i][k]
+
+        # Path reconstruction
+        if nxt[iU][iV] is None:
+            return []
+        path = [start]
+        while U != V:
+            U = nxt[U][V]
+            path.append(U)
+        return path
+
 
 if __name__ == "__main__":
     g = Graph()

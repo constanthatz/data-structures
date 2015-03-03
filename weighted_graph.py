@@ -3,6 +3,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import stack as stk
 import queue as que
+from Queue import heapq
 from collections import OrderedDict as od
 
 
@@ -120,8 +121,43 @@ class Graph(object):
                     queue.enqueue(neighbor)
         return path
 
-    def Astar(self, node):
-        pass
+    def dijkstra(self, start_node, end_node):
+        distance = {}
+        previous_node = {}
+        pq = heapq()
+        for edge in self.graph.edges():
+            if edge[key] != self.start_node:
+                distance[edge] = 10000
+                previous_node[edge] = None
+            pq.put(edge, distance[edge])
+
+        while pq is not {}:
+            pq.nsmallest()
+            for
+
+
+        # if self.start_node or self.end_node not in self.graph:
+        #     raise IndexError('One of the given nodes not in graph')
+        # current_dist = 0
+        # prev_node = None
+        # for edge in self.graph.edges():
+        #     if edge[0] != self.start_node:
+        #         edge[2] = None
+        # if self.start_node or self.end_node not in self.graph:
+        #     raise IndexError('One of the given nodes not in graph')
+        # # {node: {distance: immediate parent}}
+        # current_node = self.node1
+        # short_path = {self.node1: (0, None)}
+        # while current_node != last:
+        #     neighbor_list = []
+
+        # distance = 0
+        # unvisited = []
+        # for node in self.graph:
+        #     unvisited.append(node)
+        #     if node == node1:
+        #         self.depth_first_traversal(node1)
+
 
 if __name__ == "__main__":
     g = Graph()

@@ -123,29 +123,36 @@ class Graph(object):
 
     def FloydWarshall(self, start, goal):
 
+        # List of nodes
+        nodes = self.nodes()
+
         # Number of nodes
-        number_of_nodes = len(self.nodes)
+        number_of_nodes = len(self.nodes())
 
         # Initiliaze array of minimum distances and set to Inifinity
         dist = np.zeros((number_of_nodes, number_of_nodes))
         dist[dist == 0] = np.inf
 
         # Initiliaze array of node indicies and set to None
-        nxt = np.empty((number_of_nodes, number_of_nodes))
+        nxt = np.zeros((number_of_nodes, number_of_nodes))
         nxt[nxt == 0] = None
 
         # List of edges with weights
-        edges = self.edges
+        edges = self.edges()
+
+        for i in range(number_of_nodes):
+            dist[i][i] = 0
 
         # Floyd Warshall - Find Paths
+        print(edges)
         for edge in edges:
             U = edge[0]
             V = edge[1]
             weight = edge[2]
-            iU = self.nodes.index(U)
-            iV = self.nodes.index(V)
+            iU = nodes.index(U)
+            iV = nodes.index(V)
             dist[iU][iV] = weight
-            nxt[iU][iV] = V
+            nxt[iU][iV] = iV
 
         for k in range(number_of_nodes):
             for i in range(number_of_nodes):
@@ -154,25 +161,26 @@ class Graph(object):
                         dist[i][j] = dist[i][k] + dist[k][j]
                         nxt[i][j] = nxt[i][k]
 
+        print(dist)
+        print(nxt)
         # Path reconstruction
         U = start
         V = goal
-        iU = self.nodes.index(U)
-        iV = self.nodes.index(V)
+        iU = self.nodes().index(U)
+        iV = self.nodes().index(V)
         if nxt[iU][iV] is None:
             return []
-        path = [U]
-        while U != V:
-            U = nxt[U][V]
-            path.append(U)
-        return path
+        path_idx = [iU]
+        while iU != iV:
+            # print(U)
+            iU = nxt[iU][iV]
+            path.append(iU)
+
+        return []
 
 
 if __name__ == "__main__":
     g = Graph()
-    g.add_node(3)
-    g.add_edge(4, 8)
-    g.add_edge(4, 5)
-    g.add_edge(7, 3)
-    print(g.nodes())
-    print(g.edges())
+    g.add_edge(1, 2, 0)
+    g.add_edge(2, 3, 0)
+    path = g.FloydWarshall(1, 3)

@@ -11,7 +11,7 @@ class Graph(object):
     ''' Create an empty graph.
         Nodes must be hashable values.'''
     def __init__(self):
-        self.graph = {}
+        self.graph = od()
 
     def nodes(self):
         ''' Return all the nodes in the graph. '''
@@ -134,9 +134,11 @@ class Graph(object):
         distance = [np.inf] * len(nodes)
         distance[nodes.index(start_node)] = 0
         previous = [None] * len(nodes)
+        # Node indicies
         Q = range(len(nodes))
 
         while len(Q):
+            # Truncated distance array based on Q
             tmp = [distance[i] for i in Q]
             # for i in Q:
             #     tmp.append(distance[i])
@@ -144,60 +146,58 @@ class Graph(object):
             iU = Q[tmp.index(min(tmp))]
             # iU = minIndex
             if nodes[iU] == end_node:
-                return self.build_path_Dijkstra(distance, previous, itarget, nodes)
+                return self.build_path_Dijkstra(distance, previous, itarget)
 
             Q.remove(iU)
 
-            for V in self.neighbors(nodes[iU]):
-                iV = nodes.index(V)
-                alt = distance[iU] + self.weight(nodes[iU], V)
+            for V in self.neighbors(self.nodes()[iU]):
+                iV = self.nodes().index(V)
+                alt = distance[iU] + self.weight(self.nodes()[iU], V)
 
                 if alt < distance[iV]:
                     distance[iV] = alt
                     previous[iV] = iU
-        return self.build_path_Dijkstra(distance, previous, itarget, nodes)
+        return self.build_path_Dijkstra(distance, previous, itarget)
 
-    def build_path_Dijkstra(self, distance, previous, itarget, nodes):
-        nodes = self.nodes()
+    def build_path_Dijkstra(self, distance, previous, itarget):
         S = []
         # iT = itarget
         while previous[itarget] is not None:
-            S = [nodes[itarget]] + S
+            S = [self.nodes()[itarget]] + S
             itarget = previous[itarget]
-        return [nodes[itarget]] + S
+        return [self.nodes()[itarget]] + S
 
     def FloydWarshall(self, start, goal):
 
         # List of nodes
         nodes = self.nodes()
 
-        # Number of nodes
-        number_of_nodes = len(self.nodes())
-
-        # Initiliaze array of minimum distances and set to Inifinity
-        dist = np.zeros((number_of_nodes, number_of_nodes))
-        dist[dist == 0] = np.inf
-
-        # Initiliaze array of node indicies and set to None
-        nxt = np.zeros((number_of_nodes, number_of_nodes))
-        nxt[nxt == 0] = None
-
         # List of edges with weights
         edges = self.edges()
 
-        # Initialize diagnol as zero
-        for i in range(number_of_nodes):
-            dist[i][i] = 0
+        # Number of nodes
+        # number_of_nodes = len(self.nodes())
+
+        # Initiliaze array of minimum distances and set to Inifinity
+        dist = np.zeros((len(self.nodes()), len(self.nodes())))
+        dist[dist == 0] = np.inf
+
+        # Initiliaze array of node indicies and set to None
+        nxt = np.zeros((len(self.nodes()), len(self.nodes())))
+        nxt[nxt == 0] = None
+
+        # Initialize diagnol (distance to self) as zero
+        np.fill_diagonal(dist, 0)
 
         # Floyd Warshall - Find Paths
         for edge in edges:
-            dist[nodes.index(edge[0])][nodes.index(edge[1])] = edge[2]
-            nxt[nodes.index(edge[0])][nodes.index(edge[1])] = nodes.index(edge[1])
+            dist[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = edge[2]
+            nxt[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = self.nodes().index(edge[1])
 
         # Build distance array and next node array
-        for k in range(number_of_nodes):
-            for i in range(number_of_nodes):
-                for j in range(number_of_nodes):
+        for k in range(len(self.nodes())):
+            for i in range(len(self.nodes())):
+                for j in range(len(self.nodes())):
                     if dist[i][k] + dist[k][j] < dist[i][j]:
                         dist[i][j] = dist[i][k] + dist[k][j]
                         nxt[i][j] = nxt[i][k]
@@ -215,11 +215,7 @@ class Graph(object):
                 raise IndexError('Nodes not connected')
 
         # Path reconstruction
-        S = []
-        for i in path_idx:
-            S.append(nodes[int(i)])
-
-        return S
+        return [self.nodes()[int(i)] for i in path_idx]
 
 
 if __name__ == "__main__":

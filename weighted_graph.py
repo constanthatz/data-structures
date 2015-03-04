@@ -123,22 +123,17 @@ class Graph(object):
     def dijkstra(self, start_node, end_node):
         ''' Dijkstra shortest path finder.'''
         # Initialization of previous and distance arrays
-        # iU = nodes.index(start_node)
         itarget = self.nodes().index(end_node)
         distance = [np.inf] * len(self.nodes())
         distance[self.nodes().index(start_node)] = 0
         previous = [None] * len(self.nodes())
-        # Initiliaze node indicies
+        # Initialize node indicies
         Q = range(len(self.nodes()))
 
         while len(Q):
             # Truncated distance array based on Q
             tmp = [distance[i] for i in Q]
-            # for i in Q:
-            #     tmp.append(distance[i])
-            # minIndexQ = tmp.index(min(tmp))
             iU = Q[tmp.index(min(tmp))]
-            # iU = minIndex
             if self.nodes()[iU] == end_node:
                 return self.build_path_Dijkstra(distance, previous, itarget)
 

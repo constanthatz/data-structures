@@ -141,15 +141,21 @@ class Graph(object):
         for i in range(len(nodes)):
             Q.append(i)
 
-        print(Q)
-        print(distance)
+        print('Q starts as {}'.format(Q))
+        print('Distance starts {}'.format(distance))
         while len(Q):
-            minIndex = distance.index(min(distance))
-            print(minIndex)
+            tmp = []
+            for i in Q:
+                tmp.append(distance[i])
+            minIndexQ = distance.index(min(tmp))
+            print("minIndex of Q {}".format(minIndexQ))
+            print('Q = {}'.format(Q))
+            minIndex = Q[minIndexQ]
+            print("minIndex of distance {}".format(minIndex))
             iU = minIndex
-            print(iU)
+            print('iU = {}'.format(iU))
             Q.remove(iU)
-            print(Q)
+            print('Q = {}'.format(Q))
 
             for V in self.neighbors(nodes[iU]):
                 iV = nodes.index(V)
@@ -158,9 +164,8 @@ class Graph(object):
                 if alt < distance[iV]:
                     distance[iV] = alt
                     previous[iV] = iU
-            print(distance)
-            print(previous)
-
+            print('Distance = {}'.format(distance))
+            print('Previous = {}'.format(previous))
         return distance, previous
 
 

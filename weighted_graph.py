@@ -19,9 +19,6 @@ class Graph(object):
 
     def edges(self):
         ''' Return all the edges in the graph as a list of tuples. '''
-        # for key, value in self.graph.iteritems():
-        #     for i, item in enumerate(value['neighbors']):
-        #         return (key, item, value['weights'][i])
         return [(key, key2, value2)
                 for key, value in self.graph.iteritems()
                 for key2, value2 in value.iteritems()]
@@ -113,7 +110,6 @@ class Graph(object):
         path.append(node)
 
         queue.enqueue(node)
-        # print(queue.front.val)
 
         while queue.front:
             test_node = queue.dequeue()
@@ -125,17 +121,15 @@ class Graph(object):
         return path
 
     def dijkstra(self, start_node, end_node):
-        # List of nodes
-        nodes = self.nodes()
-
+        ''' Dijkstra shortest path finder.'''
         # Initialization of previous and distance arrays
         # iU = nodes.index(start_node)
-        itarget = nodes.index(end_node)
-        distance = [np.inf] * len(nodes)
-        distance[nodes.index(start_node)] = 0
-        previous = [None] * len(nodes)
-        # Node indicies
-        Q = range(len(nodes))
+        itarget = self.nodes().index(end_node)
+        distance = [np.inf] * len(self.nodes())
+        distance[self.nodes().index(start_node)] = 0
+        previous = [None] * len(self.nodes())
+        # Initiliaze node indicies
+        Q = range(len(self.nodes()))
 
         while len(Q):
             # Truncated distance array based on Q
@@ -145,7 +139,7 @@ class Graph(object):
             # minIndexQ = tmp.index(min(tmp))
             iU = Q[tmp.index(min(tmp))]
             # iU = minIndex
-            if nodes[iU] == end_node:
+            if self.nodes()[iU] == end_node:
                 return self.build_path_Dijkstra(distance, previous, itarget)
 
             Q.remove(iU)
@@ -161,23 +155,13 @@ class Graph(object):
 
     def build_path_Dijkstra(self, distance, previous, itarget):
         S = []
-        # iT = itarget
         while previous[itarget] is not None:
             S = [self.nodes()[itarget]] + S
             itarget = previous[itarget]
         return [self.nodes()[itarget]] + S
 
     def FloydWarshall(self, start, goal):
-
-        # List of nodes
-        nodes = self.nodes()
-
-        # List of edges with weights
-        edges = self.edges()
-
-        # Number of nodes
-        # number_of_nodes = len(self.nodes())
-
+        ''' Floyd-Warshall shortest path finder.'''
         # Initiliaze array of minimum distances and set to Inifinity
         dist = np.zeros((len(self.nodes()), len(self.nodes())))
         dist[dist == 0] = np.inf
@@ -190,7 +174,7 @@ class Graph(object):
         np.fill_diagonal(dist, 0)
 
         # Floyd Warshall - Find Paths
-        for edge in edges:
+        for edge in self.edges():
             dist[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = edge[2]
             nxt[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = self.nodes().index(edge[1])
 

@@ -131,6 +131,7 @@ class Graph(object):
 
         # Initialization
         iU = nodes.index(start_node)
+        itarget = nodes.index(end_node)
         distance = [np.inf]*len(nodes)
         distance[iU] = 0
         previous = [None]*len(nodes)
@@ -145,6 +146,9 @@ class Graph(object):
             minIndexQ = tmp.index(min(tmp))
             minIndex = Q[minIndexQ]
             iU = minIndex
+            if nodes[iU] == end_node:
+                return self.build_path_Dijkstra(distance, previous, itarget)
+
             Q.remove(iU)
 
             for V in self.neighbors(nodes[iU]):
@@ -154,9 +158,16 @@ class Graph(object):
                 if alt < distance[iV]:
                     distance[iV] = alt
                     previous[iV] = iU
-            print('Distance = {}'.format(distance))
-            print('Previous = {}'.format(previous))
-        return distance, previous
+        return self.build_path_Dijkstra(distance, previous, itarget)
+
+    def build_path_Dijkstra(self, distance, previous, itarget):
+        nodes = self.nodes()
+        S = []
+        iT = itarget
+        while previous[iT] is not None:
+            S = [nodes[iT]] + S
+            iT = previous[iT]
+        return [nodes[iT]] + S
 
     def FloydWarshall(self, start, goal):
 
@@ -181,7 +192,7 @@ class Graph(object):
             dist[i][i] = 0
 
         # Floyd Warshall - Find Paths
-        print(edges)
+        # print(edges)
         for edge in edges:
             U = edge[0]
             V = edge[1]
@@ -198,8 +209,8 @@ class Graph(object):
                         dist[i][j] = dist[i][k] + dist[k][j]
                         nxt[i][j] = nxt[i][k]
 
-        print(dist)
-        print(nxt)
+        # print(dist)
+        # print(nxt)
         # Path reconstruction
         U = start
         V = goal
@@ -213,7 +224,11 @@ class Graph(object):
             iU = nxt[iU][iV]
             path_idx.append(iU)
 
-        return path_idx
+        S = []
+        for i in path_idx:
+            S.append(nodes[int(i)])
+
+        return S
 
 
 if __name__ == "__main__":

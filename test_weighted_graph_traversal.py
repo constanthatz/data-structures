@@ -50,8 +50,8 @@ def non_multi_connected_nodes_shortpath():
 
 
 @pytest.fixture(scope='function')
-def multi_connected_nodes(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+def multi_connected_nodes(non_multi_connected_nodes_shortpath):
+    g = non_multi_connected_nodes_shortpath
     g.add_edge("F", "E")
     return g
 
@@ -59,50 +59,89 @@ def multi_connected_nodes(non_multi_connected_nodes):
 @pytest.fixture(scope='function')
 def cyclic_graph(multi_connected_nodes):
     g = multi_connected_nodes
-    g.add_edge("E", "A")
+    g.add_edge("E", "A", 0)
     return g
 
 
 @pytest.fixture(scope='function')
-def orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+def orphan_node(non_multi_connected_nodes_shortpath):
+    g = non_multi_connected_nodes_shortpath
     g.add_edge("H", "E")
     return g
 
 
 @pytest.fixture(scope='function')
-def childless_orphan_node(non_multi_connected_nodes):
-    g = non_multi_connected_nodes
+def childless_orphan_node(non_multi_connected_nodes_shortpath):
+    g = non_multi_connected_nodes_shortpath
     g.add_node("I")
     return g
 
 
-def test_simple_edge(edges_graph):
+def test_simple_edge_dij(edges_graph):
     assert [u'A', u'B'] == edges_graph.dijkstra('A', 'B')
+
+
+def test_simple_edge_fw(edges_graph):
     assert [u'A', u'B'] == edges_graph.FloydWarshall('A', 'B')
 
 
-def test_empty_graph(empty_graph):
+def test_empty_graph_dij(empty_graph):
     with pytest.raises(ValueError):
         empty_graph.dijkstra('A', 'B')
+
+
+def test_empty_graph_fw(empty_graph):
+    with pytest.raises(ValueError):
         empty_graph.FloydWarshall('A', 'B')
 
 
-def test_single_node(non_empty_graph):
+def test_single_node_dij(non_empty_graph):
     with pytest.raises(ValueError):
         non_empty_graph.dijkstra('A', 'B')
+
+
+def test_single_node_fw(non_empty_graph):
+    with pytest.raises(ValueError):
         non_empty_graph.FloydWarshall('A', 'B')
 
 
-def test_longpath(non_multi_connected_nodes_longpath):
+def test_longpath_dij(non_multi_connected_nodes_longpath):
     assert [u'A', u'C', u'G', u'B'] == \
         non_multi_connected_nodes_longpath.dijkstra('A', 'B')
+
+
+def test_longpath_fw(non_multi_connected_nodes_longpath):
     assert [u'A', u'C', u'G', u'B'] == \
         non_multi_connected_nodes_longpath.FloydWarshall('A', 'B')
 
 
-def test_shortpath(non_multi_connected_nodes_shortpath):
+def test_shortpath_dij(non_multi_connected_nodes_shortpath):
     assert [u'A', u'B'] == \
         non_multi_connected_nodes_shortpath.dijkstra('A', 'B')
+
+
+def test_shortpath_fw(non_multi_connected_nodes_shortpath):
     assert [u'A', u'B'] == \
         non_multi_connected_nodes_shortpath.FloydWarshall('A', 'B')
+
+
+def test_cyclic_dij(cyclic_graph):
+    assert [u'A'] == cyclic_graph.dijkstra('A', 'A')
+    assert [u'A', u'E'] == cyclic_graph.dijkstra('A', 'E')
+
+
+def test_cyclic_fw(cyclic_graph):
+    assert [u'A'] == cyclic_graph.FloydWarshall('A', 'A')
+    assert [u'A', u'E'] == cyclic_graph.FloydWarshall('A', 'E')
+
+
+# def test_childless_orphan_dij(childless_orphan_node):
+#     assert [u'I'] == childless_orphan_node.dijkstra('I', 'I')
+#     with pytest.raises(IndexError):
+#         childless_orphan_node.dijkstra('A', 'I')
+
+
+def test_childless_orphan_fw(childless_orphan_node):
+    assert [u'I'] == childless_orphan_node.FloydWarshall('I', 'I')
+    with pytest.raises(IndexError):
+        childless_orphan_node.FloydWarshall('A', 'I')

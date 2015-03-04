@@ -220,8 +220,11 @@ class Graph(object):
         path_idx = [iU]
         while iU != iV:
             # print(U)
-            iU = nxt[iU][iV]
-            path_idx.append(iU)
+            try:
+                iU = nxt[iU][iV]
+                path_idx.append(iU)
+            except IndexError:
+                raise IndexError('Nodes not connected')
 
         S = []
         for i in path_idx:

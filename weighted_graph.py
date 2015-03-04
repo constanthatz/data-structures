@@ -129,9 +129,6 @@ class Graph(object):
         # List of nodes
         nodes = self.nodes()
 
-        # List of edges with weights
-        edges = self.edges()
-
         # Initialization
         iU = nodes.index(start_node)
         distance = [np.inf]*len(nodes)
@@ -141,21 +138,14 @@ class Graph(object):
         for i in range(len(nodes)):
             Q.append(i)
 
-        print('Q starts as {}'.format(Q))
-        print('Distance starts {}'.format(distance))
         while len(Q):
             tmp = []
             for i in Q:
                 tmp.append(distance[i])
-            minIndexQ = distance.index(min(tmp))
-            print("minIndex of Q {}".format(minIndexQ))
-            print('Q = {}'.format(Q))
+            minIndexQ = tmp.index(min(tmp))
             minIndex = Q[minIndexQ]
-            print("minIndex of distance {}".format(minIndex))
             iU = minIndex
-            print('iU = {}'.format(iU))
             Q.remove(iU)
-            print('Q = {}'.format(Q))
 
             for V in self.neighbors(nodes[iU]):
                 iV = nodes.index(V)
@@ -167,42 +157,6 @@ class Graph(object):
             print('Distance = {}'.format(distance))
             print('Previous = {}'.format(previous))
         return distance, previous
-
-
-
-        # pq = heapq()
-        # for edge in self.graph.edges():
-        #     if edge[key] != self.start_node:
-        #         distance[edge] = 10000
-        #         previous_node[edge] = None
-        #     pq.put(edge, distance[edge])
-
-        # while pq is not {}:
-        #     pq.nsmallest()
-        #     for
-
-
-        # if self.start_node or self.end_node not in self.graph:
-        #     raise IndexError('One of the given nodes not in graph')
-        # current_dist = 0
-        # prev_node = None
-        # for edge in self.graph.edges():
-        #     if edge[0] != self.start_node:
-        #         edge[2] = None
-        # if self.start_node or self.end_node not in self.graph:
-        #     raise IndexError('One of the given nodes not in graph')
-        # # {node: {distance: immediate parent}}
-        # current_node = self.node1
-        # short_path = {self.node1: (0, None)}
-        # while current_node != last:
-        #     neighbor_list = []
-
-        # distance = 0
-        # unvisited = []
-        # for node in self.graph:
-        #     unvisited.append(node)
-        #     if node == node1:
-        #         self.depth_first_traversal(node1)
 
     def FloydWarshall(self, start, goal):
 

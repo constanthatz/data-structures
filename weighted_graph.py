@@ -144,7 +144,7 @@ class Graph(object):
             iU = Q[tmp.index(min(tmp))]
             # iU = minIndex
             if nodes[iU] == end_node:
-                return self.build_path_Dijkstra(distance, previous, itarget)
+                return self.build_path_Dijkstra(distance, previous, itarget, nodes)
 
             Q.remove(iU)
 
@@ -155,16 +155,16 @@ class Graph(object):
                 if alt < distance[iV]:
                     distance[iV] = alt
                     previous[iV] = iU
-        return self.build_path_Dijkstra(distance, previous, itarget)
+        return self.build_path_Dijkstra(distance, previous, itarget, nodes)
 
-    def build_path_Dijkstra(self, distance, previous, itarget):
+    def build_path_Dijkstra(self, distance, previous, itarget, nodes):
         nodes = self.nodes()
         S = []
-        iT = itarget
-        while previous[iT] is not None:
-            S = [nodes[iT]] + S
-            iT = previous[iT]
-        return [nodes[iT]] + S
+        # iT = itarget
+        while previous[itarget] is not None:
+            S = [nodes[itarget]] + S
+            itarget = previous[itarget]
+        return [nodes[itarget]] + S
 
     def FloydWarshall(self, start, goal):
 

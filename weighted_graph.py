@@ -128,23 +128,21 @@ class Graph(object):
         # List of nodes
         nodes = self.nodes()
 
-        # Initialization
-        iU = nodes.index(start_node)
+        # Initialization of previous and distance arrays
+        # iU = nodes.index(start_node)
         itarget = nodes.index(end_node)
         distance = [np.inf] * len(nodes)
-        distance[iU] = 0
+        distance[nodes.index(start_node)] = 0
         previous = [None] * len(nodes)
-        Q = []
-        for i in range(len(nodes)):
-            Q.append(i)
+        Q = range(len(nodes))
 
         while len(Q):
-            tmp = []
-            for i in Q:
-                tmp.append(distance[i])
-            minIndexQ = tmp.index(min(tmp))
-            minIndex = Q[minIndexQ]
-            iU = minIndex
+            tmp = [distance[i] for i in Q]
+            # for i in Q:
+            #     tmp.append(distance[i])
+            # minIndexQ = tmp.index(min(tmp))
+            iU = Q[tmp.index(min(tmp))]
+            # iU = minIndex
             if nodes[iU] == end_node:
                 return self.build_path_Dijkstra(distance, previous, itarget)
 
@@ -187,20 +185,16 @@ class Graph(object):
         # List of edges with weights
         edges = self.edges()
 
+        # Initialize diagnol as zero
         for i in range(number_of_nodes):
             dist[i][i] = 0
 
         # Floyd Warshall - Find Paths
-        # print(edges)
         for edge in edges:
-            U = edge[0]
-            V = edge[1]
-            weight = edge[2]
-            iU = nodes.index(U)
-            iV = nodes.index(V)
-            dist[iU][iV] = weight
-            nxt[iU][iV] = iV
+            dist[nodes.index(edge[0])][nodes.index(edge[1])] = edge[2]
+            nxt[nodes.index(edge[0])][nodes.index(edge[1])] = nodes.index(edge[1])
 
+        # Build distance array and next node array
         for k in range(number_of_nodes):
             for i in range(number_of_nodes):
                 for j in range(number_of_nodes):
@@ -208,24 +202,19 @@ class Graph(object):
                         dist[i][j] = dist[i][k] + dist[k][j]
                         nxt[i][j] = nxt[i][k]
 
-        # print(dist)
-        # print(nxt)
-        # Path reconstruction
-        U = start
-        V = goal
-        iU = self.nodes().index(U)
-        iV = self.nodes().index(V)
-        if nxt[iU][iV] is None:
+        # Build path of indecies
+        iU = self.nodes().index(start)
+        if nxt[iU][self.nodes().index(goal)] is None:
             return []
         path_idx = [iU]
-        while iU != iV:
-            # print(U)
+        while iU != self.nodes().index(goal):
             try:
-                iU = nxt[iU][iV]
+                iU = nxt[iU][self.nodes().index(goal)]
                 path_idx.append(iU)
             except IndexError:
                 raise IndexError('Nodes not connected')
 
+        # Path reconstruction
         S = []
         for i in path_idx:
             S.append(nodes[int(i)])

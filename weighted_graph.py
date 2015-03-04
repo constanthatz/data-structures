@@ -3,7 +3,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import stack as stk
 import queue as que
-from Queue import heapq
 from collections import OrderedDict as od
 import numpy as np
 
@@ -132,9 +131,9 @@ class Graph(object):
         # Initialization
         iU = nodes.index(start_node)
         itarget = nodes.index(end_node)
-        distance = [np.inf]*len(nodes)
+        distance = [np.inf] * len(nodes)
         distance[iU] = 0
-        previous = [None]*len(nodes)
+        previous = [None] * len(nodes)
         Q = []
         for i in range(len(nodes)):
             Q.append(i)

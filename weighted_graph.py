@@ -135,7 +135,10 @@ class Graph(object):
             tmp = [distance[i] for i in Q]
             iU = Q[tmp.index(min(tmp))]
             if self.nodes()[iU] == end_node:
-                return self.build_path_Dijkstra(distance, previous, itarget)
+                return self.build_path_Dijkstra(distance,
+                                                previous,
+                                                itarget,
+                                                start_node)
 
             Q.remove(iU)
 
@@ -146,14 +149,23 @@ class Graph(object):
                 if alt < distance[iV]:
                     distance[iV] = alt
                     previous[iV] = iU
-        return self.build_path_Dijkstra(distance, previous, itarget)
+        return self.build_path_Dijkstra(distance,
+                                        previous,
+                                        itarget,
+                                        start_node)
 
-    def build_path_Dijkstra(self, distance, previous, itarget):
+    def build_path_Dijkstra(self, distance, previous, itarget, start_node):
         S = []
         while previous[itarget] is not None:
             S = [self.nodes()[itarget]] + S
             itarget = previous[itarget]
-        return [self.nodes()[itarget]] + S
+        S = [self.nodes()[itarget]] + S
+
+        if (start_node not in S):
+            return 'No path from {} to {}'.format(start_node,
+                                                  self.nodes()[itarget])
+        else:
+            return S
 
     def FloydWarshall(self, start, goal):
         ''' Floyd-Warshall shortest path finder.'''

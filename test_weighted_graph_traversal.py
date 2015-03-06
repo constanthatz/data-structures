@@ -135,10 +135,10 @@ def test_cyclic_fw(cyclic_graph):
     assert [u'A', u'E'] == cyclic_graph.FloydWarshall('A', 'E')
 
 
-# def test_childless_orphan_dij(childless_orphan_node):
-#     assert [u'I'] == childless_orphan_node.dijkstra('I', 'I')
-#     with pytest.raises(IndexError):
-#         childless_orphan_node.dijkstra('A', 'I')
+def test_childless_orphan_dij(childless_orphan_node):
+    assert [u'I'] == childless_orphan_node.dijkstra('I', 'I')
+    expected = 'No path from {} to {}'.format('A', 'I')
+    assert childless_orphan_node.dijkstra('A', 'I') == expected
 
 
 def test_childless_orphan_fw(childless_orphan_node):

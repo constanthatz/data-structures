@@ -155,17 +155,17 @@ class Graph(object):
                                         start_node)
 
     def build_path_Dijkstra(self, distance, previous, itarget, start_node):
-        S = []
+        path = []
         while previous[itarget] is not None:
-            S = [self.nodes()[itarget]] + S
+            path = [self.nodes()[itarget]] + path
             itarget = previous[itarget]
-        S = [self.nodes()[itarget]] + S
+        path = [self.nodes()[itarget]] + path
 
-        if (start_node not in S):
+        if (start_node not in path):
             return 'No path from {} to {}'.format(start_node,
                                                   self.nodes()[itarget])
         else:
-            return S
+            return path
 
     def FloydWarshall(self, start, goal):
         ''' Floyd-Warshall shortest path finder.'''
@@ -182,8 +182,11 @@ class Graph(object):
 
         # Floyd Warshall - Find Paths
         for edge in self.edges():
-            dist[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = edge[2]
-            nxt[self.nodes().index(edge[0])][self.nodes().index(edge[1])] = self.nodes().index(edge[1])
+            dist[self.nodes().index(
+                edge[0])][self.nodes().index(edge[1])] = edge[2]
+            nxt[self.nodes().index(
+                edge[0])][self.nodes().index(
+                    edge[1])] = self.nodes().index(edge[1])
 
         # Build distance array and next node array
         for k in range(len(self.nodes())):

@@ -12,20 +12,20 @@ class Element(object):
 
 class Priorityq(object):
     ''' Create an empty heap. '''
-    def __init__(self, binlist=[]):
-        self.binlist = binlist
+    def __init__(self):
+        self.binlist = []
 
-    def insert(self, value):
+    def insert(self, value, priority=0):
         ''' Add a value to the heap. '''
-        self.binlist.append(Element(value, priority=0))
-        self.__promote(len(self.binlist)-1)
+        self.binlist.append(Element(value, priority))
+        self._promote(len(self.binlist)-1)
         return
 
-    def __parent(self, index):
+    def _parent(self, index):
         ''' Find the parents of a bin. '''
         return [(index-1)//2, self.binlist[(index-1)//2].prio]
 
-    def __children(self, index):
+    def _children(self, index):
         ''' Find the children of a bin. Build list of children. '''
         children = []
         try:
@@ -44,7 +44,7 @@ class Priorityq(object):
 
         return children
 
-    def __swap(self, index1, index2):
+    def _swap(self, index1, index2):
         ''' Swap two bins. '''
         self.binlist[index1], self.binlist[index2] = self.binlist[index2], self.binlist[index1]
         return
@@ -53,11 +53,10 @@ class Priorityq(object):
         ''' Pop the top of the heap. '''
         last_index = len(self.binlist)-1
         top = self.binlist[0].val
-        self.__swap(0, last_index)
+        self._swap(0, last_index)
         self.binlist.pop()
-        self.__demote()
+        self._demote()
         return top
-        
 
     def peek(self):
         ''' Return value of highest priority element. '''
@@ -66,31 +65,31 @@ class Priorityq(object):
         except AttributeError:
             raise IndexError('peek from empty queue')
 
-    def __promote(self, index):
+    def _promote(self, index):
         ''' Promote a bin. '''
         child = self.binlist[index].prio
-        parent = self.__parent(index)
+        parent = self._parent(index)
         if parent[0] >= 0:
             # If is true only when parent index is non-negative
             if parent[1] < child:
-                self.__swap(parent[0], index)
-                self.__promote(parent[0])
+                self._swap(parent[0], index)
+                self._promote(parent[0])
             else:
                 return
 
-    def __demote(self, index=0):
-        children = self.__children(index)
+    def _demote(self, index=0):
+        children = self._children(index)
         ''' Demote a bin. '''
         if len(children):
-            victor_index = self.__battle_children(index, children)
+            victor_index = self._battle_children(index, children)
 
             if victor_index:
-                self.__swap(victor_index, index)
-                self.__demote(victor_index)
+                self._swap(victor_index, index)
+                self._demote(victor_index)
         else:
             return
 
-    def __battle_children(self, index, children):
+    def _battle_children(self, index, children):
         ''' Compare children bins. '''
         if len(children) == 2:
             # Handle two children
@@ -106,51 +105,14 @@ class Priorityq(object):
             # Handle no children
             return None
 
-
-# class Priorityq(object):
-#     ''' Create an empty queue. '''
-#     def __init__(self):
-#         self.front = None
-#         self.back = None
-
-#     def insert(self, value, priority=0):
-#         ''' Add data element to the back of queue. '''
-#         new_element = Element(value, priority)
-#         current = self.front
-
-#         try:
-#             if new_element.prio > self.front.prio:
-#                 new_element.behind, self.front = self.front, new_element
-#                 return
-#         except AttributeError:
-#             self.front = new_element
-#             return
-
-#         current = self.front
-
-#         while True:
-#             try:
-#                 if new_element.prio <= current.behind.prio:
-#                     current = current.behind
-#                 else:
-#                     new_element.behind, current.behind = current.behind, new_element
-#                     return
-#             except AttributeError:
-#                 current.behind = new_element
-#                 return
-
-#     def pop(self):
-#         ''' Return value of highest priority element and remove. '''
-
-#         try:
-#             pop_value, self.front = self.front.val, self.front.behind
-#             return pop_value
-#         except AttributeError:
-#             raise IndexError('pop from empty queue')
-
-#     def peek(self):
-#         ''' Return value of highest priority element. '''
-#         try:
-#             return self.front.val
-#         except AttributeError:
-#             raise IndexError('peek from empty queue')
+if __name__ == '__main__':
+    pqueue = Priorityq()
+    print(len(pqueue.binlist))
+    pqueue.insert("Nick", 5)
+    print(len(pqueue.binlist))
+    for i in pqueue.binlist:
+        print(i.val)
+    pqueue.insert("Constantine", 1)
+    print(len(pqueue.binlist))
+    for i in pqueue.binlist:
+        print(i.val)

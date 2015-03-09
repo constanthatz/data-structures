@@ -104,15 +104,3 @@ class Priorityq(object):
         else:
             # Handle no children
             return None
-
-if __name__ == '__main__':
-    pqueue = Priorityq()
-    print(len(pqueue.binlist))
-    pqueue.insert("Nick", 5)
-    print(len(pqueue.binlist))
-    for i in pqueue.binlist:
-        print(i.val)
-    pqueue.insert("Constantine", 1)
-    print(len(pqueue.binlist))
-    for i in pqueue.binlist:
-        print(i.val)

@@ -48,49 +48,21 @@ def test_priorityq_insert_higher(one_queue):
     assert [one_queue.binlist[0].val,
             one_queue.binlist[1].val] == ["Constantine", "Nick"]
 
-#     l.insert("Mark", 2)
-#     ql = que(l)
-#     assert l.front.val == "Mark"
-#     assert ql == ["Constantine", "Nick",  "Mark"]
 
-#     l.insert("Henry", 2)
-#     ql = que(l)
-#     assert l.front.val == "Mark"
-#     assert l.front.behind.val == "Henry"
-#     assert ql == ["Constantine", "Nick", "Henry", "Mark"]
-
-#     l.insert("Jake", 3)
-#     ql = que(l)
-#     assert ql == ["Constantine", "Nick", "Henry", "Mark", "Jake"]
-
-#     l.insert("James", 0)
-#     ql = que(l)
-#     assert ql == ["James", "Constantine", "Nick", "Henry", "Mark", "Jake"]
+def test_prioq_pop_empty(empty_queue):
+    with pytest.raises(IndexError):
+        empty_queue.pop()
 
 
-# def test_prioq_pop():
-#     l = Priorityq()
-#     with pytest.raises(IndexError):
-#         l.pop()
-
-#     l = Priorityq()
-#     l.insert("Nick", 1)
-#     assert l.pop() == 'Nick'
-#     assert l.front is None
-#     assert l.back is None
-
-#     l = Priorityq()
-#     l.insert("Mark", 2)
-#     l.insert("Henry", 2)
-#     assert l.pop() == "Mark"
-#     assert l.front.val == "Henry"
+def test_prioq_pop(one_queue):
+    assert one_queue.pop() == 'Nick'
+    assert one_queue.binlist == []
 
 
-# def test_prioq_peek():
-#     l = Priorityq()
-#     with pytest.raises(IndexError):
-#         l.peek()
+def test_prioq_peek_empty(empty_queue):
+    with pytest.raises(IndexError):
+        empty_queue.peek()
 
-#     l = Priorityq()
-#     l.insert("Nick", 1)
-#     assert l.peek() == 'Nick'
+
+def test_prioq_peek(one_queue):
+    assert one_queue.peek() == 'Nick'

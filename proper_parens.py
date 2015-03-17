@@ -9,13 +9,14 @@ def check_statement(value):
     index = 0
     while index < len(value):
         character = value[index]
-        if character == "(":
-            S.push(Element(character))
-        else:
-            if not S.top:
-                return -1
+        if character == "(" or character == ")":
+            if character == "(":
+                S.push(Element(character))
             else:
-                S.pop()
+                if not S.top:
+                    return -1
+                else:
+                    S.pop()
 
         index = index + 1
 

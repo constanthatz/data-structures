@@ -38,3 +38,40 @@ def test_check_statement():
 
     value = "()("
     assert check_statement(value) == 1
+
+
+def test_characters_not_parens():
+    # Edge cases of strings of length one
+    value = "a + )"
+    assert check_statement(value) == -1
+
+    value = "(a +"
+    assert check_statement(value) == 1
+
+    # Edge cases of strings of length two
+    value = "(a +)"
+    assert check_statement(value) == 0
+
+    # 'Balanced' but broken
+    value = "a +)("
+    assert check_statement(value) == -1
+
+    # Broken beginnning, middle, and end
+    value = ")(a +)"
+    assert check_statement(value) == -1
+
+    value = "()a +)()"
+    assert check_statement(value) == -1
+
+    value = "()a +)"
+    assert check_statement(value) == -1
+
+    # Open beginnning, middle, and end
+    value = "((a +)"
+    assert check_statement(value) == 1
+
+    value = "(a +)(()"
+    assert check_statement(value) == 1
+
+    value = "(a +)("
+    assert check_statement(value) == 1

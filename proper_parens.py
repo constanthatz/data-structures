@@ -1,29 +1,26 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
+from stack import Element, Stack
 
 
 def check_statement(value):
     ''' Return 1, 0, or -1 if input is open, balanced, or broken. '''
-    output = 0
+    S = Stack()
     index = 0
-    while index < len(value) and output >= 0:
-        # If the count is ever < 0, statement must be -1 (broken), end loop
-        # If the index is out of range, end loop
-        if value[index] == ")":
-            # Subtract 1 for every close paren
-            output -= 1
-        elif value[index] == "(":
-            # Add 1 for every close paren
-            output += 1
+    while index < len(value):
+        character = value[index]
+        if character == "(" or character == ")":
+            if character == "(":
+                S.push(Element(character))
+            else:
+                if not S.top:
+                    return -1
+                else:
+                    S.pop()
 
-        index += 1
+        index = index + 1
 
-    if output == -1:
-        # Check if output is -1 (broken)
-        return output
-    elif not output:
-        # Check if output is 0 (balanced)
-        return output
+    if not S.top:
+        return 0
     else:
-        # Must be 1 (open) if it makes it to here
         return 1

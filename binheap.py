@@ -56,7 +56,6 @@ class Binheap(object):
         child = self.binlist[index]
         parent = self._parent(index)
         if parent[0] >= 0:
-            # If is true only when parent index is non-negative
             if parent[1] < child:
                 self._swap(parent[0], index)
                 self._promote(parent[0])

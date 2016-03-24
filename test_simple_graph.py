@@ -30,6 +30,7 @@ def edges_graph():
 
 @pytest.fixture(scope='function')
 def non_multi_connected_nodes():
+    ''' Define a graph with no multi-connected nodes. '''
     g = Graph()
     g.add_edge("A", "B")
     g.add_edge("A", "C")
@@ -42,6 +43,7 @@ def non_multi_connected_nodes():
 
 @pytest.fixture(scope='function')
 def multi_connected_nodes(non_multi_connected_nodes):
+    ''' Define a graph with multi-connected nodes. '''
     g = non_multi_connected_nodes
     g.add_edge("F", "E")
     return g
@@ -49,6 +51,7 @@ def multi_connected_nodes(non_multi_connected_nodes):
 
 @pytest.fixture(scope='function')
 def cyclic_graph(multi_connected_nodes):
+    ''' Define a graph with a cycle. '''
     g = multi_connected_nodes
     g.add_edge("E", "A")
     return g
@@ -56,6 +59,7 @@ def cyclic_graph(multi_connected_nodes):
 
 @pytest.fixture(scope='function')
 def orphan_node(non_multi_connected_nodes):
+    ''' Define a graph with an orphaned node. '''
     g = non_multi_connected_nodes
     g.add_edge("H", "E")
     return g
@@ -63,6 +67,7 @@ def orphan_node(non_multi_connected_nodes):
 
 @pytest.fixture(scope='function')
 def childless_orphan_node(non_multi_connected_nodes):
+    ''' Define a graph with completely unconnected node. '''
     g = non_multi_connected_nodes
     g.add_node("I")
     return g
@@ -275,10 +280,6 @@ def test_neighbors_edge(edges_graph):
     g.add_edge("A", "C")
     assert g.neighbors("A") == ["B", "C"]
 
-    # Add additional neighbors
-    g.add_edge("A", "D")
-    assert g.neighbors("A") == ["B", "C", "D"]
-
 
 def test_adjacent_empty(empty_graph):
     ''' Test if two nodes are adjacent in an empty graph. '''
@@ -304,10 +305,6 @@ def test_adjacent_edge(edges_graph):
     g = edges_graph
     assert g.adjacent("A", "B") is True
     assert g.adjacent("B", "A") is False
-
-    # Second node exists but the other doesn't
-    g.add_node("C")
-    assert g.adjacent("A", "C") is False
 
 
 def test_DFT_non(non_multi_connected_nodes):

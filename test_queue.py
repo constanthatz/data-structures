@@ -13,6 +13,8 @@ def empty_queue():
 def non_empty_queue():
     l = Queue()
     l.enqueue(10)
+    l.enqueue("String")
+    l.enqueue([1, "string"])
     return l
 
 

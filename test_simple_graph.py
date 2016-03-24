@@ -8,11 +8,13 @@ BFT_A = [u'A', u'B', u'C', u'E', u'D', u'F', u'G']
 
 @pytest.fixture(scope='function')
 def empty_graph():
+    ''' Define an empty graph. '''
     return Graph()
 
 
 @pytest.fixture(scope='function')
 def non_empty_graph():
+    ''' Define an graph with a node. '''
     g = Graph()
     g.add_node("A")
     return g
@@ -20,6 +22,7 @@ def non_empty_graph():
 
 @pytest.fixture(scope='function')
 def edges_graph():
+    ''' Define a graph with an edge. '''
     g = Graph()
     g.add_edge("A", "B")
     return g
@@ -211,15 +214,19 @@ def test_del_node_unconnected(non_empty_graph):
     g.del_node("A")
     assert "A" not in g.graph
 
-    # Delete node with neighbor
-    g.add_edge("A", "B")
+
+def test_del_node_with_neighbor(edges_graph):
+    ''' Test delete node with neighbor. '''
+    g = edges_graph
     g.del_node("A")
     assert "A" not in g.graph
     assert "B" in g.graph
     assert ("A", "B") not in g.edges()
 
-    # Delete node that is a neighbor
-    g.add_edge("A", "B")
+
+def test_del_node_neighbor(edges_graph):
+    ''' Delete node that is a neighbor '''
+    g = edges_graph
     g.del_node("B")
     assert "B" not in g.graph
     assert "A" in g.graph
@@ -227,33 +234,41 @@ def test_del_node_unconnected(non_empty_graph):
 
 
 def test_has_node_empty(empty_graph):
-    ''' Test if a node exists. '''
+    ''' Test if a node exists in an empty graph. '''
     g = empty_graph
     # Empty graph
     assert g.has_node("A") is False
 
-    # Populated graph
+
+def test_has_node_non_empty(non_empty_graph):
+    ''' Test if a node exists. '''
+    g = non_empty_graph
     g.add_node("A")
     assert g.has_node("A") is True
     assert g.has_node("B") is False
 
 
 def test_neighbors_empty(empty_graph):
-    ''' Test neighbor listing. '''
+    ''' Test neighbor listing of empty graph. '''
     g = empty_graph
-
     # Empty graph
     with pytest.raises(KeyError):
         g.neighbors("A")
 
+
+def test_neighbors_non_empty(non_empty_graph):
+    ''' Test neighbor listing of an unconnected node. '''
+    g = non_empty_graph
     # Node without neighbors
     g.add_node("A")
     assert g.neighbors("A") == []
 
-    # Node with neighbors after edge
-    # # Check that neighbor has not reverse added first node
-    g.add_edge("A", "B")
+
+def test_neighbors_edge(edges_graph):
+    ''' Test neighbor listing of a node with an edge. '''
+    g = edges_graph
     assert g.neighbors("A") == ["B"]
+    # Check that neighbor has not reverse added first node
     assert g.neighbors("B") == []
 
     # Add additional neighbors
@@ -266,20 +281,27 @@ def test_neighbors_empty(empty_graph):
 
 
 def test_adjacent_empty(empty_graph):
-    ''' Test if two nodes are adjacent. '''
+    ''' Test if two nodes are adjacent in an empty graph. '''
     g = empty_graph
-
-    # Test empty graph
     with pytest.raises(KeyError):
         g.adjacent("A", "B")
 
-    # First node exists but the other doesn't
-    g.add_node("A")
-    assert g.adjacent("A", "B") is False
 
+def test_adjacent_non_empty(non_empty_graph):
+    ''' Test if two nodes are adjacent in graph with one node. '''
+    # First node exists but the other doesn't
+    g = non_empty_graph
+    assert g.adjacent("A", "B") is False
+    # Second node exists but the other doesn't
+    with pytest.raises(KeyError):
+        g.adjacent("B", "A") is False
+
+
+def test_adjacent_edge(edges_graph):
+    ''' Test if two nodes are adjacent in graph with one node. '''
     # Second node is neighbor to the first, but the first is not neighbor
     # to the second.
-    g.add_edge("A", "B")
+    g = edges_graph
     assert g.adjacent("A", "B") is True
     assert g.adjacent("B", "A") is False
 

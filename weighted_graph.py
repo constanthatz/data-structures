@@ -4,13 +4,14 @@ from __future__ import unicode_literals
 import stack as stk
 import queue as que
 from collections import OrderedDict as od
+import numpy as np
 
 
 class Graph(object):
     ''' Create an empty graph.
         Nodes must be hashable values.'''
     def __init__(self):
-        self.graph = {}
+        self.graph = od()
 
     def nodes(self):
         ''' Return all the nodes in the graph. '''
@@ -18,9 +19,6 @@ class Graph(object):
 
     def edges(self):
         ''' Return all the edges in the graph as a list of tuples. '''
-        # for key, value in self.graph.iteritems():
-        #     for i, item in enumerate(value['neighbors']):
-        #         return (key, item, value['weights'][i])
         return [(key, key2, value2)
                 for key, value in self.graph.iteritems()
                 for key2, value2 in value.iteritems()]
@@ -80,6 +78,9 @@ class Graph(object):
         except KeyError:
             raise KeyError('{} not in graph'.format(node1))
 
+    def weight(self, node1, node2):
+        return self.graph[node1][node2]
+
     def depth_first_traversal(self, node):
         ''' Depth first graph traversal. '''
         # Initialize path
@@ -109,7 +110,6 @@ class Graph(object):
         path.append(node)
 
         queue.enqueue(node)
-        # print(queue.front.val)
 
         while queue.front:
             test_node = queue.dequeue()
@@ -120,11 +120,100 @@ class Graph(object):
                     queue.enqueue(neighbor)
         return path
 
+    def dijkstra(self, start_node, end_node):
+        ''' Dijkstra shortest path finder.'''
+        # Initialization of previous and distance arrays
+        itarget = self.nodes().index(end_node)
+        distance = [np.inf] * len(self.nodes())
+        distance[self.nodes().index(start_node)] = 0
+        previous = [None] * len(self.nodes())
+        # Initialize node indicies
+        Q = range(len(self.nodes()))
+
+        while len(Q):
+            # Truncated distance array based on Q
+            tmp = [distance[i] for i in Q]
+            iU = Q[tmp.index(min(tmp))]
+            if self.nodes()[iU] == end_node:
+                return self.build_path_Dijkstra(distance,
+                                                previous,
+                                                itarget,
+                                                start_node)
+
+            Q.remove(iU)
+
+            for V in self.neighbors(self.nodes()[iU]):
+                iV = self.nodes().index(V)
+                alt = distance[iU] + self.weight(self.nodes()[iU], V)
+
+                if alt < distance[iV]:
+                    distance[iV] = alt
+                    previous[iV] = iU
+        return self.build_path_Dijkstra(distance,
+                                        previous,
+                                        itarget,
+                                        start_node)
+
+    def build_path_Dijkstra(self, distance, previous, itarget, start_node):
+        path = []
+        while previous[itarget] is not None:
+            path = [self.nodes()[itarget]] + path
+            itarget = previous[itarget]
+        path = [self.nodes()[itarget]] + path
+
+        if (start_node not in path):
+            return 'No path from {} to {}'.format(start_node,
+                                                  self.nodes()[itarget])
+        else:
+            return path
+
+    def FloydWarshall(self, start, goal):
+        ''' Floyd-Warshall shortest path finder.'''
+        # Initiliaze array of minimum distances and set to Inifinity
+        dist = np.zeros((len(self.nodes()), len(self.nodes())))
+        dist[dist == 0] = np.inf
+
+        # Initiliaze array of node indicies and set to None
+        nxt = np.zeros((len(self.nodes()), len(self.nodes())))
+        nxt[nxt == 0] = None
+
+        # Initialize diagnol (distance to self) as zero
+        np.fill_diagonal(dist, 0)
+
+        # Floyd Warshall - Find Paths
+        for edge in self.edges():
+            dist[self.nodes().index(
+                edge[0])][self.nodes().index(edge[1])] = edge[2]
+            nxt[self.nodes().index(
+                edge[0])][self.nodes().index(
+                    edge[1])] = self.nodes().index(edge[1])
+
+        # Build distance array and next node array
+        for k in range(len(self.nodes())):
+            for i in range(len(self.nodes())):
+                for j in range(len(self.nodes())):
+                    if dist[i][k] + dist[k][j] < dist[i][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+                        nxt[i][j] = nxt[i][k]
+
+        # Build path of indecies
+        iU = self.nodes().index(start)
+        if nxt[iU][self.nodes().index(goal)] is None:
+            return []
+        path_idx = [iU]
+        while iU != self.nodes().index(goal):
+            try:
+                iU = nxt[iU][self.nodes().index(goal)]
+                path_idx.append(iU)
+            except IndexError:
+                raise IndexError('Nodes not connected')
+
+        # Path reconstruction
+        return [self.nodes()[int(i)] for i in path_idx]
+
+
 if __name__ == "__main__":
     g = Graph()
-    g.add_node(3)
-    g.add_edge(4, 8)
-    g.add_edge(4, 5)
-    g.add_edge(7, 3)
-    print(g.nodes())
-    print(g.edges())
+    g.add_edge(1, 2, 0)
+    g.add_edge(2, 3, 0)
+    path = g.FloydWarshall(1, 3)
